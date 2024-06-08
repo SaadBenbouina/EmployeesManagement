@@ -1,7 +1,7 @@
 ﻿
-using StudentPlanManager.Model;
+using EmployeesManagement.Model;
 
-namespace StudentPlanManager.Service.PersonsService
+namespace EmployeesManagement.Service.PersonsService
 {
 
     public interface IPerson : IBaseModelService<Person>

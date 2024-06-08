@@ -1,6 +1,6 @@
-﻿using global::StudentPlanManager.Model;
+﻿using global::EmployeesManagement.Model;
 
-namespace StudentPlanManager.Service.AbsencesService
+namespace EmployeesManagement.Service.AbsencesService
 {
 
     public interface IAbsence : IBaseModelService<Absence>

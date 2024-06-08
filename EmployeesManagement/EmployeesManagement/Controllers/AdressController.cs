@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StudentPlanManager.Model;
-using StudentPlanManager.Service.AbsencesService;
-using StudentPlanManager.Service.AdressesService;
+using EmployeesManagement.Model;
+using EmployeesManagement.Service.AbsencesService;
+using EmployeesManagement.Service.AdressesService;
 
-namespace StudentPlanManager.Controllers
+namespace EmployeesManagement.Controllers
 {
     public class AdressController : MyBaseApiController, IBaseCrudController<Adress>
     {

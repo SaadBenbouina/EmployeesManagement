@@ -1,6 +1,6 @@
-﻿using StudentPlanManager.Model;
+﻿using EmployeesManagement.Model;
 
-namespace StudentPlanManager.Service.TicketsService
+namespace EmployeesManagement.Service.TicketsService
 {
 	public interface ITicket:IBaseModelService<Ticket>
 	{

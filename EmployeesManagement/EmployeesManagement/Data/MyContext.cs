@@ -1,4 +1,4 @@
-﻿using StudentPlanManager.Model;
+﻿using EmployeesManagement.Model;
 using Microsoft.EntityFrameworkCore;
 
 

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StudentPlanManager.Model;
-using StudentPlanManager.Service.AbsencesService;
+using EmployeesManagement.Model;
+using EmployeesManagement.Service.AbsencesService;
 
-namespace StudentPlanManager.Controllers
+namespace EmployeesManagement.Controllers
 {
     public class AbsencesController : MyBaseApiController, IBaseCrudController<Absence>
     {

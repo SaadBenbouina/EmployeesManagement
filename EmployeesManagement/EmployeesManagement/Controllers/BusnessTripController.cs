@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StudentPlanManager.Model;
-using StudentPlanManager.Service.BusnessTripsService;
+using EmployeesManagement.Model;
+using EmployeesManagement.Service.BusnessTripsService;
 
-namespace StudentPlanManager.Controllers
+namespace EmployeesManagement.Controllers
 {
     public class BusnessTripController : MyBaseApiController, IBaseCrudController<BusnessTrip>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using StudentPlanManager.Model;
+using EmployeesManagement.Model;
 
-namespace StudentPlanManager.Service.TicketsService
+namespace EmployeesManagement.Service.TicketsService
 {
 	public class TicketService:BaseMethoden<Ticket>,ITicket
 	{

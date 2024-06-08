@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StudentPlanManager.Model;
-using StudentPlanManager.Service.TicketsService;
+using EmployeesManagement.Model;
+using EmployeesManagement.Service.TicketsService;
 
-namespace StudentPlanManager.Controllers
+namespace EmployeesManagement.Controllers
 {
 	public class TicketsContoller: MyBaseApiController, IBaseCrudController<Ticket>
     {

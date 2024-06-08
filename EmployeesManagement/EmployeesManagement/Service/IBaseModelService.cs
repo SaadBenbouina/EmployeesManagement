@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using StudentPlanManager.Model;
+using EmployeesManagement.Model;
 
-namespace StudentPlanManager.Service
+namespace EmployeesManagement.Service
 {
 
     public interface IBaseModelService<T>

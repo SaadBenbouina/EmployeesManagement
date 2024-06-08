@@ -1,6 +1,6 @@
 ﻿
 using System;
-namespace StudentPlanManager.Model
+namespace EmployeesManagement.Model
 {
     public class CalendarEvent
     {

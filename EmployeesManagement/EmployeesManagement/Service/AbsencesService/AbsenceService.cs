@@ -1,6 +1,6 @@
-﻿using StudentPlanManager.Model;
+﻿using EmployeesManagement.Model;
 
-namespace StudentPlanManager.Service.AbsencesService
+namespace EmployeesManagement.Service.AbsencesService
 {
     public class AbsenceService : BaseMethoden<Absence>, IAbsence
     {

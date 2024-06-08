@@ -1,7 +1,7 @@
 ﻿using System;
-using StudentPlanManager.Model;
+using EmployeesManagement.Model;
 
-namespace StudentPlanManager.Service.AdressesService
+namespace EmployeesManagement.Service.AdressesService
 {
         public class AdressService : BaseMethoden<Adress>, IAdress
         {

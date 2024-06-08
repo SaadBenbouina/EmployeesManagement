@@ -1,4 +1,4 @@
-﻿namespace StudentPlanManager.Model
+﻿namespace EmployeesManagement.Model
 {
     public class Adress : BaseEntity
     {

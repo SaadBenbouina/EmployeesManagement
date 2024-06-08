@@ -1,7 +1,7 @@
 ﻿using System;
-using StudentPlanManager.Model;
+using EmployeesManagement.Model;
 
-namespace StudentPlanManager.Service.WorkingTimesService
+namespace EmployeesManagement.Service.WorkingTimesService
 {
     public class WorkingTimeService : BaseMethoden<WorkingTime>, IWorkingTime
     {

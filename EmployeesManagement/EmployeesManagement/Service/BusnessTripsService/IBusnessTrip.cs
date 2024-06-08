@@ -1,6 +1,6 @@
-﻿using StudentPlanManager.Model;
+﻿using EmployeesManagement.Model;
 
-namespace StudentPlanManager.Service.BusnessTripsService
+namespace EmployeesManagement.Service.BusnessTripsService
 {
 	public interface IBusnessTrip:IBaseModelService<BusnessTrip>
 	{

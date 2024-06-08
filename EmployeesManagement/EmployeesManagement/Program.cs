@@ -8,7 +8,7 @@ using Serilog;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
-using StudentPlanManager.Extensions;
+using EmployeesManagement.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,8 +83,7 @@ app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseRateLimiter();
-
 app.MapControllers();
 
 app.Run();
+

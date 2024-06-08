@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using StudentPlanManager.Service.AbsencesService;
-using StudentPlanManager.Service.PersonsService;
-using StudentPlanManager.Service.AdressesService;
-using StudentPlanManager.Service.BusnessTripsService;
-using StudentPlanManager.Service.WorkingTimesService;
+using EmployeesManagement.Service.AbsencesService;
+using EmployeesManagement.Service.PersonsService;
+using EmployeesManagement.Service.AdressesService;
+using EmployeesManagement.Service.BusnessTripsService;
+using EmployeesManagement.Service.WorkingTimesService;
 
-namespace StudentPlanManager.Extensions
+namespace EmployeesManagement.Extensions
 {
     public static class Extension
     {

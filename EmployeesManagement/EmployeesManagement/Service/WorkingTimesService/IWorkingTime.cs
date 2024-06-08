@@ -1,6 +1,6 @@
-﻿using StudentPlanManager.Model;
+﻿using EmployeesManagement.Model;
 
-namespace StudentPlanManager.Service.WorkingTimesService
+namespace EmployeesManagement.Service.WorkingTimesService
 {
     public interface IWorkingTime : IBaseModelService<WorkingTime>
     {

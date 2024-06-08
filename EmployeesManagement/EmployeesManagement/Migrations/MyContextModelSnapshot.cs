@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace StudentPlanManager.Migrations
+namespace EmployeesManagement.Migrations
 {
     [DbContext(typeof(MyContext))]
     partial class MyContextModelSnapshot : ModelSnapshot
@@ -21,7 +21,7 @@ namespace StudentPlanManager.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("StudentPlanManager.Model.Absence", b =>
+            modelBuilder.Entity("EmployeesManagement.Model.Absence", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace StudentPlanManager.Migrations
                     b.ToTable("Absences");
                 });
 
-            modelBuilder.Entity("StudentPlanManager.Model.Adress", b =>
+            modelBuilder.Entity("EmployeesManagement.Model.Adress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +85,7 @@ namespace StudentPlanManager.Migrations
                     b.ToTable("Adresses");
                 });
 
-            modelBuilder.Entity("StudentPlanManager.Model.BusnessTrip", b =>
+            modelBuilder.Entity("EmployeesManagement.Model.BusnessTrip", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -118,7 +118,7 @@ namespace StudentPlanManager.Migrations
                     b.ToTable("BusnessTrips");
                 });
 
-            modelBuilder.Entity("StudentPlanManager.Model.Person", b =>
+            modelBuilder.Entity("EmployeesManagement.Model.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -159,7 +159,7 @@ namespace StudentPlanManager.Migrations
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("StudentPlanManager.Model.Ticket", b =>
+            modelBuilder.Entity("EmployeesManagement.Model.Ticket", b =>
                 {
                     b.Property<int>("TicketID")
                         .ValueGeneratedOnAdd()
@@ -192,7 +192,7 @@ namespace StudentPlanManager.Migrations
                     b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("StudentPlanManager.Model.WorkingTime", b =>
+            modelBuilder.Entity("EmployeesManagement.Model.WorkingTime", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -225,13 +225,13 @@ namespace StudentPlanManager.Migrations
                     b.ToTable("WorkingTimes");
                 });
 
-            modelBuilder.Entity("StudentPlanManager.Model.BusnessTrip", b =>
+            modelBuilder.Entity("EmployeesManagement.Model.BusnessTrip", b =>
                 {
-                    b.HasOne("StudentPlanManager.Model.Adress", "With_Whom")
+                    b.HasOne("EmployeesManagement.Model.Adress", "With_Whom")
                         .WithMany()
                         .HasForeignKey("With_WhomId");
 
-                    b.HasOne("StudentPlanManager.Model.WorkingTime", "WorkInfo")
+                    b.HasOne("EmployeesManagement.Model.WorkingTime", "WorkInfo")
                         .WithMany()
                         .HasForeignKey("WorkInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -242,13 +242,13 @@ namespace StudentPlanManager.Migrations
                     b.Navigation("WorkInfo");
                 });
 
-            modelBuilder.Entity("StudentPlanManager.Model.WorkingTime", b =>
+            modelBuilder.Entity("EmployeesManagement.Model.WorkingTime", b =>
                 {
-                    b.HasOne("StudentPlanManager.Model.Adress", "Absence")
+                    b.HasOne("EmployeesManagement.Model.Adress", "Absence")
                         .WithMany()
                         .HasForeignKey("AbsenceId");
 
-                    b.HasOne("StudentPlanManager.Model.Adress", "Adress")
+                    b.HasOne("EmployeesManagement.Model.Adress", "Adress")
                         .WithMany()
                         .HasForeignKey("AdressId")
                         .OnDelete(DeleteBehavior.Cascade)

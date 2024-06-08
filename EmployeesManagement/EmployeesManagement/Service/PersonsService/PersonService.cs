@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using StudentPlanManager.Model;
+using EmployeesManagement.Model;
 
-namespace StudentPlanManager.Service.PersonsService
+namespace EmployeesManagement.Service.PersonsService
 {
     public class PersonService : BaseMethoden<Person>,IPerson
     {

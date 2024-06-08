@@ -1,4 +1,4 @@
-﻿<Properties StartupConfiguration="{4CB04899-F465-4933-8713-CE747C900AE0}|https">
+﻿<Properties>
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
@@ -15,7 +15,7 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.EmployeesManagement PreferredExecutionTarget="/Users/saadbenboujina/Desktop/Google Chrome.app" FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.EmployeesManagement PreferredExecutionTarget="/Users/saadbenboujina/Desktop/Google Chrome.app" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

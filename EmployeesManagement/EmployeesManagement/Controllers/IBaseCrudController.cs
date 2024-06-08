@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 
-namespace StudentPlanManager.Controllers
+namespace EmployeesManagement.Controllers
 {
     public interface IBaseCrudController<T>
     {

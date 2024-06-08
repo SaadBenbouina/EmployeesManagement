@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StudentPlanManager.Model;
-using StudentPlanManager.Service.WorkingTimesService;
+using EmployeesManagement.Model;
+using EmployeesManagement.Service.WorkingTimesService;
 
-namespace StudentPlanManager.Controllers
+namespace EmployeesManagement.Controllers
 {
     public class WorkingTimeController : MyBaseApiController, IBaseCrudController<WorkingTime>
     { 

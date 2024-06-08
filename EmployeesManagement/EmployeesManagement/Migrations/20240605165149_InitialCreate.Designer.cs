@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace StudentPlanManager.Migrations
+namespace EmployeesManagement.Migrations
 {
     [DbContext(typeof(MyContext))]
     [Migration("20240605165149_InitialCreate")]

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StudentPlanManager.Model;
-using StudentPlanManager.Service.PersonsService;
+using EmployeesManagement.Model;
+using EmployeesManagement.Service.PersonsService;
 
-namespace StudentPlanManager.Controllers
+namespace EmployeesManagement.Controllers
 {
     public class PersonsController : MyBaseApiController, IBaseCrudController<Person>
     {
