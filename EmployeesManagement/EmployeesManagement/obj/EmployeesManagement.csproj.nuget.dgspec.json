@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/saadbenboujina/Projects/EmployeesManagement/EmployeesManagement/EmployeesManagement.csproj": {}
+    "/Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/EmployeesManagement.csproj": {}
   },
   "projects": {
-    "/Users/saadbenboujina/Projects/EmployeesManagement/EmployeesManagement/EmployeesManagement.csproj": {
+    "/Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/EmployeesManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/saadbenboujina/Projects/EmployeesManagement/EmployeesManagement/EmployeesManagement.csproj",
+        "projectUniqueName": "/Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/EmployeesManagement.csproj",
         "projectName": "EmployeesManagement",
-        "projectPath": "/Users/saadbenboujina/Projects/EmployeesManagement/EmployeesManagement/EmployeesManagement.csproj",
+        "projectPath": "/Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/EmployeesManagement.csproj",
         "packagesPath": "/Users/saadbenboujina/.nuget/packages/",
-        "outputPath": "/Users/saadbenboujina/Projects/EmployeesManagement/EmployeesManagement/obj/",
+        "outputPath": "/Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/saadbenboujina/.nuget/NuGet/NuGet.Config"

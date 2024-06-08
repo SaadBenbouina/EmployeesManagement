@@ -1,5 +1,5 @@
 {
-  "name": "studentplanfrontend",
+  "name": "employeemanagementfrontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,12 +8,9 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "swagger:fetch-gen": "curl -k -o scripts/generatedCode/pbd-core/swagger.json https://localhost:5174/swagger/v1/swagger.json && npm run swagger:gen && npm run gulp:copy:swagger",
-    "swagger:gen": "npm run swagger:nswag && npm run swagger:patch && npm run swagger:fmt",
-    "swagger:nswag": "nswag run scripts/generatedCode/pbd-core/nswag.json",
-    "swagger:patch": "python tools/gen-swagger-query.py scripts/generatedCode/pbd-core/pbd-core-api.ts scripts/generatedCode/pbd-core/pbd-core-api-services.ts",
-    "swagger:fmt": "deno fmt scripts/generatedCode/pbd-core/pbd-core-api.ts && deno fmt scripts/generatedCode/pbd-core/pbd-core-api-services.ts",
-    "gulp:copy:swagger": "gulp copySwagger"
+    "swagger:fetch-gen": "curl -k -o src/generatedCode/swagger.json https://localhost:7088/swagger/v1/swagger.json && npm run swagger:gen",
+    "swagger:gen": "npm run swagger:nswag",
+    "swagger:nswag": "nswag run src/generatedCode/nswag.json"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -30,7 +27,8 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
-    "nswag": "^14.0.6",
-    "gulp": "^4.0.2"
+    "nswag": "^14.0.6"
   }
 }
+
+
