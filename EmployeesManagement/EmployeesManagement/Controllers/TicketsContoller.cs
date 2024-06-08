@@ -39,7 +39,7 @@ namespace EmployeesManagement.Controllers
             }
 
               // Completed
-            [HttpPut("{id:int}")]
+            [HttpPut("Completed/{id:int}")]
             [ProducesResponseType(StatusCodes.Status204NoContent)]
             [ProducesDefaultResponseType]
             public async Task<ActionResult> Completed(int id)

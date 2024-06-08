@@ -39,7 +39,7 @@ namespace EmployeesManagement.Controllers
         }
 
         // Approve
-        [HttpPut("{id:int}")]
+        [HttpPut("approve/{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Approve(int id)
