@@ -3,11 +3,14 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="EmployeesManagement/Controllers/AbsenceController.cs">
+    <Files>
+      <File FileName="EmployeesManagement/Controllers/AbsenceController.cs" Line="2" Column="32" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="EmployeesManagement.Backend" selected="True">
+          <Node name="EmployeesManagement.Backend">
             <Node name="EmployeesManagement" expanded="True">
               <Node name="Controllers" expanded="True" />
               <Node name="Migrations" expanded="True" />
