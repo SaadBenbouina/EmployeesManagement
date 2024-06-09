@@ -1,15 +1,13 @@
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import RoutePaths from "./RouthPaths";
-import { FaUser, FaCalendarAlt, FaMapMarkerAlt, FaBriefcase } from "react-icons/fa";
-
+import { FaUser, FaCalendarAlt, FaMapMarkerAlt, FaBriefcase, FaTicketAlt } from "react-icons/fa";
 
 interface ModuleCardSmProps {
-
-  moduleType: "Person" | "Absence" | "Adress" | "BusnessTrip";
+  moduleType: "Personal" | "Absences" | "Adresses" | "BusnessTrips" | "Tickets";
 }
 
-const CardViewHomePage: React.FC<ModuleCardSmProps> = ({  moduleType }) => {
+const CardViewHomePage: React.FC<ModuleCardSmProps> = ({ moduleType }) => {
   const linkStyle = {
     textDecoration: "none",
     color: "inherit",
@@ -17,36 +15,45 @@ const CardViewHomePage: React.FC<ModuleCardSmProps> = ({  moduleType }) => {
 
   let linkPath = "";
   let IconComponent: React.ReactNode = null;
+  const borderColor = "grey";
+  ;
+  let textColor = "";
 
   switch (moduleType) {
-    case "Person":
+    case "Personal":
       linkPath = RoutePaths.HomePagePerson;
-      IconComponent = <FaUser />;
+      IconComponent = <FaUser size={55} color="blue" />;
       break;
-    case "Absence":
+    case "Absences":
       linkPath = RoutePaths.HomePageAbsence;
-      IconComponent = <FaCalendarAlt />;
+      IconComponent = <FaCalendarAlt size={55} color="green" />;
       break;
-    case "Adress":
+    case "Tickets":
+      linkPath = RoutePaths.HomePageTicket; 
+      IconComponent = <FaTicketAlt size={55} color="orange" />;
+      break;
+    case "Adresses":
       linkPath = RoutePaths.HomePageAdress;
-      IconComponent = <FaMapMarkerAlt />;
+      IconComponent = <FaMapMarkerAlt size={55} color="purple" />;
       break;
-    case "BusnessTrip":
+    case "BusnessTrips":
       linkPath = RoutePaths.HomePageBusnessTrip;
-      IconComponent = <FaBriefcase />;
+      IconComponent = <FaBriefcase size={55} color="red" />;
       break;
     default:
       break;
   }
 
   return (
-    <Card className="mb-4">
+    <Card className="h-100" style={{ borderColor, borderWidth: "3px", borderStyle: "solid" }}>
       <Card.Body>
         <Link to={linkPath} style={linkStyle}>
           <div className="d-flex justify-content-center mb-3">
             {IconComponent}
           </div>
-          <h6 className="d-flex justify-content-center">{moduleType}</h6>
+          <h6 className="d-flex justify-content-center" style={{ color: textColor }}>
+            {moduleType}
+          </h6>
         </Link>
       </Card.Body>
     </Card>
