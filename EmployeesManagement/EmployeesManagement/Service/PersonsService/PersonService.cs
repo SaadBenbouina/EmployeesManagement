@@ -12,7 +12,19 @@ namespace EmployeesManagement.Service.PersonsService
         {
             _context = context;
         }
+        public async Task<WorkingTime> AddWorkingInfo(int workingTimeId, Person person)
+        {
+            var workingInfo = await _context.WorkingTimes.FindAsync(workingTimeId);
+            person.WorkInfo = workingInfo;
+            return workingInfo;
+        }
 
+        public async Task<Ticket> AddTicket(int ticketId, Person person)
+        {
+            var ticket = await _context.Tickets.FindAsync(ticketId);
+            person.Tickets.Add(ticket);
+            return ticket;
+        }
 
         public async Task<Person> Update(int id, Person person)
         {
@@ -26,6 +38,8 @@ namespace EmployeesManagement.Service.PersonsService
             itemToUpdate.AbsenceDay = person.AbsenceDay;
             itemToUpdate.Email = person.Email;
             itemToUpdate.Departement = person.Departement;
+            itemToUpdate.WorkInfo = person.WorkInfo;
+            itemToUpdate.Tickets = person.Tickets;
             await _context.SaveChangesAsync();
             return itemToUpdate;
         }

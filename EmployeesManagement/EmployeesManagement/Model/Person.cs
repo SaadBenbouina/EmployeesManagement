@@ -18,6 +18,11 @@ namespace EmployeesManagement.Model
         public required string Email { get; set; }
 
         public string? Departement { get; set; }
+
+        public ICollection<Ticket>? Tickets { get; set; } = new List<Ticket>(); 
+
+        public required WorkingTime? WorkInfo { get; set; }
+
     }
 }
 

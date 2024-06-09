@@ -18,7 +18,7 @@ namespace EmployeesManagement.Service.WorkingTimesService
             var itemToUpdate = await _context.WorkingTimes.FindAsync(id);
             if (itemToUpdate != null)
             {
-                itemToUpdate.NameOfCompany = workingTime.NameOfCompany;
+                itemToUpdate.NameOfProject = workingTime.NameOfProject;
                 itemToUpdate.From = workingTime.From;
                 itemToUpdate.To = workingTime.To;
                 itemToUpdate.Absence = workingTime.Absence;

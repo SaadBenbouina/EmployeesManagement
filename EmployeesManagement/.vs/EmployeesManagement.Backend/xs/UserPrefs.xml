@@ -3,17 +3,26 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="EmployeesManagement/Controllers/AbsenceController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="EmployeesManagement/Data/MyContext.cs">
     <Files>
-      <File FileName="EmployeesManagement/Controllers/AbsenceController.cs" Line="2" Column="32" />
+      <File FileName="EmployeesManagement/Model/Person.cs" Line="25" Column="1" />
+      <File FileName="EmployeesManagement/Model/Ticket.cs" Line="22" Column="1" />
+      <File FileName="EmployeesManagement/Model/WorkingTime.cs" Line="5" Column="3" />
+      <File FileName="EmployeesManagement/Data/MyContext.cs" Line="17" Column="37" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="EmployeesManagement.Backend">
-            <Node name="EmployeesManagement" expanded="True">
-              <Node name="Controllers" expanded="True" />
+            <Node name="EmployeesManagement">
+              <Node name="Data">
+                <Node name="MyContext.cs" selected="True" />
+              </Node>
               <Node name="Migrations" expanded="True" />
+              <Node name="Model" expanded="True" />
+              <Node name="Service" expanded="True">
+                <Node name="PersonsService" expanded="True" />
+              </Node>
             </Node>
           </Node>
         </State>

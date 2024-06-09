@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Container, Row, Col } from 'react-bootstrap';
+import './App.css';
+import CardViewHomePage from './CardViewHomepage';
 
-function App() {
-  const [count, setCount] = useState(2)
-
+function HomePage() {
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Container>
+        <h1 className="my-4 text-center">Employee Management</h1>
+        <Row>
+          <Col xs={12} md={6}>
+            <CardViewHomePage moduleType="Person" />
+          </Col>
+          <Col xs={12} md={6}>
+            <CardViewHomePage moduleType="Absence" />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} md={6}>
+            <CardViewHomePage moduleType="Adress" />
+          </Col>
+          <Col xs={12} md={6}>
+            <CardViewHomePage moduleType="BusnessTrip" />
+          </Col>
+        </Row>
+      </Container>
     </>
-  )
+  );
 }
 
-export default App
+export default HomePage;

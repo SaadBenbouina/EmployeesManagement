@@ -21,7 +21,7 @@ namespace EmployeesManagement.Service.TicketsService
                     itemToUpdate.Description = ticket.Description;
                     itemToUpdate.Title = ticket.Title;
                     itemToUpdate.Deadline = ticket.Deadline;
-                    itemToUpdate.ResponsibleId = ticket.ResponsibleId;
+                    itemToUpdate.Responsible = ticket.Responsible;
                     itemToUpdate.Completed = ticket.Completed;
                     itemToUpdate.Attributed = ticket.Attributed;
                     await _context.SaveChangesAsync();

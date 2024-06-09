@@ -887,6 +887,102 @@ export class ApiClient {
     }
 
     /**
+     * @param workingTimeId (optional) 
+     * @param body (optional) 
+     * @return No Content
+     */
+    addWorkingInfo(workingTimeId: number | undefined, id: string, body: Person | undefined): Promise<void> {
+        let url_ = this.baseUrl + "/api/Persons/AddWorkingInfo/{id}?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        if (workingTimeId === null)
+            throw new Error("The parameter 'workingTimeId' cannot be null.");
+        else if (workingTimeId !== undefined)
+            url_ += "workingTimeId=" + encodeURIComponent("" + workingTimeId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processAddWorkingInfo(_response);
+        });
+    }
+
+    protected processAddWorkingInfo(response: Response): Promise<void> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 204) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else {
+            return response.text().then((_responseText) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("Error", status, _responseText, _headers, resultdefault);
+            });
+        }
+    }
+
+    /**
+     * @param ticketId (optional) 
+     * @param body (optional) 
+     * @return No Content
+     */
+    addTicket(ticketId: number | undefined, id: string, body: Person | undefined): Promise<void> {
+        let url_ = this.baseUrl + "/api/Persons/AddTicket/{id}?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        if (ticketId === null)
+            throw new Error("The parameter 'ticketId' cannot be null.");
+        else if (ticketId !== undefined)
+            url_ += "ticketId=" + encodeURIComponent("" + ticketId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processAddTicket(_response);
+        });
+    }
+
+    protected processAddTicket(response: Response): Promise<void> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 204) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else {
+            return response.text().then((_responseText) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("Error", status, _responseText, _headers, resultdefault);
+            });
+        }
+    }
+
+    /**
      * @return OK
      */
     ticketsContollerAll(): Promise<Ticket[]> {
@@ -1524,6 +1620,8 @@ export class Person implements IPerson {
     absenceDay?: number;
     email!: string;
     departement?: string | undefined;
+    tickets?: Ticket[] | undefined;
+    workInfo!: WorkingTime;
 
     constructor(data?: IPerson) {
         if (data) {
@@ -1531,6 +1629,9 @@ export class Person implements IPerson {
                 if (data.hasOwnProperty(property))
                     (<any>this)[property] = (<any>data)[property];
             }
+        }
+        if (!data) {
+            this.workInfo = new WorkingTime();
         }
     }
 
@@ -1545,6 +1646,12 @@ export class Person implements IPerson {
             this.absenceDay = _data["absenceDay"];
             this.email = _data["email"];
             this.departement = _data["departement"];
+            if (Array.isArray(_data["tickets"])) {
+                this.tickets = [] as any;
+                for (let item of _data["tickets"])
+                    this.tickets!.push(Ticket.fromJS(item));
+            }
+            this.workInfo = _data["workInfo"] ? WorkingTime.fromJS(_data["workInfo"]) : new WorkingTime();
         }
     }
 
@@ -1566,6 +1673,12 @@ export class Person implements IPerson {
         data["absenceDay"] = this.absenceDay;
         data["email"] = this.email;
         data["departement"] = this.departement;
+        if (Array.isArray(this.tickets)) {
+            data["tickets"] = [];
+            for (let item of this.tickets)
+                data["tickets"].push(item.toJSON());
+        }
+        data["workInfo"] = this.workInfo ? this.workInfo.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -1580,6 +1693,8 @@ export interface IPerson {
     absenceDay?: number;
     email: string;
     departement?: string | undefined;
+    tickets?: Ticket[] | undefined;
+    workInfo: WorkingTime;
 }
 
 export class ProblemDetails implements IProblemDetails {
@@ -1656,7 +1771,7 @@ export class Ticket implements ITicket {
     title!: string;
     deadline!: Date;
     ticketID!: number;
-    responsibleId?: number | undefined;
+    responsible?: Person;
     completed!: boolean;
     attributed!: boolean;
 
@@ -1675,7 +1790,7 @@ export class Ticket implements ITicket {
             this.title = _data["title"];
             this.deadline = _data["deadline"] ? new Date(_data["deadline"].toString()) : <any>undefined;
             this.ticketID = _data["ticketID"];
-            this.responsibleId = _data["responsibleId"];
+            this.responsible = _data["responsible"] ? Person.fromJS(_data["responsible"]) : <any>undefined;
             this.completed = _data["completed"];
             this.attributed = _data["attributed"];
         }
@@ -1694,7 +1809,7 @@ export class Ticket implements ITicket {
         data["title"] = this.title;
         data["deadline"] = this.deadline ? this.deadline.toISOString() : <any>undefined;
         data["ticketID"] = this.ticketID;
-        data["responsibleId"] = this.responsibleId;
+        data["responsible"] = this.responsible ? this.responsible.toJSON() : <any>undefined;
         data["completed"] = this.completed;
         data["attributed"] = this.attributed;
         return data;
@@ -1706,14 +1821,14 @@ export interface ITicket {
     title: string;
     deadline: Date;
     ticketID: number;
-    responsibleId?: number | undefined;
+    responsible?: Person;
     completed: boolean;
     attributed: boolean;
 }
 
 export class WorkingTime implements IWorkingTime {
     id!: number;
-    nameOfCompany!: string;
+    nameOfProject!: string;
     from!: Date;
     to!: Date;
     adress!: Adress;
@@ -1734,7 +1849,7 @@ export class WorkingTime implements IWorkingTime {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.nameOfCompany = _data["nameOfCompany"];
+            this.nameOfProject = _data["nameOfProject"];
             this.from = _data["from"] ? new Date(_data["from"].toString()) : <any>undefined;
             this.to = _data["to"] ? new Date(_data["to"].toString()) : <any>undefined;
             this.adress = _data["adress"] ? Adress.fromJS(_data["adress"]) : new Adress();
@@ -1752,7 +1867,7 @@ export class WorkingTime implements IWorkingTime {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["nameOfCompany"] = this.nameOfCompany;
+        data["nameOfProject"] = this.nameOfProject;
         data["from"] = this.from ? this.from.toISOString() : <any>undefined;
         data["to"] = this.to ? this.to.toISOString() : <any>undefined;
         data["adress"] = this.adress ? this.adress.toJSON() : <any>undefined;
@@ -1763,7 +1878,7 @@ export class WorkingTime implements IWorkingTime {
 
 export interface IWorkingTime {
     id: number;
-    nameOfCompany: string;
+    nameOfProject: string;
     from: Date;
     to: Date;
     adress: Adress;

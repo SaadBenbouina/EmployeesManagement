@@ -158,7 +158,6 @@
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/bin/Debug/net8.0/EmployeesManagement.Frontend/EmployeesManagement.Frontend/package-lock.json
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/bin/Debug/net8.0/EmployeesManagement.Frontend/EmployeesManagement.Frontend/package.json
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/bin/Debug/net8.0/EmployeesManagement.Frontend/EmployeesManagement.Frontend/src/generatedCode/nswag.json
-/Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/bin/Debug/net8.0/EmployeesManagement.Frontend/EmployeesManagement.Frontend/src/generatedCode/src/generatedCode/swagger.json
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/bin/Debug/net8.0/EmployeesManagement.Frontend/EmployeesManagement.Frontend/src/generatedCode/swagger.json
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/bin/Debug/net8.0/EmployeesManagement.Frontend/package-lock.json
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/bin/Debug/net8.0/package-lock.json
@@ -307,3 +306,4 @@
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/obj/Debug/net8.0/EmployeesManagement.pdb
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/obj/Debug/net8.0/EmployeesManagement.genruntimeconfig.cache
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/obj/Debug/net8.0/ref/EmployeesManagement.dll
+/Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/bin/Debug/net8.0/EmployeesManagement.Frontend/EmployeesManagement.Frontend/src/generatedCode/eslintrc.json

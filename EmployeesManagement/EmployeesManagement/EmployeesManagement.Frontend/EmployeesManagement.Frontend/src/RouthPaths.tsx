@@ -30,5 +30,11 @@ export default class RoutePaths {
     public static CreatePageBusnessTrip =
       "/Absence/CreateBusnessTrip";
     public static HomePageBusnessTrip = "/BusnessTrip";
+
+    public static HomePageTicket = "/Tickets";
+    public static CreatePageTickets = "/Tickets/Create";
+    public static IndexPageTickets = "/Tickets/Index";
+    public static DetailsPageTickets = "/Tickets/Details/:id";
+    public static EditPageTickets = "/Tickets/Edit/:id";
   }
   

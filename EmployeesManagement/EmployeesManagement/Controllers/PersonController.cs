@@ -38,6 +38,26 @@ namespace EmployeesManagement.Controllers
             return NoContent();
         }
 
+        // AddWorkingInfo
+        [HttpPut("AddWorkingInfo/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> AddWorkingInfo(int workingTimeId, Person person)
+        {
+            await _personService.AddWorkingInfo(workingTimeId, person);
+            return NoContent();
+        }
+
+        // AddTicket
+        [HttpPut("AddTicket/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> AddTicket(int ticketId, Person person)
+        {
+            await _personService.AddTicket(ticketId, person);
+            return NoContent();
+        }
+
         // Delete
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
