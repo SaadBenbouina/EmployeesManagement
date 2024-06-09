@@ -948,6 +948,144 @@
         }
       }
     },
+    "/api/Persons/AddWorkingInfo/{id}": {
+      "put": {
+        "tags": [
+          "Persons"
+        ],
+        "parameters": [
+          {
+            "name": "workingTimeId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Persons/AddTicket/{id}": {
+      "put": {
+        "tags": [
+          "Persons"
+        ],
+        "parameters": [
+          {
+            "name": "ticketId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/TicketsContoller": {
       "get": {
         "tags": [
@@ -1557,7 +1695,8 @@
           "id",
           "lastName",
           "salutation",
-          "status"
+          "status",
+          "workInfo"
         ],
         "type": "object",
         "properties": {
@@ -1591,6 +1730,16 @@
           "departement": {
             "type": "string",
             "nullable": true
+          },
+          "tickets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Ticket"
+            },
+            "nullable": true
+          },
+          "workInfo": {
+            "$ref": "#/components/schemas/WorkingTime"
           }
         },
         "additionalProperties": false
@@ -1655,10 +1804,8 @@
             "type": "integer",
             "format": "int32"
           },
-          "responsibleId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
+          "responsible": {
+            "$ref": "#/components/schemas/Person"
           },
           "completed": {
             "type": "boolean"
@@ -1674,7 +1821,7 @@
           "adress",
           "from",
           "id",
-          "nameOfCompany",
+          "nameOfProject",
           "to"
         ],
         "type": "object",
@@ -1683,7 +1830,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "nameOfCompany": {
+          "nameOfProject": {
             "type": "string"
           },
           "from": {

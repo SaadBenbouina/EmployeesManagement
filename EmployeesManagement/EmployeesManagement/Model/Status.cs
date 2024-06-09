@@ -3,9 +3,9 @@ namespace EmployeesManagement.Model
 {
 	public enum Status
 	{
-		WerkStudent = 0,
-
-		FullTimeWorker = 1,
+		normal = 0,
+		chef = 2,
+		admin = 1,
 
 	}
 }

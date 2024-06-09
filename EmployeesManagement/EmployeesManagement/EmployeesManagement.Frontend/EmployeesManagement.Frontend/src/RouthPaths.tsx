@@ -36,5 +36,7 @@ export default class RoutePaths {
     public static IndexPageTickets = "/Tickets/Index";
     public static DetailsPageTickets = "/Tickets/Details/:id";
     public static EditPageTickets = "/Tickets/Edit/:id";
+
+    
   }
   
