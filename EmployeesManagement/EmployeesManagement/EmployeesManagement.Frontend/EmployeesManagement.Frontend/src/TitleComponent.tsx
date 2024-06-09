@@ -20,7 +20,7 @@ const TitleComponent: React.FC<TitleComponentProps> = ({ title, icon: Icon, icon
   };
 
   const iconStyle = {
-    marginRight: '15px',
+    marginRight: '25px',
   };
 
   return (
