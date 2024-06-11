@@ -1487,6 +1487,11 @@ export interface IAbsence {
     approved: boolean;
 }
 
+export enum AbsenceStatus {
+    _3 = 3,
+    _4 = 4,
+}
+
 export class Adress implements IAdress {
     id!: number;
     street!: string;
@@ -1619,7 +1624,8 @@ export class Person implements IPerson {
     firstName!: string;
     lastName!: string;
     salutation!: string;
-    status!: Status[];
+    status!: Status;
+    absenceStatus!: AbsenceStatus;
     speciality?: string | undefined;
     absenceDay?: number;
     email!: string;
@@ -1636,7 +1642,6 @@ export class Person implements IPerson {
             }
         }
         if (!data) {
-            this.status = [];
             this.workInfo = new WorkingTime();
         }
     }
@@ -1647,11 +1652,8 @@ export class Person implements IPerson {
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
             this.salutation = _data["salutation"];
-            if (Array.isArray(_data["status"])) {
-                this.status = [] as any;
-                for (let item of _data["status"])
-                    this.status!.push(item);
-            }
+            this.status = _data["status"];
+            this.absenceStatus = _data["absenceStatus"];
             this.speciality = _data["speciality"];
             this.absenceDay = _data["absenceDay"];
             this.email = _data["email"];
@@ -1679,11 +1681,8 @@ export class Person implements IPerson {
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
         data["salutation"] = this.salutation;
-        if (Array.isArray(this.status)) {
-            data["status"] = [];
-            for (let item of this.status)
-                data["status"].push(item);
-        }
+        data["status"] = this.status;
+        data["absenceStatus"] = this.absenceStatus;
         data["speciality"] = this.speciality;
         data["absenceDay"] = this.absenceDay;
         data["email"] = this.email;
@@ -1704,7 +1703,8 @@ export interface IPerson {
     firstName: string;
     lastName: string;
     salutation: string;
-    status: Status[];
+    status: Status;
+    absenceStatus: AbsenceStatus;
     speciality?: string | undefined;
     absenceDay?: number;
     email: string;
@@ -1781,9 +1781,6 @@ export interface IProblemDetails {
 export enum Status {
     _0 = 0,
     _1 = 1,
-    _2 = 2,
-    _3 = 3,
-    _4 = 4,
 }
 
 export class Ticket implements ITicket {

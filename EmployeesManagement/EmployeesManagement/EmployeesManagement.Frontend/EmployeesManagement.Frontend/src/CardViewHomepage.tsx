@@ -4,7 +4,7 @@ import RoutePaths from "./RouthPaths";
 import { FaUser, FaCalendarAlt, FaMapMarkerAlt, FaBriefcase, FaTicketAlt } from "react-icons/fa";
 
 interface ModuleCardSmProps {
-  moduleType: "Personal" | "Absences" | "Adresses" | "BusnessTrips" | "Tickets";
+  moduleType: "Personal" | "Absences" | "Addresses" | "BusnessTrips" | "Tickets";
 }
 
 const CardViewHomePage: React.FC<ModuleCardSmProps> = ({ moduleType }) => {
@@ -32,7 +32,7 @@ const CardViewHomePage: React.FC<ModuleCardSmProps> = ({ moduleType }) => {
       linkPath = RoutePaths.HomePageTicket; 
       IconComponent = <FaTicketAlt size={55} color="orange" />;
       break;
-    case "Adresses":
+    case "Addresses":
       linkPath = RoutePaths.HomePageAdress;
       IconComponent = <FaMapMarkerAlt size={55} color="purple" />;
       break;

@@ -1,9 +1,9 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import '../App.css';
-import CardViewHomePage from '../CardViewHomepage';
-import TitleComponent from '../TitleComponent';
 import { FaUsersCog } from 'react-icons/fa';
+import CardViewHomePage from '../CardViewHomepage';
 import Sidebar from '../SidebarComponent';
+import TitleComponent from '../TitleComponent';
 
 function HomePage() {
   return (
@@ -28,7 +28,7 @@ function HomePage() {
             </Row>
             <Row className="mt-4">
               <Col xs={12} md={4}>
-                <CardViewHomePage moduleType="Adresses" />
+                <CardViewHomePage moduleType="Addresses" />
               </Col>
               <Col xs={12} md={4}>
                 <CardViewHomePage moduleType="Tickets" />

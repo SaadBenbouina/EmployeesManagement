@@ -9,7 +9,9 @@ namespace EmployeesManagement.Model
 
         public required string Salutation { get; set; }
 
-        public required Status[] Status { get; set; }
+        public required Status Status { get; set; }
+
+        public required AbsenceStatus AbsenceStatus { get; set; }
 
         public string? Speciality { get; set; }
 

@@ -5,9 +5,6 @@ namespace EmployeesManagement.Model
 	{
 		normal = 0,
 		admin = 1,
-        chef = 2,
-		vacation = 3 ,
-		inService = 4,
     }
 }
 

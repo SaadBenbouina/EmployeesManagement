@@ -1584,7 +1584,6 @@
     "schemas": {
       "Absence": {
         "required": [
-          "absenceId",
           "approved",
           "from",
           "id",
@@ -1607,10 +1606,6 @@
           "to": {
             "type": "string",
             "format": "date-time"
-          },
-          "absenceId": {
-            "type": "integer",
-            "format": "int32"
           },
           "approved": {
             "type": "boolean"
@@ -1675,15 +1670,18 @@
           "alone": {
             "type": "boolean"
           },
-          "with_Whom": {
-            "$ref": "#/components/schemas/Adress"
-          },
           "workInfo": {
             "$ref": "#/components/schemas/WorkingTime"
           },
           "busnessTripId": {
             "type": "integer",
             "format": "int32"
+          },
+          "persons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Person"
+            }
           }
         },
         "additionalProperties": false
@@ -1714,7 +1712,10 @@
             "type": "string"
           },
           "status": {
-            "$ref": "#/components/schemas/Status"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Status"
+            }
           },
           "speciality": {
             "type": "string",
@@ -1740,6 +1741,9 @@
           },
           "workInfo": {
             "$ref": "#/components/schemas/WorkingTime"
+          },
+          "trip": {
+            "$ref": "#/components/schemas/BusnessTrip"
           }
         },
         "additionalProperties": false
@@ -1774,7 +1778,10 @@
       "Status": {
         "enum": [
           0,
-          1
+          1,
+          2,
+          3,
+          4
         ],
         "type": "integer",
         "format": "int32"

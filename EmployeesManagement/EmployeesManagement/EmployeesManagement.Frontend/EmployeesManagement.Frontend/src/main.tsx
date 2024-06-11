@@ -1,9 +1,10 @@
 import './index.css';
-import HomePage from './Pages/HomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';  
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
+import HomePage from './Pages/HomePage';
+import HomePagePerson from './Pages/HomePagePerson';
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
@@ -13,6 +14,7 @@ if (rootElement) {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/Persons" element={<HomePagePerson />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>,
