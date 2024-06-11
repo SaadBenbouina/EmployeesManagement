@@ -17,7 +17,7 @@ namespace EmployeesManagement.Service.BusnessTripsService
             var itemToUpdate = await _context.BusnessTrips.FindAsync(id);
             itemToUpdate.Name = busnessTrip.Name;
             itemToUpdate.Alone = busnessTrip.Alone;
-            itemToUpdate.With_Whom = busnessTrip.With_Whom;
+            itemToUpdate.Persons = busnessTrip.Persons;
             itemToUpdate.WorkInfo = busnessTrip.WorkInfo;
             await _context.SaveChangesAsync();
             return itemToUpdate;

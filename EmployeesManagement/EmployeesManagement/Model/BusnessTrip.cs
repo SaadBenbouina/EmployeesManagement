@@ -7,12 +7,11 @@ namespace EmployeesManagement.Model
 
 		public required Boolean Alone { get; set; }
 
-		public Adress? With_Whom { get; set; }
-
 		public required WorkingTime WorkInfo { get; set; }
 
 		public required int BusnessTripId { get; set; }
 
+        public ICollection<Person> Persons { get; set; } = new List<Person>();  
     }
 }
 

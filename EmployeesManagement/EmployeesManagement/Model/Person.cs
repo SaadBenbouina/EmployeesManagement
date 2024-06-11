@@ -9,7 +9,7 @@ namespace EmployeesManagement.Model
 
         public required string Salutation { get; set; }
 
-        public required Status Status { get; set; }
+        public required Status[] Status { get; set; }
 
         public string? Speciality { get; set; }
 
@@ -19,10 +19,11 @@ namespace EmployeesManagement.Model
 
         public string? Departement { get; set; }
 
-        public ICollection<Ticket>? Tickets { get; set; } = new List<Ticket>(); 
+        public ICollection<Ticket>? Tickets { get; set; } = new List<Ticket>();
 
         public required WorkingTime? WorkInfo { get; set; }
 
+        public BusnessTrip? Trip { get; set; }
     }
 }
 

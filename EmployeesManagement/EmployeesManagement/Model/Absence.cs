@@ -9,8 +9,6 @@ namespace EmployeesManagement.Model
 
         public required DateTime To { get; set; }
 
-        public required int AbsenceId { get; set; }
-
         public  required bool Approved { get; set; }
 
     }

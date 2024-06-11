@@ -22,8 +22,12 @@ using Microsoft.EntityFrameworkCore;
             .HasOne(p => p.WorkInfo)
             .WithMany()
             .IsRequired();
-    }
 
+        // Define the relationship between Person and BusnessTrip
+        modelBuilder.Entity<Person>()
+            .HasOne(p => p.Trip)
+            .WithMany(bt => bt.Persons);
+    }
 
     public DbSet<Absence> Absences { get; set; }
 
