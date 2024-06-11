@@ -1,0 +1,75 @@
+import { ChartData, ChartDataset, ChartOptions } from "chart.js";
+import { countBy } from "lodash";
+import { Doughnut } from "react-chartjs-2";
+import { useTranslation } from "react-i18next";
+
+import { PbdStatus } from "../../../../generatedCode/pbd-core/pbd-core-api";
+
+import { Colors } from "../../../../Models/Enums/Colors";
+
+interface IProps {
+  data: PbdStatus[];
+  legendAsTable?: boolean;
+}
+
+function StatusDoughnutChart(props: IProps) {
+  const { data, legendAsTable } = props;
+  const { t } = useTranslation();
+  const statusGrouped = countBy(data, function (e) {
+    return e;
+  });
+  const values = [];
+  for (const key of Object.keys(statusGrouped)) {
+    const label = key;
+    const typedColorString = label as keyof typeof Colors;
+    values.push({
+      key: t(key),
+      value: statusGrouped[key],
+      color: Colors[typedColorString],
+    });
+  }
+  const dataSet: ChartDataset<"doughnut", number[]> = {
+    label: "Status",
+    backgroundColor: values.map((x) => x.color),
+    data: values.map((x) => x.value),
+  };
+  const dataSets: ChartDataset<"doughnut", number[]>[] = [];
+  dataSets.push(dataSet);
+  //dataSets[0] = dataSet;
+  const chartData: ChartData<"doughnut"> = {
+    labels: values.map((x) => x.key),
+    datasets: dataSets,
+  };
+
+  const options: ChartOptions<"doughnut"> = {
+    plugins: {
+      legend: {
+        display: !legendAsTable,
+      },
+    },
+  };
+
+  if (Object.keys(statusGrouped).length == 0) {
+    return <em>{t("No data to display")}</em>;
+  }
+
+  return (
+    <>
+      <Doughnut data={chartData} options={options} />
+      {legendAsTable && (
+        <div className="d-flex justify-content-around mb-0 mt-3">
+          {values.map((x) => (
+            <div key={x.key}>
+              {t(x.key)}
+              <h3 className="font-weight-bold" style={{ color: x.color }}>
+                {x.value}
+              </h3>
+            </div>
+          ))}
+        </div>
+      )}
+    </>
+  );
+}
+
+export default StatusDoughnutChart;

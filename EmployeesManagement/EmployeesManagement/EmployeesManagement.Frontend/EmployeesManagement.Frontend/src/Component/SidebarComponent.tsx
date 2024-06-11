@@ -2,7 +2,7 @@ import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaUser, FaCalendarAlt, FaMapMarkerAlt, FaBriefcase, FaTicketAlt, FaUsersCog } from 'react-icons/fa';
-import RoutePaths from './RouthPaths';
+import RoutePaths from '../RouthPaths';
 
 const Sidebar: React.FC = () => {
   return (

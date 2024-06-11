@@ -1,6 +1,6 @@
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import RoutePaths from "./RouthPaths";
+import RoutePaths from "../RouthPaths";
 import { FaUser, FaCalendarAlt, FaMapMarkerAlt, FaBriefcase, FaTicketAlt } from "react-icons/fa";
 
 interface ModuleCardSmProps {

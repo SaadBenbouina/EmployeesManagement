@@ -29,8 +29,7 @@
     "start:productionConfig": "vite build --mode production",
     "storybook": "start-storybook -p 6006",
     "swagger:fetch-gen": "curl -k -o src/generatedCode/swagger.json https://localhost:7088/swagger/v1/swagger.json && nswag run src/generatedCode/nswag.json",
-    "swagger:fmt": "deno fmt src/generatedCode/pbd-core/pbd-core-api.ts && deno fmt src/generatedCode/pbd-core/pbd-core-api-services.ts",
-    "swagger:gen": "nswag run src/generatedCode/nswag.json && npm run swagger:patch && npm run swagger:fmt",
+    "swagger:gen": "nswag run src/generatedCode/nswag.json",
     "swagger:nswag": "nswag run src/generatedCode/nswag.json",
     "swagger:patch": "python tools/gen-swagger-query.py src/generatedCode/pbd-core/pbd-core-api.ts src/generatedCode/pbd-core/pbd-core-api-services.ts",
     "test": "vitest",
@@ -49,7 +48,9 @@
     "react-router-dom": "^6.23.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.5",
     "@types/react": "^18.3.3",
+    "@types/react-chartjs-2": "^2.5.7",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",

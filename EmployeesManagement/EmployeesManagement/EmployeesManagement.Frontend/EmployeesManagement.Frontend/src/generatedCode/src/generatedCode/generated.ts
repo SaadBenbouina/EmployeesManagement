@@ -8,8 +8,6 @@
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
 
-namespace MyNamespace {
-
 export class ApiClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
@@ -1931,6 +1929,4 @@ function throwException(message: string, status: number, response: string, heade
         throw result;
     else
         throw new ApiException(message, status, response, headers, null);
-}
-
 }

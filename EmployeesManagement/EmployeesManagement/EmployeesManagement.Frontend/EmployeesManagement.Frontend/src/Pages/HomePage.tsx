@@ -1,11 +1,14 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import '../App.css';
 import { FaUsersCog } from 'react-icons/fa';
-import CardViewHomePage from '../CardViewHomepage';
-import Sidebar from '../SidebarComponent';
-import TitleComponent from '../TitleComponent';
+import CardViewHomePage from '../Component/CardViewHomepage';
+import Sidebar from '../Component/SidebarComponent';
+import TitleComponent from '../Component/TitleComponent';
 
 function HomePage() {
+  const mockData = [
+    0, 1, 0, 1, 0, 0, 1 // Beispielhafte Daten für den Status
+  ];
   return (
     <Container fluid>
       <Row >
