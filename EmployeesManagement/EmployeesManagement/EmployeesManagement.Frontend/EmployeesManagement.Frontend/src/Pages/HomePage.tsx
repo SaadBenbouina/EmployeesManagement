@@ -1,9 +1,9 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import './App.css';
-import CardViewHomePage from './CardViewHomepage';
-import TitleComponent from './TitleComponent';
+import CardViewHomePage from '../CardViewHomepage';
+import TitleComponent from '../TitleComponent';
 import { FaUsersCog } from 'react-icons/fa';
-import Sidebar from './SidebarComponent';
+import Sidebar from '../SidebarComponent';
 
 function HomePage() {
   return (
