@@ -1,0 +1,118 @@
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { Card, CardBody, Col, Row } from "reactstrap";
+import useSWR from "swr";
+import { StringParam, useQueryParam, useQueryParams, withDefault } from "use-query-params";
+
+import { PbdModule } from "../../../generatedCode/pbd-core/pbd-core-api";
+import { useAPIs } from "../../../pbdServices/services/service-context";
+
+import { LuxonDateTimeParam } from "../../../Helpers/QueryHelpers";
+import DateFrameHelpers from "../../../Helpers/date-frame-helpers";
+import { LocalQueryHelpers } from "../../../Helpers/local-query-helpers";
+import { TimeSpans } from "../../../Models/Enums/TimeSpans";
+import LineChartWithControls from "../../shared/components/charts/luxon/lineChartWithControls";
+import StatusDoughnutChart from "../../shared/components/status/statusDoughnutChart";
+import CountPerTenantBarChart from "../../tenants/components/charts/countPerTenantBarChart";
+import AuditsRatingDistributionPieChart from "../components/audits/auditsRatingDistributionPieChart";
+import IndicatorTrendComponent from "../components/indicatorTrendComponent";
+import QualityMonitorPageHeader from "../components/qualityMonitorPageHeader";
+
+const AuditsQmonitor: React.FC = () => {
+  const { auditsApi } = useAPIs();
+  const { t } = useTranslation();
+  const [timeSpanComparison, setTimeSpanComparison] = useQueryParam<TimeSpans>("timeSpanCompare");
+  const [timeSpan, setTimeSpan] = useQueryParam<TimeSpans>("timeSpan");
+
+  const [query, setQuery] = useQueryParams({
+    createdFrom: withDefault(LuxonDateTimeParam, undefined),
+    createdTo: withDefault(LuxonDateTimeParam, undefined),
+    timeSpan: StringParam,
+  });
+
+  const { data } = useSWR("/api/audits", () => auditsApi.getAll());
+
+  const filteredResult = React.useMemo(() => {
+    if (data) {
+      const dateFrame = DateFrameHelpers.getDateFrames(timeSpan, query.createdFrom, query.createdTo);
+      const currentData = LocalQueryHelpers.localQuery(data, {
+        createdFrom: dateFrame.currentPeriodCreatedFrom,
+        createdTo: dateFrame.currentPeriodCreatedTo,
+      });
+      const previousData = LocalQueryHelpers.localQuery(data, {
+        createdFrom: dateFrame.previousPeriodCreatedFrom,
+        createdTo: dateFrame.previousPeriodCreatedTo,
+      });
+      return { currentData, previousData };
+    } else {
+      return undefined;
+    }
+  }, [data, query.createdFrom, query.createdTo, timeSpan]);
+
+  return (
+    <React.Fragment>
+      <QualityMonitorPageHeader title={t("Audits")} loading={!filteredResult} module={PbdModule.AuditManagement} />
+      <Row xs={1} md={2} className="g-4 text-center mb-3">
+        <Col>
+          {filteredResult && (
+            <IndicatorTrendComponent
+              currentValue={filteredResult.currentData.length}
+              previousValue={filteredResult.previousData.length}
+              title={"Total"}
+              markAsFavorite={false}
+              highCurrentValueIsPositiveIndicator={false}
+              currentTimeSpan={query.timeSpan as TimeSpans}
+              comparisonTimeSpan={timeSpanComparison}
+            />
+          )}
+        </Col>
+      </Row>
+      {filteredResult && (
+        <Row>
+          <Col md={5}>
+            <Card className="mb-3">
+              <CardBody>
+                <h5>{t("Status")}</h5>
+                <StatusDoughnutChart data={filteredResult.currentData.map((x) => x.status)} />
+              </CardBody>
+            </Card>
+            <Card className="mb-3">
+              <CardBody>
+                <h5>{t("Rating distribution")}</h5>
+                <AuditsRatingDistributionPieChart
+                  completedRatingAudits={filteredResult.currentData.filter((d) => d.doneAt != null)}
+                />
+              </CardBody>
+            </Card>
+          </Col>
+          <Col md={7}>
+            <Card className="mb-3">
+              <CardBody>
+                <h5>{t("Responsibles")}</h5>
+                <CountPerTenantBarChart
+                  desc
+                  tenants={filteredResult.currentData.filterMap((x) => x.responsible)}
+                  dataSetLabel={t("Number of items")}
+                />
+              </CardBody>
+            </Card>
+            <Card className="mb-3">
+              <CardBody>
+                <h5>{t("Done by month")}</h5>
+                <LineChartWithControls
+                  data={filteredResult.currentData}
+                  availableKey={["doneAt"]}
+                  datasetTitle={t("Audits done")}
+                  defaultFilterKey={"doneAt"}
+                  dataShape={"groupingRequired"}
+                />
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      )}
+    </React.Fragment>
+  );
+};
+
+export default AuditsQmonitor;

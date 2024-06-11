@@ -1613,6 +1613,14 @@
         },
         "additionalProperties": false
       },
+      "AbsenceStatus": {
+        "enum": [
+          3,
+          4
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "Adress": {
         "required": [
           "city",
@@ -1688,6 +1696,7 @@
       },
       "Person": {
         "required": [
+          "absenceStatus",
           "email",
           "firstName",
           "id",
@@ -1712,10 +1721,10 @@
             "type": "string"
           },
           "status": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Status"
-            }
+            "$ref": "#/components/schemas/Status"
+          },
+          "absenceStatus": {
+            "$ref": "#/components/schemas/AbsenceStatus"
           },
           "speciality": {
             "type": "string",
@@ -1778,10 +1787,7 @@
       "Status": {
         "enum": [
           0,
-          1,
-          2,
-          3,
-          4
+          1
         ],
         "type": "integer",
         "format": "int32"

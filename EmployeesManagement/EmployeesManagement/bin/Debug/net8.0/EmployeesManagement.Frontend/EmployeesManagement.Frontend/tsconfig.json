@@ -15,7 +15,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "moduleDetection": "force"  // Diese Zeile hinzufügen
+    "moduleDetection": "force",  // Diese Zeile hinzufügen
+    "baseUrl": "./",
+    "paths": {
+      "generatedCode/*": ["src/generatedCode/*"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

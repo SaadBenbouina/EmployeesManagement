@@ -4,7 +4,7 @@ import { IconType } from 'react-icons';
 
 interface TitleComponentProps {
   title: string;
-  icon: IconType;
+  icon?: IconType;
   iconColor?: string;
 }
 
@@ -28,7 +28,7 @@ const TitleComponent: React.FC<TitleComponentProps> = ({ title, icon: Icon, icon
       <Row className="justify-content-center">
         <Col xs={12}>
           <div style={titleStyle}>
-            <Icon size={48} color={iconColor} style={iconStyle} />
+          {Icon && <Icon size={48} color={iconColor} style={iconStyle} />}
             <h1 className="text-center">{title}</h1>
           </div>
         </Col>

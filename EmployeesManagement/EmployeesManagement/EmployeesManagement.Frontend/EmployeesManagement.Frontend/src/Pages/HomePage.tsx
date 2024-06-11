@@ -6,9 +6,6 @@ import Sidebar from '../Component/SidebarComponent';
 import TitleComponent from '../Component/TitleComponent';
 
 function HomePage() {
-  const mockData = [
-    0, 1, 0, 1, 0, 0, 1 // Beispielhafte Daten für den Status
-  ];
   return (
     <Container fluid>
       <Row >
