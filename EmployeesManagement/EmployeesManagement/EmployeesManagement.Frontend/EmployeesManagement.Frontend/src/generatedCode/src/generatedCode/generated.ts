@@ -1440,7 +1440,6 @@ export class Absence implements IAbsence {
     reason!: string;
     from!: Date;
     to!: Date;
-    absenceId!: number;
     approved!: boolean;
 
     constructor(data?: IAbsence) {
@@ -1458,7 +1457,6 @@ export class Absence implements IAbsence {
             this.reason = _data["reason"];
             this.from = _data["from"] ? new Date(_data["from"].toString()) : <any>undefined;
             this.to = _data["to"] ? new Date(_data["to"].toString()) : <any>undefined;
-            this.absenceId = _data["absenceId"];
             this.approved = _data["approved"];
         }
     }
@@ -1476,7 +1474,6 @@ export class Absence implements IAbsence {
         data["reason"] = this.reason;
         data["from"] = this.from ? this.from.toISOString() : <any>undefined;
         data["to"] = this.to ? this.to.toISOString() : <any>undefined;
-        data["absenceId"] = this.absenceId;
         data["approved"] = this.approved;
         return data;
     }
@@ -1487,7 +1484,6 @@ export interface IAbsence {
     reason: string;
     from: Date;
     to: Date;
-    absenceId: number;
     approved: boolean;
 }
 
@@ -1555,9 +1551,9 @@ export class BusnessTrip implements IBusnessTrip {
     id!: number;
     name!: string;
     alone!: boolean;
-    with_Whom?: Adress;
     workInfo!: WorkingTime;
     busnessTripId!: number;
+    persons?: Person[];
 
     constructor(data?: IBusnessTrip) {
         if (data) {
@@ -1576,9 +1572,13 @@ export class BusnessTrip implements IBusnessTrip {
             this.id = _data["id"];
             this.name = _data["name"];
             this.alone = _data["alone"];
-            this.with_Whom = _data["with_Whom"] ? Adress.fromJS(_data["with_Whom"]) : <any>undefined;
             this.workInfo = _data["workInfo"] ? WorkingTime.fromJS(_data["workInfo"]) : new WorkingTime();
             this.busnessTripId = _data["busnessTripId"];
+            if (Array.isArray(_data["persons"])) {
+                this.persons = [] as any;
+                for (let item of _data["persons"])
+                    this.persons!.push(Person.fromJS(item));
+            }
         }
     }
 
@@ -1594,9 +1594,13 @@ export class BusnessTrip implements IBusnessTrip {
         data["id"] = this.id;
         data["name"] = this.name;
         data["alone"] = this.alone;
-        data["with_Whom"] = this.with_Whom ? this.with_Whom.toJSON() : <any>undefined;
         data["workInfo"] = this.workInfo ? this.workInfo.toJSON() : <any>undefined;
         data["busnessTripId"] = this.busnessTripId;
+        if (Array.isArray(this.persons)) {
+            data["persons"] = [];
+            for (let item of this.persons)
+                data["persons"].push(item.toJSON());
+        }
         return data;
     }
 }
@@ -1605,9 +1609,9 @@ export interface IBusnessTrip {
     id: number;
     name: string;
     alone: boolean;
-    with_Whom?: Adress;
     workInfo: WorkingTime;
     busnessTripId: number;
+    persons?: Person[];
 }
 
 export class Person implements IPerson {
@@ -1615,13 +1619,14 @@ export class Person implements IPerson {
     firstName!: string;
     lastName!: string;
     salutation!: string;
-    status!: Status;
+    status!: Status[];
     speciality?: string | undefined;
     absenceDay?: number;
     email!: string;
     departement?: string | undefined;
     tickets?: Ticket[] | undefined;
     workInfo!: WorkingTime;
+    trip?: BusnessTrip;
 
     constructor(data?: IPerson) {
         if (data) {
@@ -1631,6 +1636,7 @@ export class Person implements IPerson {
             }
         }
         if (!data) {
+            this.status = [];
             this.workInfo = new WorkingTime();
         }
     }
@@ -1641,7 +1647,11 @@ export class Person implements IPerson {
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
             this.salutation = _data["salutation"];
-            this.status = _data["status"];
+            if (Array.isArray(_data["status"])) {
+                this.status = [] as any;
+                for (let item of _data["status"])
+                    this.status!.push(item);
+            }
             this.speciality = _data["speciality"];
             this.absenceDay = _data["absenceDay"];
             this.email = _data["email"];
@@ -1652,6 +1662,7 @@ export class Person implements IPerson {
                     this.tickets!.push(Ticket.fromJS(item));
             }
             this.workInfo = _data["workInfo"] ? WorkingTime.fromJS(_data["workInfo"]) : new WorkingTime();
+            this.trip = _data["trip"] ? BusnessTrip.fromJS(_data["trip"]) : <any>undefined;
         }
     }
 
@@ -1668,7 +1679,11 @@ export class Person implements IPerson {
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
         data["salutation"] = this.salutation;
-        data["status"] = this.status;
+        if (Array.isArray(this.status)) {
+            data["status"] = [];
+            for (let item of this.status)
+                data["status"].push(item);
+        }
         data["speciality"] = this.speciality;
         data["absenceDay"] = this.absenceDay;
         data["email"] = this.email;
@@ -1679,6 +1694,7 @@ export class Person implements IPerson {
                 data["tickets"].push(item.toJSON());
         }
         data["workInfo"] = this.workInfo ? this.workInfo.toJSON() : <any>undefined;
+        data["trip"] = this.trip ? this.trip.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -1688,13 +1704,14 @@ export interface IPerson {
     firstName: string;
     lastName: string;
     salutation: string;
-    status: Status;
+    status: Status[];
     speciality?: string | undefined;
     absenceDay?: number;
     email: string;
     departement?: string | undefined;
     tickets?: Ticket[] | undefined;
     workInfo: WorkingTime;
+    trip?: BusnessTrip;
 }
 
 export class ProblemDetails implements IProblemDetails {
@@ -1764,6 +1781,9 @@ export interface IProblemDetails {
 export enum Status {
     _0 = 0,
     _1 = 1,
+    _2 = 2,
+    _3 = 3,
+    _4 = 4,
 }
 
 export class Ticket implements ITicket {
