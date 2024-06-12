@@ -3,11 +3,12 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import useSWR from "swr";
 import Sidebar from "../Component/SidebarComponent";
 import StatusChart from "../Component/StatusChart"; // Adjust the path as needed
-import { Status, ApiClient, Person } from "../generatedCode/src/generatedCode/generated"; 
+import { Status, ApiClient, Person } from "../generatedCode/src/generatedCode/generated";
 import TitleComponent from "../Component/TitleComponent";
 import { FaUsersCog } from "react-icons/fa";
+import CountPerDepartmentBarChart from "../Component/CountPerResponsible"; // Adjust the path as needed
 
-const client = new ApiClient("https://localhost:7088"); 
+const client = new ApiClient("https://localhost:7088");
 
 const fetchPersons = async () => {
   try {
@@ -38,21 +39,24 @@ const HomePagePerson: React.FC = () => {
         <Col xs={2} className="p-0">
           <Sidebar />
         </Col>
-        <Col xs={10} className="p-0">
-        <TitleComponent title="Dashboard" icon={FaUsersCog} iconColor="white" />
-          <Row xs={10} className="p-0">
-            <Col md={6}>
+        <Col >
+          <TitleComponent title="HomePage Person" icon={FaUsersCog} iconColor="white" />
+          <Row fluid>
+            <Col md={12}>
               <Card className="mb-3">
                 <Card.Body>
                   <h5>Status</h5>
-                  <StatusChart data={statusData} /> 
+                  <StatusChart data={statusData} />
                 </Card.Body>
               </Card>
             </Col>
-            <Col md={6}>
+          </Row>
+          <Row fluid>
+            <Col md={12}>
               <Card className="mb-3">
                 <Card.Body>
-                  {/* Another chart or component */}
+                  <h5>Department</h5>
+                  <CountPerDepartmentBarChart data={serverData} />
                 </Card.Body>
               </Card>
             </Col>

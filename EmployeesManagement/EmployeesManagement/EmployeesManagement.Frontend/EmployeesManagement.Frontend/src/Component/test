@@ -1,75 +1,90 @@
 import { ChartData, ChartDataset, ChartOptions } from "chart.js";
-import { countBy } from "lodash";
-import { Doughnut } from "react-chartjs-2";
+import React from "react";
+import { Bar } from "react-chartjs-2";
 import { useTranslation } from "react-i18next";
+import { Button, ButtonDropdown, ButtonGroup, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
-import { PbdStatus } from "../../../../generatedCode/pbd-core/pbd-core-api";
 
-import { Colors } from "../../../../Models/Enums/Colors";
+
 
 interface IProps {
-  data: PbdStatus[];
-  legendAsTable?: boolean;
+  tenants: ITenantDTO[] | ITenantMinDTO[];
+  dataSetLabel?: string;
+  desc?: boolean;
+  displayLegend?: boolean;
 }
 
-function StatusDoughnutChart(props: IProps) {
-  const { data, legendAsTable } = props;
+const CountPerTenantBarChart: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
-  const statusGrouped = countBy(data, function (e) {
-    return e;
-  });
-  const values = [];
-  for (const key of Object.keys(statusGrouped)) {
-    const label = key;
-    const typedColorString = label as keyof typeof Colors;
-    values.push({
-      key: t(key),
-      value: statusGrouped[key],
-      color: Colors[typedColorString],
-    });
+  const { tenants, displayLegend, dataSetLabel = t("Number of items") } = props;
+  const [dropdownOpen, toggleDropdownOpen] = React.useState(false);
+  const [desc, setDesc] = React.useState(props.desc ?? true);
+  const [numberOfEntries, setNumberOfEntries] = React.useState(10);
+
+  function handleSetNumberOfEntries(entries: number) {
+    setNumberOfEntries(entries);
   }
-  const dataSet: ChartDataset<"doughnut", number[]> = {
-    label: "Status",
-    backgroundColor: values.map((x) => x.color),
-    data: values.map((x) => x.value),
+
+  const handleSetDesc = () => setDesc(!desc);
+
+  const handleDropdownOpen = () => toggleDropdownOpen(!dropdownOpen);
+
+  const { paged, totalCount } = React.useMemo(() => {
+    const dataAsArray = ListHelpers.groupAndSortArrayById(tenants);
+    const totalCount = dataAsArray.length;
+    if (!desc) {
+      dataAsArray.reverse();
+    }
+    const paged = dataAsArray.splice(0, numberOfEntries);
+    return { paged, totalCount };
+  }, [tenants, desc, numberOfEntries]);
+
+  const dataSet: ChartDataset<"bar", number[]> = {
+    label: dataSetLabel,
+    backgroundColor: Colors.qmBaseLightblue,
+    borderColor: Colors.qmBaseLightblue,
+    data: paged.map((x) => x.count),
   };
-  const dataSets: ChartDataset<"doughnut", number[]>[] = [];
+  const dataSets: ChartDataset<"bar", number[]>[] = [];
   dataSets.push(dataSet);
-  //dataSets[0] = dataSet;
-  const chartData: ChartData<"doughnut"> = {
-    labels: values.map((x) => x.key),
+  const chartData: ChartData<"bar"> = {
+    labels: paged.map((x) => x.entity.fullName),
     datasets: dataSets,
   };
-
-  const options: ChartOptions<"doughnut"> = {
+  const options: ChartOptions<"bar"> = {
+    scales: {
+      y: { beginAtZero: true },
+    },
     plugins: {
-      legend: {
-        display: !legendAsTable,
-      },
+      legend: { display: displayLegend },
     },
   };
 
-  if (Object.keys(statusGrouped).length == 0) {
+  if (dataSets.length == 1 && dataSets[0].data.length == 0) {
     return <em>{t("No data to display")}</em>;
   }
 
   return (
-    <>
-      <Doughnut data={chartData} options={options} />
-      {legendAsTable && (
-        <div className="d-flex justify-content-around mb-0 mt-3">
-          {values.map((x) => (
-            <div key={x.key}>
-              {t(x.key)}
-              <h3 className="font-weight-bold" style={{ color: x.color }}>
-                {x.value}
-              </h3>
-            </div>
-          ))}
-        </div>
-      )}
-    </>
-  );
-}
+    <React.Fragment>
+      <ButtonGroup className="float-end">
+        <Button onClick={handleSetDesc}>
+          {desc ? <qmBaseIcons.SortDown title={t("Descending")} /> : <qmBaseIcons.SortUp title={t("Ascending")} />}
+        </Button>
+        <ButtonDropdown isOpen={dropdownOpen} toggle={handleDropdownOpen} title={t("Entries to display")}>
+          <DropdownToggle caret={totalCount > 10}>{totalCount < 10 ? totalCount : numberOfEntries}</DropdownToggle>
+          <DropdownMenu end>
+            {totalCount > 10 && <DropdownItem onClick={() => handleSetNumberOfEntries(10)}>10</DropdownItem>}
+            {totalCount > 20 && <DropdownItem onClick={() => handleSetNumberOfEntries(20)}>20</DropdownItem>}
 
-export default StatusDoughnutChart;
+            <DropdownItem onClick={() => handleSetNumberOfEntries(totalCount)}>
+              {t("All")} ({totalCount})
+            </DropdownItem>
+          </DropdownMenu>
+        </ButtonDropdown>
+      </ButtonGroup>
+      <Bar data={chartData} options={options} height={96} />
+    </React.Fragment>
+  );
+};
+
+export default CountPerTenantBarChart;

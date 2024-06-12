@@ -35,7 +35,6 @@ namespace EmployeesManagement.Service.PersonsService
             //itemToUpdate.Salutation = person.Salutation;
             itemToUpdate.Status = person.Status;
             itemToUpdate.Speciality = person.Speciality;
-            itemToUpdate.AbsenceDay = person.AbsenceDay;
             itemToUpdate.Email = person.Email;
             itemToUpdate.Departement = person.Departement;
             itemToUpdate.WorkInfo = person.WorkInfo;

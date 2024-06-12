@@ -15,11 +15,9 @@ namespace EmployeesManagement.Model
 
         public string? Speciality { get; set; }
 
-        public int AbsenceDay { get; set; }
-
         public required string Email { get; set; }
 
-        public string? Departement { get; set; }
+        public required string  Departement { get; set; }
 
         public ICollection<Ticket>? Tickets { get; set; } = new List<Ticket>();
 

@@ -12,20 +12,29 @@ interface IStatusChartProps {
   data: Status[];
 }
 
+// Update the Colors object to match the exact keys from the data
+const Colors: { [key: string]: string } = {
+  "0": "green",
+  "1": "red",
+  // Add more status colors here if needed
+};
+
+// Mapping status values to their corresponding labels
+const statusLabels: { [key: string]: string } = {
+  "0": "Not Admin",
+  "1": "Admin",
+};
+
 function StatusChart(props: IStatusChartProps) {
   const { data } = props;
   const statusGrouped = countBy(data);
   const values: { key: string; value: number; color: string }[] = [];
-  const Colors: { [key: string]: string } = {
-    _0: "green",
-    _1: "red",
-  };
 
   for (const key of Object.keys(statusGrouped)) {
     values.push({
       key: key,
       value: statusGrouped[key],
-      color: Colors[key] || "gray", // Default color 
+      color: Colors[key] || "gray", // Default color
     });
   }
 
@@ -36,7 +45,7 @@ function StatusChart(props: IStatusChartProps) {
   };
 
   const chartData: ChartData<"doughnut"> = {
-    labels: values.map((x) => x.key),
+    labels: values.map((x) => statusLabels[x.key] || x.key),
     datasets: [dataSet],
   };
 
@@ -53,12 +62,9 @@ function StatusChart(props: IStatusChartProps) {
   }
 
   return (
-    <>
-      <div style={{ width: '300px', height: '400px', margin: '0 auto' }}>
-        <Doughnut data={chartData} options={options} />
-      </div>
-      
-    </>
+    <div style={{ width: '300px', height: '400px', margin: '0 auto' }}>
+      <Doughnut data={chartData} options={options} />
+    </div>
   );
 }
 
