@@ -25,7 +25,7 @@ function StatusChart(props: IStatusChartProps) {
     values.push({
       key: key,
       value: statusGrouped[key],
-      color: Colors[key] || "gray", // Default color if the key is not found
+      color: Colors[key] || "gray", // Default color 
     });
   }
 
@@ -57,16 +57,7 @@ function StatusChart(props: IStatusChartProps) {
       <div style={{ width: '300px', height: '400px', margin: '0 auto' }}>
         <Doughnut data={chartData} options={options} />
       </div>
-      <div className="d-flex justify-content-around mb-0 mt-3">
-        {values.map((x) => (
-          <div key={x.key}>
-            {x.key}
-            <h3 className="font-weight-bold" style={{ color: x.color }}>
-              {x.value}
-            </h3>
-          </div>
-        ))}
-      </div>
+      
     </>
   );
 }

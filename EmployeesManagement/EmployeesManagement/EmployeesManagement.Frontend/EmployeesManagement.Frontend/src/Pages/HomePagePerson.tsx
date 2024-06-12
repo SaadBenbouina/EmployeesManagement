@@ -40,7 +40,7 @@ const HomePagePerson: React.FC = () => {
         </Col>
         <Col xs={10} className="p-0">
         <TitleComponent title="Dashboard" icon={FaUsersCog} iconColor="white" />
-          <Row>
+          <Row xs={10} className="p-0">
             <Col md={6}>
               <Card className="mb-3">
                 <Card.Body>
