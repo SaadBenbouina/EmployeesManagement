@@ -307,3 +307,4 @@
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/obj/Debug/net8.0/EmployeesManagement.genruntimeconfig.cache
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/obj/Debug/net8.0/ref/EmployeesManagement.dll
 /Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/bin/Debug/net8.0/EmployeesManagement.Frontend/EmployeesManagement.Frontend/src/generatedCode/eslintrc.json
+/Users/saadbenboujina/Desktop/Projects/EmployeesManagement/EmployeesManagement/bin/Debug/net8.0/Newtonsoft.Json.dll

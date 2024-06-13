@@ -3,8 +3,8 @@ namespace EmployeesManagement.Model
 {
     public enum AbsenceStatus
     {
-        vacation = 3,
-        inService = 4,
+        vacation ,
+        inService ,
     }
 }
 

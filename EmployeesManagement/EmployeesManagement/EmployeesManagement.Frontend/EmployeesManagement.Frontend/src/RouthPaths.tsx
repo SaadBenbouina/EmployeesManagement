@@ -5,8 +5,9 @@ export default class RoutePaths {
     public static CreatePagePerson = "/Persons/Create";
     public static IndexPagePerson = "/Persons/Index";
     public static DetailsPagePerson = "/Persons/Details/:id";
-    public static EditPagePerson = "/Persons/Edit/:id";
-
+    public static EditPagePerson = (dto: { id?: number }) =>
+    this.DetailsPagePerson.replace(":id", dto.id?.toString() ?? "unknown");
+    
     public static DetailsPageAbsence =
       "/Absence/DetailsAbsence/:id";
     public static IndexPageAbsence =
