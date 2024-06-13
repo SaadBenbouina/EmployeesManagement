@@ -1625,9 +1625,8 @@ export class Person implements IPerson {
     status!: Status;
     absenceStatus!: AbsenceStatus;
     speciality?: string | undefined;
-    absenceDay?: number;
     email!: string;
-    departement?: string | undefined;
+    departement!: string;
     tickets?: Ticket[] | undefined;
     workInfo!: WorkingTime;
     trip?: BusnessTrip;
@@ -1653,7 +1652,6 @@ export class Person implements IPerson {
             this.status = _data["status"];
             this.absenceStatus = _data["absenceStatus"];
             this.speciality = _data["speciality"];
-            this.absenceDay = _data["absenceDay"];
             this.email = _data["email"];
             this.departement = _data["departement"];
             if (Array.isArray(_data["tickets"])) {
@@ -1682,7 +1680,6 @@ export class Person implements IPerson {
         data["status"] = this.status;
         data["absenceStatus"] = this.absenceStatus;
         data["speciality"] = this.speciality;
-        data["absenceDay"] = this.absenceDay;
         data["email"] = this.email;
         data["departement"] = this.departement;
         if (Array.isArray(this.tickets)) {
@@ -1704,9 +1701,8 @@ export interface IPerson {
     status: Status;
     absenceStatus: AbsenceStatus;
     speciality?: string | undefined;
-    absenceDay?: number;
     email: string;
-    departement?: string | undefined;
+    departement: string;
     tickets?: Ticket[] | undefined;
     workInfo: WorkingTime;
     trip?: BusnessTrip;
@@ -1779,6 +1775,7 @@ export interface IProblemDetails {
 export enum Status {
     _0 = 0,
     _1 = 1,
+    _2 = 2,
 }
 
 export class Ticket implements ITicket {

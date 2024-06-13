@@ -3,22 +3,22 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="EmployeesManagement/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="EmployeesManagement/Model/Person.cs">
     <Files>
-      <File FileName="EmployeesManagement/Program.cs" Line="84" Column="40" />
+      <File FileName="EmployeesManagement/Program.cs" Line="62" Column="9" />
       <File FileName="EmployeesManagement/appsettings.json" Line="17" Column="1" />
-      <File FileName="EmployeesManagement/appsettings.Development.json" Line="17" Column="1" />
+      <File FileName="EmployeesManagement/appsettings.Development.json" />
+      <File FileName="EmployeesManagement/Model/Status.cs" Line="6" Column="13" />
+      <File FileName="EmployeesManagement/Model/Person.cs" Line="30" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="EmployeesManagement.Backend">
             <Node name="EmployeesManagement">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Service" expanded="True">
-                <Node name="AdressesService" expanded="True" />
+              <Node name="Model">
+                <Node name="Person.cs" selected="True" />
               </Node>
-              <Node name="Program.cs" selected="True" />
             </Node>
           </Node>
         </State>

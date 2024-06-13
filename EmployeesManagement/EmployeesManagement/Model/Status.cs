@@ -3,8 +3,9 @@ namespace EmployeesManagement.Model
 {
 	public enum Status
 	{
-		normal = 0,
-		admin = 1,
+		früh = 0,
+		spät = 1,
+		nacht=2,
     }
 }
 

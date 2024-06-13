@@ -15,14 +15,16 @@ interface IStatusChartProps {
 // Update the Colors object to match the exact keys from the data
 const Colors: { [key: string]: string } = {
   "0": "green",
-  "1": "red",
+  "1": "yellow",
+  "2": "black"
   // Add more status colors here if needed
 };
 
 // Mapping status values to their corresponding labels
 const statusLabels: { [key: string]: string } = {
-  "0": "Not Admin",
-  "1": "Admin",
+  "0": "Frühschicht",
+  "1": "Spätschicht",
+  "2" : "Nachtschicht"
 };
 
 function StatusChart(props: IStatusChartProps) {

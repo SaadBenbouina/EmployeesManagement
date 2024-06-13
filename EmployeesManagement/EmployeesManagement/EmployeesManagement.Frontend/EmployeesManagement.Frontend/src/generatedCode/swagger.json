@@ -1697,6 +1697,7 @@
       "Person": {
         "required": [
           "absenceStatus",
+          "departement",
           "email",
           "firstName",
           "id",
@@ -1730,16 +1731,11 @@
             "type": "string",
             "nullable": true
           },
-          "absenceDay": {
-            "type": "integer",
-            "format": "int32"
-          },
           "email": {
             "type": "string"
           },
           "departement": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "tickets": {
             "type": "array",
@@ -1787,7 +1783,8 @@
       "Status": {
         "enum": [
           0,
-          1
+          1,
+          2
         ],
         "type": "integer",
         "format": "int32"
