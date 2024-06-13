@@ -1486,8 +1486,8 @@ export interface IAbsence {
 }
 
 export enum AbsenceStatus {
-    _3 = 3,
-    _4 = 4,
+    _0 = 0,
+    _1 = 1,
 }
 
 export class Adress implements IAdress {

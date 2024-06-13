@@ -2,6 +2,7 @@ import { IPerson } from "../generatedCode/src/generatedCode/generated";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
+import { absenceStatusMap, mapEnumValue, statusMap } from "../MapFkt/mapForStatus";
 
 
 interface IProps {
@@ -44,8 +45,8 @@ export function IndexTablePersonComponent({ tableRows, isLoading }: IProps) {
             </td>
             <td>{x.firstName}</td>
             <td>{x.lastName}</td>
-            <td>{x.status}</td>
-            <td>{x.absenceStatus}</td>
+            <td>{mapEnumValue(statusMap, x.status)}</td> {}
+            <td>{mapEnumValue(absenceStatusMap, x.status)}</td> {}
             <td>{x.departement}</td>
           </tr>
         ))}

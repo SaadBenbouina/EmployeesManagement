@@ -19,7 +19,7 @@ export function IndexPagePerson() {
         <Sidebar />
       </Col>
       <Col >
-        <TitleComponent title="List Of All Personnal" icon={FaUsersCog} iconColor="white" />
+        <TitleComponent title="List Of All Personal" icon={FaUsersCog} iconColor="white" />
         <Row fluid>
           <Col md={12}>
             <Card className="mb-3">

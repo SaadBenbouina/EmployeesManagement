@@ -1615,8 +1615,8 @@
       },
       "AbsenceStatus": {
         "enum": [
-          3,
-          4
+          0,
+          1
         ],
         "type": "integer",
         "format": "int32"
