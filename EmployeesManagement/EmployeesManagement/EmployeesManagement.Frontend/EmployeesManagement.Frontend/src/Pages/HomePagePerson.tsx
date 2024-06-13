@@ -7,6 +7,8 @@ import { Status, ApiClient, Person } from "../generatedCode/src/generatedCode/ge
 import TitleComponent from "../Component/TitleComponent";
 import { FaUsersCog } from "react-icons/fa";
 import CountPerDepartmentBarChart from "../Component/CountPerResponsible"; // Adjust the path as needed
+import { Link } from "react-router-dom";
+import RoutePaths from "../RouthPaths";
 
 const client = new ApiClient("https://localhost:7088");
 
@@ -41,6 +43,7 @@ const HomePagePerson: React.FC = () => {
         </Col>
         <Col >
           <TitleComponent title="HomePage Person" icon={FaUsersCog} iconColor="white" />
+          <Link to={RoutePaths.IndexPagePerson} className="d-block mb-3">All Personnel</Link>
           <Row fluid>
             <Col md={12}>
               <Card className="mb-3">

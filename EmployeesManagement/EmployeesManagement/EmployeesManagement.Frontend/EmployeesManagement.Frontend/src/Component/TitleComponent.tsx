@@ -10,7 +10,7 @@ interface TitleComponentProps {
 
 const TitleComponent: React.FC<TitleComponentProps> = ({ title, icon: Icon, iconColor = "black" }) => {
   const titleStyle = {
-    backgroundColor: '#2e2e2e', // Dunklere Graufarbe
+    background: 'linear-gradient(to bottom, #90EE90, #008000)',
     padding: '20px',
     borderRadius: '8px',
     display: 'flex',
