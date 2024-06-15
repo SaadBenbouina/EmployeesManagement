@@ -21,7 +21,6 @@ namespace EmployeesManagement.Service.WorkingTimesService
                 itemToUpdate.NameOfProject = workingTime.NameOfProject;
                 itemToUpdate.From = workingTime.From;
                 itemToUpdate.To = workingTime.To;
-                itemToUpdate.Absence = workingTime.Absence;
                 itemToUpdate.Adress = workingTime.Adress;
                 await _context.SaveChangesAsync();
                 return itemToUpdate;

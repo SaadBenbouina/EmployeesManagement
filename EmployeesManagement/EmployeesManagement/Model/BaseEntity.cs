@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace EmployeesManagement.Model
 {
-	public abstract class BaseEntity
-	{
-		public required int Id { get; set; }
-	}
+    public abstract class BaseEntity
+    {
+        [Required]
+        public int Id { get; set; }
+    }
 }
 

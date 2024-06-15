@@ -6,6 +6,7 @@ import { createRoot } from 'react-dom/client';
 import HomePage from './Pages/HomePage';
 import HomePagePerson from './Pages/HomePagePerson';
 import { IndexPagePerson } from './Pages/IndexPagePerson';
+import { CreatePagePerson } from './Pages/CreatePagePerson';
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
@@ -17,6 +18,8 @@ if (rootElement) {
           <Route path="/" element={<HomePage />} />
           <Route path="/Persons" element={<HomePagePerson />} />
           <Route path="/Persons/Index" element={<IndexPagePerson />} />
+          <Route path="/Persons/Create" element={<CreatePagePerson />} />
+
         </Routes>
       </BrowserRouter>
     </React.StrictMode>,

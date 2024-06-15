@@ -30,6 +30,13 @@ const HomePagePerson: React.FC = () => {
       return serverData.map((person: Person) => person.status);
     }
     return [];
+  }, [serverData])
+
+  const workstatusData = useMemo(() => {
+    if (serverData) {
+      return serverData.map((person: Person) => person.workStatus);
+    }
+    return [];
   }, [serverData]);
 
   if (error) return <div>Failed to load data</div>;
@@ -45,11 +52,19 @@ const HomePagePerson: React.FC = () => {
           <TitleComponent title="HomePage Person" icon={FaUsersCog} iconColor="white" />
           <Link to={RoutePaths.IndexPagePerson} className="d-block mb-3">All Personnel</Link>
           <Row fluid>
-            <Col md={12}>
+            <Col md={6}>
               <Card className="mb-3">
                 <Card.Body>
                   <h5>Status</h5>
                   <StatusChart data={statusData} />
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={6}>
+              <Card className="mb-3">
+                <Card.Body>
+                  <h5>WorkStatus</h5>
+                  <StatusChart data={workstatusData}  />
                 </Card.Body>
               </Card>
             </Col>

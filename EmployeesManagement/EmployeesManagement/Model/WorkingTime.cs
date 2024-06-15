@@ -11,7 +11,6 @@ namespace EmployeesManagement.Model
 
 		public required Adress Adress { get; set; }
 
-		public Adress? Absence { get; set; }
 	}
 }
 

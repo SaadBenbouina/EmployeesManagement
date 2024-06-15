@@ -20,8 +20,12 @@ using Microsoft.EntityFrameworkCore;
         // Define the relationship between Person and WorkingTime
         modelBuilder.Entity<Person>()
             .HasOne(p => p.WorkInfo)
-            .WithMany()
-            .IsRequired();
+            .WithMany();
+
+        // Define the relationship between Person and Absence
+        modelBuilder.Entity<Person>()
+            .HasMany(p => p.Absences)
+            .WithMany();
 
         // Define the relationship between Person and BusnessTrip
         modelBuilder.Entity<Person>()

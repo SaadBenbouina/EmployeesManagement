@@ -1,5 +1,4 @@
 import { IPerson } from "../generatedCode/src/generatedCode/generated";
-import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { absenceStatusMap, mapEnumValue, statusMap } from "../MapFkt/mapForStatus";
@@ -12,14 +11,15 @@ interface IProps {
 
 export function IndexTablePersonComponent({ tableRows, isLoading }: IProps) {
   return (
-    <Table>
-      <thead>
+    <div className="table-responsive">
+    <table className="table">
+      <thead >
         <tr>
           <th>ID</th>
           <th>First name</th>
           <th>Last name</th>
+          <th>status</th>
           <th>Workstatus</th>
-          <th>Availability</th>
           <th>Department</th>
         </tr>
       </thead>
@@ -51,6 +51,8 @@ export function IndexTablePersonComponent({ tableRows, isLoading }: IProps) {
           </tr>
         ))}
       </tbody>
-    </Table>
+    </table>
+    </div>
+
   );
 }

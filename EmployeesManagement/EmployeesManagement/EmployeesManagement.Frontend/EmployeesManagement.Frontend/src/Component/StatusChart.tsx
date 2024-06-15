@@ -2,29 +2,31 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 import { countBy } from "lodash";
-import { Status } from "../generatedCode/src/generatedCode/generated"; // Adjust this import path based on your project structure
+import { Status, WorkStatus } from "../generatedCode/src/generatedCode/generated"; 
 import { ChartData, ChartDataset } from "chart.js";
 
-// Register the components
 Chart.register(ArcElement, Tooltip, Legend);
 
 interface IStatusChartProps {
-  data: Status[];
+  data: Status[] | WorkStatus[];
 }
 
-// Update the Colors object to match the exact keys from the data
 const Colors: { [key: string]: string } = {
-  "0": "green",
+  "0" : "green",
   "1": "yellow",
-  "2": "black"
-  // Add more status colors here if needed
+  "2": "purple",
+  "3" : "green",
+  "4": "yellow",
+  "5": "purple"
 };
 
-// Mapping status values to their corresponding labels
 const statusLabels: { [key: string]: string } = {
   "0": "Frühschicht",
   "1": "Spätschicht",
-  "2" : "Nachtschicht"
+  "2" : "Nachtschicht",
+  "3": "Homeoffice",
+  "4": "Work at Office",
+  "5": "Hybride"
 };
 
 function StatusChart(props: IStatusChartProps) {

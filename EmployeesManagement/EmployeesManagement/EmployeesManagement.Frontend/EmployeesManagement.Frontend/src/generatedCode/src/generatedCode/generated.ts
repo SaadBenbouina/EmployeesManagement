@@ -1485,11 +1485,6 @@ export interface IAbsence {
     approved: boolean;
 }
 
-export enum AbsenceStatus {
-    _0 = 0,
-    _1 = 1,
-}
-
 export class Adress implements IAdress {
     id!: number;
     street!: string;
@@ -1623,13 +1618,14 @@ export class Person implements IPerson {
     lastName!: string;
     salutation!: string;
     status!: Status;
-    absenceStatus!: AbsenceStatus;
+    absences?: Absence[] | undefined;
     speciality?: string | undefined;
     email!: string;
     departement!: string;
     tickets?: Ticket[] | undefined;
-    workInfo!: WorkingTime;
+    workInfo?: WorkingTime;
     trip?: BusnessTrip;
+    workStatus!: WorkStatus;
 
     constructor(data?: IPerson) {
         if (data) {
@@ -1637,9 +1633,6 @@ export class Person implements IPerson {
                 if (data.hasOwnProperty(property))
                     (<any>this)[property] = (<any>data)[property];
             }
-        }
-        if (!data) {
-            this.workInfo = new WorkingTime();
         }
     }
 
@@ -1650,7 +1643,11 @@ export class Person implements IPerson {
             this.lastName = _data["lastName"];
             this.salutation = _data["salutation"];
             this.status = _data["status"];
-            this.absenceStatus = _data["absenceStatus"];
+            if (Array.isArray(_data["absences"])) {
+                this.absences = [] as any;
+                for (let item of _data["absences"])
+                    this.absences!.push(Absence.fromJS(item));
+            }
             this.speciality = _data["speciality"];
             this.email = _data["email"];
             this.departement = _data["departement"];
@@ -1659,8 +1656,9 @@ export class Person implements IPerson {
                 for (let item of _data["tickets"])
                     this.tickets!.push(Ticket.fromJS(item));
             }
-            this.workInfo = _data["workInfo"] ? WorkingTime.fromJS(_data["workInfo"]) : new WorkingTime();
+            this.workInfo = _data["workInfo"] ? WorkingTime.fromJS(_data["workInfo"]) : <any>undefined;
             this.trip = _data["trip"] ? BusnessTrip.fromJS(_data["trip"]) : <any>undefined;
+            this.workStatus = _data["workStatus"];
         }
     }
 
@@ -1678,7 +1676,11 @@ export class Person implements IPerson {
         data["lastName"] = this.lastName;
         data["salutation"] = this.salutation;
         data["status"] = this.status;
-        data["absenceStatus"] = this.absenceStatus;
+        if (Array.isArray(this.absences)) {
+            data["absences"] = [];
+            for (let item of this.absences)
+                data["absences"].push(item.toJSON());
+        }
         data["speciality"] = this.speciality;
         data["email"] = this.email;
         data["departement"] = this.departement;
@@ -1689,6 +1691,7 @@ export class Person implements IPerson {
         }
         data["workInfo"] = this.workInfo ? this.workInfo.toJSON() : <any>undefined;
         data["trip"] = this.trip ? this.trip.toJSON() : <any>undefined;
+        data["workStatus"] = this.workStatus;
         return data;
     }
 }
@@ -1699,13 +1702,14 @@ export interface IPerson {
     lastName: string;
     salutation: string;
     status: Status;
-    absenceStatus: AbsenceStatus;
+    absences?: Absence[] | undefined;
     speciality?: string | undefined;
     email: string;
     departement: string;
     tickets?: Ticket[] | undefined;
-    workInfo: WorkingTime;
+    workInfo?: WorkingTime;
     trip?: BusnessTrip;
+    workStatus: WorkStatus;
 }
 
 export class ProblemDetails implements IProblemDetails {
@@ -1838,13 +1842,18 @@ export interface ITicket {
     attributed: boolean;
 }
 
+export enum WorkStatus {
+    _3 = 3,
+    _4 = 4,
+    _5 = 5,
+}
+
 export class WorkingTime implements IWorkingTime {
     id!: number;
     nameOfProject!: string;
     from!: Date;
     to!: Date;
     adress!: Adress;
-    absence?: Adress;
 
     constructor(data?: IWorkingTime) {
         if (data) {
@@ -1865,7 +1874,6 @@ export class WorkingTime implements IWorkingTime {
             this.from = _data["from"] ? new Date(_data["from"].toString()) : <any>undefined;
             this.to = _data["to"] ? new Date(_data["to"].toString()) : <any>undefined;
             this.adress = _data["adress"] ? Adress.fromJS(_data["adress"]) : new Adress();
-            this.absence = _data["absence"] ? Adress.fromJS(_data["absence"]) : <any>undefined;
         }
     }
 
@@ -1883,7 +1891,6 @@ export class WorkingTime implements IWorkingTime {
         data["from"] = this.from ? this.from.toISOString() : <any>undefined;
         data["to"] = this.to ? this.to.toISOString() : <any>undefined;
         data["adress"] = this.adress ? this.adress.toJSON() : <any>undefined;
-        data["absence"] = this.absence ? this.absence.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -1894,7 +1901,6 @@ export interface IWorkingTime {
     from: Date;
     to: Date;
     adress: Adress;
-    absence?: Adress;
 }
 
 export class ApiException extends Error {

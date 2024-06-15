@@ -39,6 +39,8 @@ namespace EmployeesManagement.Service.PersonsService
             itemToUpdate.Departement = person.Departement;
             itemToUpdate.WorkInfo = person.WorkInfo;
             itemToUpdate.Tickets = person.Tickets;
+            itemToUpdate.WorkStatus = person.WorkStatus;
+            itemToUpdate.Absences = person.Absences;
             await _context.SaveChangesAsync();
             return itemToUpdate;
         }

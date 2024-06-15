@@ -11,14 +11,17 @@ export const statusMap: Record<number, string> = {
   [Status.Nacht]: 'nacht',
 };
 
-export enum AbsenceStatus {
-  Vacation = 0,
-  InService = 1,
+export enum Workstatus {
+  HomeOffice = 0,
+  WorkAtHome = 1,
+  Hybrid = 2,
 }
 
 export const absenceStatusMap: Record<number, string> = {
-  [AbsenceStatus.Vacation]: 'vacation',
-  [AbsenceStatus.InService]: 'inService',
+  [Workstatus.HomeOffice]: 'HomeOffice',
+  [Workstatus.WorkAtHome]: 'WorkAtHome',
+  [Workstatus.Hybrid]: 'Hybrid',
+
 };
 
 export function mapEnumValue<T>(enumMap: Record<number, string>, value: T): string {

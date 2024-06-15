@@ -5,6 +5,8 @@ import useSWR from "swr";
 import { FaUsersCog } from "react-icons/fa";
 import Sidebar from "../Component/SidebarComponent";
 import TitleComponent from "../Component/TitleComponent";
+import { Link } from "react-router-dom";
+import RoutePaths from "../RouthPaths";
 
 
 export function IndexPagePerson() {
@@ -22,6 +24,7 @@ export function IndexPagePerson() {
         <TitleComponent title="List Of All Personal" icon={FaUsersCog} iconColor="white" />
         <Row fluid>
           <Col md={12}>
+          <Link to={RoutePaths.CreatePagePerson} className="d-block mb-3">New</Link>
             <Card className="mb-3">
               <Card.Body>
                 <IndexTablePersonComponent tableRows={data} isLoading={isLoading} />

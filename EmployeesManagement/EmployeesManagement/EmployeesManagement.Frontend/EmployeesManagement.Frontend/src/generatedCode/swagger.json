@@ -1613,14 +1613,6 @@
         },
         "additionalProperties": false
       },
-      "AbsenceStatus": {
-        "enum": [
-          0,
-          1
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
       "Adress": {
         "required": [
           "city",
@@ -1696,7 +1688,6 @@
       },
       "Person": {
         "required": [
-          "absenceStatus",
           "departement",
           "email",
           "firstName",
@@ -1704,7 +1695,7 @@
           "lastName",
           "salutation",
           "status",
-          "workInfo"
+          "workStatus"
         ],
         "type": "object",
         "properties": {
@@ -1724,8 +1715,12 @@
           "status": {
             "$ref": "#/components/schemas/Status"
           },
-          "absenceStatus": {
-            "$ref": "#/components/schemas/AbsenceStatus"
+          "absences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Absence"
+            },
+            "nullable": true
           },
           "speciality": {
             "type": "string",
@@ -1749,6 +1744,9 @@
           },
           "trip": {
             "$ref": "#/components/schemas/BusnessTrip"
+          },
+          "workStatus": {
+            "$ref": "#/components/schemas/WorkStatus"
           }
         },
         "additionalProperties": false
@@ -1826,6 +1824,15 @@
         },
         "additionalProperties": false
       },
+      "WorkStatus": {
+        "enum": [
+          3,
+          4,
+          5
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "WorkingTime": {
         "required": [
           "adress",
@@ -1852,9 +1859,6 @@
             "format": "date-time"
           },
           "adress": {
-            "$ref": "#/components/schemas/Adress"
-          },
-          "absence": {
             "$ref": "#/components/schemas/Adress"
           }
         },

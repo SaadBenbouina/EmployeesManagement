@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeesManagement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20240615124248_new6")]
+    partial class new6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,7 +165,7 @@ namespace EmployeesManagement.Migrations
                     b.Property<int?>("TripId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WorkInfoId")
+                    b.Property<int>("WorkInfoId")
                         .HasColumnType("int");
 
                     b.Property<int>("WorkStatus")
@@ -274,7 +277,9 @@ namespace EmployeesManagement.Migrations
 
                     b.HasOne("EmployeesManagement.Model.WorkingTime", "WorkInfo")
                         .WithMany()
-                        .HasForeignKey("WorkInfoId");
+                        .HasForeignKey("WorkInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Trip");
 

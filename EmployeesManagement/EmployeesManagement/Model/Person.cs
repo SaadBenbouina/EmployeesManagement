@@ -11,7 +11,7 @@ namespace EmployeesManagement.Model
 
         public required Status Status { get; set; }
 
-        public required AbsenceStatus AbsenceStatus { get; set; }
+        public ICollection<Absence>? Absences { get; set; } = new List<Absence>();
 
         public string? Speciality { get; set; }
 
@@ -21,9 +21,11 @@ namespace EmployeesManagement.Model
 
         public ICollection<Ticket>? Tickets { get; set; } = new List<Ticket>();
 
-        public required WorkingTime? WorkInfo { get; set; }
+        public  WorkingTime? WorkInfo { get; set; }
 
         public BusnessTrip? Trip { get; set; }
+
+        public required WorkStatus WorkStatus { get; set; }
     }
 }
 
