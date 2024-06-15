@@ -1,11 +1,11 @@
 import React from "react";
 import { Formik, Field, Form, FormikHelpers } from "formik";
-import { IPerson } from "../generatedCode/src/generatedCode/generated";
+import { IPerson, Person } from "../generatedCode/src/generatedCode/generated";
 import { FormGroup, Button } from "react-bootstrap";
 import * as Yup from "yup";
 
 interface IProps {
-  itemToUpdate: IPerson;
+  itemToUpdate: Person;
   toggleEditMode: () => void;
   refreshParent: () => void;
 }

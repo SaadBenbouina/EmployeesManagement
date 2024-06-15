@@ -1,13 +1,15 @@
-import { IPerson } from "../generatedCode/src/generatedCode/generated";
+import { IPerson, Person } from "../generatedCode/src/generatedCode/generated";
 import React from "react";
 import { Badge, Button, Card, ListGroup } from "react-bootstrap";
 import EditFormPerson from "./EditFormPerson";
 import useToggle from "./useToggle";
 import { mapEnumValue, statusMap, workstatusMap } from "../MapFkt/mapForStatus";
-
+import { ApiClient } from "../generatedCode/src/generatedCode/generated";
+import { Link } from "react-router-dom";
+import RoutePaths from "../RouthPaths";
 
 interface IProps {
-  person: IPerson;
+  person: Person;
   handleDelete?: () => void;
   refreshParent: () => void;
   children?: React.ReactNode;
@@ -16,6 +18,17 @@ interface IProps {
 function PersonDetailsCard(props: IProps) {
   const { person, refreshParent, handleDelete } = props;
   const [editMode, toggleEditMode] = useToggle();
+
+  const handleEdit = async (updatedPerson: Person) => {
+    const client = new ApiClient("https://localhost:7088");
+    try {
+      await client.personsPUT(person.id, updatedPerson);
+      refreshParent();
+      toggleEditMode();
+    } catch (error) {
+      console.error("Error updating person:", error);
+    }
+  };
 
   return (
     <Card className="mb-3">
@@ -28,13 +41,12 @@ function PersonDetailsCard(props: IProps) {
           <p>{person.salutation}</p>
         </div>
 
-        
-
         {editMode ? (
           <EditFormPerson
             itemToUpdate={person}
             toggleEditMode={toggleEditMode}
             refreshParent={refreshParent}
+            onSave={handleEdit} // Übergebe die handleEdit-Funktion an das EditFormPerson-Component
           />
         ) : (
           <dl>
@@ -63,9 +75,12 @@ function PersonDetailsCard(props: IProps) {
           <Button className="me-1" variant="primary" onClick={toggleEditMode}>
             Edit
           </Button>
+          <Link to={RoutePaths.IndexPagePerson}>
           <Button variant="danger" onClick={handleDelete}>
             Delete
           </Button>
+          </Link>
+
         </div>
       </Card.Body>
       <ListGroup variant="flush">
