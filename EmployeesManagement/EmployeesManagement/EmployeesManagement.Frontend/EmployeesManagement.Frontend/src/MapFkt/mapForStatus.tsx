@@ -17,7 +17,7 @@ export enum Workstatus {
   Hybrid = 2,
 }
 
-export const absenceStatusMap: Record<number, string> = {
+export const workstatusMap: Record<number, string> = {
   [Workstatus.HomeOffice]: 'HomeOffice',
   [Workstatus.WorkAtHome]: 'WorkAtHome',
   [Workstatus.Hybrid]: 'Hybrid',

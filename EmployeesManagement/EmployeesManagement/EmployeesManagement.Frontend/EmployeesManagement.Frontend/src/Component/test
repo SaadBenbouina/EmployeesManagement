@@ -1,90 +1,105 @@
-import { ChartData, ChartDataset, ChartOptions } from "chart.js";
 import React from "react";
-import { Bar } from "react-chartjs-2";
 import { useTranslation } from "react-i18next";
-import { Button, ButtonDropdown, ButtonGroup, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import {
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  ListGroup,
+  ListGroupItem,
+  UncontrolledButtonDropdown,
+} from "reactstrap";
 
+import { IAddressCreateDTO, IAddressDTO, ICapabilitiesDTO } from "../../../generatedCode/pbd-core/pbd-core-api";
 
-
+import { ListHelpers } from "../../../Helpers/ListHelpers";
+import PlacesForm from "../../settings/places/components/placesForm";
+import ConnectedCardHeader from "../../shared/components/connectionElements/shared/legacy/connectedCardHeader";
+import { qmBaseIcons } from "../../shared/components/icons/qmBaseIcons";
+import { useConfirmation } from "../../shared/contexts/modalConfirmationContext";
 
 interface IProps {
-  tenants: ITenantDTO[] | ITenantMinDTO[];
-  dataSetLabel?: string;
-  desc?: boolean;
-  displayLegend?: boolean;
+  connectedAddresses?: IAddressDTO[];
+  onAdd: (values: IAddressCreateDTO) => Promise<void>;
+  onDelete: (id: number) => Promise<void>;
+  onEdit: (addressId: number, dto: IAddressDTO) => Promise<void>;
+  refreshParent: () => void;
+  baseDTO: { id: number; capabilities?: ICapabilitiesDTO };
 }
-
-const CountPerTenantBarChart: React.FC<IProps> = (props) => {
+function AddressCard(props: IProps) {
+  const { baseDTO, refreshParent, connectedAddresses, onEdit } = props;
   const { t } = useTranslation();
-  const { tenants, displayLegend, dataSetLabel = t("Number of items") } = props;
-  const [dropdownOpen, toggleDropdownOpen] = React.useState(false);
-  const [desc, setDesc] = React.useState(props.desc ?? true);
-  const [numberOfEntries, setNumberOfEntries] = React.useState(10);
+  const [selectionMode] = React.useState(false);
+  const [addMode, setAddMode] = React.useState(false);
+  const confirm = useConfirmation();
 
-  function handleSetNumberOfEntries(entries: number) {
-    setNumberOfEntries(entries);
+  const tryToDelete = (dto: IAddressDTO) => {
+    confirm({ itemsToDelete: [{ id: dto.id, title: dto.fullAddress }] }).then(() => submitDeleteRequest(dto.id));
+  };
+
+  async function handleEdit(dto: IAddressDTO) {
+    await onEdit(dto.id, dto);
+    refreshParent();
   }
 
-  const handleSetDesc = () => setDesc(!desc);
+  async function submitDeleteRequest(id: number) {
+    await props.onDelete(id);
+    refreshParent();
+  }
 
-  const handleDropdownOpen = () => toggleDropdownOpen(!dropdownOpen);
+  const toggleAddMode = () => setAddMode(!addMode);
 
-  const { paged, totalCount } = React.useMemo(() => {
-    const dataAsArray = ListHelpers.groupAndSortArrayById(tenants);
-    const totalCount = dataAsArray.length;
-    if (!desc) {
-      dataAsArray.reverse();
-    }
-    const paged = dataAsArray.splice(0, numberOfEntries);
-    return { paged, totalCount };
-  }, [tenants, desc, numberOfEntries]);
-
-  const dataSet: ChartDataset<"bar", number[]> = {
-    label: dataSetLabel,
-    backgroundColor: Colors.qmBaseLightblue,
-    borderColor: Colors.qmBaseLightblue,
-    data: paged.map((x) => x.count),
-  };
-  const dataSets: ChartDataset<"bar", number[]>[] = [];
-  dataSets.push(dataSet);
-  const chartData: ChartData<"bar"> = {
-    labels: paged.map((x) => x.entity.fullName),
-    datasets: dataSets,
-  };
-  const options: ChartOptions<"bar"> = {
-    scales: {
-      y: { beginAtZero: true },
-    },
-    plugins: {
-      legend: { display: displayLegend },
-    },
-  };
-
-  if (dataSets.length == 1 && dataSets[0].data.length == 0) {
-    return <em>{t("No data to display")}</em>;
+  async function handleAdd(dto: IAddressCreateDTO) {
+    await props.onAdd(dto);
+    setAddMode(false);
+    props.refreshParent();
   }
 
   return (
-    <React.Fragment>
-      <ButtonGroup className="float-end">
-        <Button onClick={handleSetDesc}>
-          {desc ? <qmBaseIcons.SortDown title={t("Descending")} /> : <qmBaseIcons.SortUp title={t("Ascending")} />}
-        </Button>
-        <ButtonDropdown isOpen={dropdownOpen} toggle={handleDropdownOpen} title={t("Entries to display")}>
-          <DropdownToggle caret={totalCount > 10}>{totalCount < 10 ? totalCount : numberOfEntries}</DropdownToggle>
-          <DropdownMenu end>
-            {totalCount > 10 && <DropdownItem onClick={() => handleSetNumberOfEntries(10)}>10</DropdownItem>}
-            {totalCount > 20 && <DropdownItem onClick={() => handleSetNumberOfEntries(20)}>20</DropdownItem>}
+    <>
+      <ConnectedCardHeader
+        title={
+          <span>
+            <i className="fa fa-map-marker" /> {t("Addresses")}
+          </span>
+        }
+        toggleConnectModal={toggleAddMode}
+        selectionMode={selectionMode}
+        // toggleSelectionMode={
+        //     props.connectedAddresses && props.connectedAddresses.length > 0 ? toggleSelectionMode : null
+        // }
+        canAddChildren={baseDTO.capabilities?.canEdit}
+      />
 
-            <DropdownItem onClick={() => handleSetNumberOfEntries(totalCount)}>
-              {t("All")} ({totalCount})
-            </DropdownItem>
-          </DropdownMenu>
-        </ButtonDropdown>
-      </ButtonGroup>
-      <Bar data={chartData} options={options} height={96} />
-    </React.Fragment>
+      <ListGroup flush>
+        {addMode && (
+          <ListGroupItem color="primary">
+            <PlacesForm onSubmit={handleAdd} />
+          </ListGroupItem>
+        )}
+        {connectedAddresses &&
+          ListHelpers.sortListWithPrimary(connectedAddresses).map((x) => (
+            <ListGroupItem key={x.id} className="d-flex justify-content-between">
+              <div>
+                {x.isPrimary ? <i className="fa fa-star" style={{ color: "purple" }} /> : ""} {x.fullAddress}
+              </div>
+              <UncontrolledButtonDropdown>
+                <DropdownToggle color="secondary" outline size="sm" disabled={!baseDTO.capabilities?.canEdit}>
+                  <qmBaseIcons.EllipsisVertical />
+                </DropdownToggle>
+                <DropdownMenu end>
+                  <DropdownItem onClick={() => handleEdit(x)}>
+                    <i className="fa fa-star" /> {t("Set as primary")}
+                  </DropdownItem>
+                  <DropdownItem onClick={() => tryToDelete(x)}>
+                    <qmBaseIcons.Delete /> {t("Delete")}
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledButtonDropdown>
+            </ListGroupItem>
+          ))}
+      </ListGroup>
+    </>
   );
-};
+}
 
-export default CountPerTenantBarChart;
+export default AddressCard;

@@ -19,7 +19,7 @@ export function CreatePagePerson() {
                   <Sidebar />
               </Col>
               <Col>
-                  <TitleComponent title="New" icon={FaUsersCog} iconColor="white" />
+                  <TitleComponent title="New Personal" icon={FaUsersCog} iconColor="white" />
                   <Row className="justify-content-center mt-4">
                       <Col md={9}>
                           <Card className="New">

@@ -1,0 +1,98 @@
+import { IPerson } from "../generatedCode/src/generatedCode/generated";
+import React from "react";
+import { Badge, Button, Card, ListGroup } from "react-bootstrap";
+import EditFormPerson from "./EditFormPerson";
+import useToggle from "./useToggle";
+import { mapEnumValue, statusMap, workstatusMap } from "../MapFkt/mapForStatus";
+
+
+interface IProps {
+  person: IPerson;
+  handleDelete?: () => void;
+  refreshParent: () => void;
+  children?: React.ReactNode;
+}
+
+function PersonDetailsCard(props: IProps) {
+  const { person, refreshParent, handleDelete } = props;
+  const [editMode, toggleEditMode] = useToggle();
+
+  return (
+    <Card className="mb-3">
+      <Card.Header className="mb-3" />
+      <Card.Body>
+        <div className="text-center">
+          <Card.Title as="h3">
+            {person.firstName} {person.lastName} <Badge bg="secondary">{person.id}</Badge>
+          </Card.Title>
+          <p>{person.salutation}</p>
+        </div>
+
+        
+
+        {editMode ? (
+          <EditFormPerson
+            itemToUpdate={person}
+            toggleEditMode={toggleEditMode}
+            refreshParent={refreshParent}
+          />
+        ) : (
+          <dl>
+            <dt>Status</dt>
+            <dd>{person.status}</dd>
+            
+            <dt>Email</dt>
+            <dd>
+              <a href={"mailto:" + person.email}>{person.email}</a>
+            </dd>
+
+            <dt>Department</dt>
+            <dd>{person.departement}</dd>
+
+            <dt>Speciality</dt>
+            <dd>{person.speciality}</dd>
+
+            <dt>Status</dt>
+            <dd>{mapEnumValue(statusMap, person.status)}</dd>
+
+            <dt>WorkStatus</dt>
+            <dd>{mapEnumValue(workstatusMap, person.workStatus)}</dd>
+          </dl>
+        )}
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button className="me-1" variant="primary" onClick={toggleEditMode}>
+            Edit
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </div>
+      </Card.Body>
+      <ListGroup variant="flush">
+        {person.absences && person.absences.length > 0 && (
+          <ListGroup.Item>
+            <h5>Absences</h5>
+            <ul>
+              {person.absences.map((absence, index) => (
+                <li key={index}>{absence.reason}</li>
+              ))}
+            </ul>
+          </ListGroup.Item>
+        )}
+        {person.tickets && person.tickets.length > 0 && (
+          <ListGroup.Item>
+            <h5>Tickets</h5>
+            <ul>
+              {person.tickets.map((ticket, index) => (
+                <li key={index}>{ticket.title}</li>
+              ))}
+            </ul>
+          </ListGroup.Item>
+        )}
+      </ListGroup>
+      {props.children}
+    </Card>
+  );
+}
+
+export default PersonDetailsCard;

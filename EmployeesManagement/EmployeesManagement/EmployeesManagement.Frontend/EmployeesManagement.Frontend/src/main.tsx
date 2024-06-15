@@ -7,6 +7,7 @@ import HomePage from './Pages/HomePage';
 import HomePagePerson from './Pages/HomePagePerson';
 import { IndexPagePerson } from './Pages/IndexPagePerson';
 import { CreatePagePerson } from './Pages/CreatePagePerson';
+import { DetailPagePerson } from './Pages/DetailPagePerson';
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
@@ -19,7 +20,7 @@ if (rootElement) {
           <Route path="/Persons" element={<HomePagePerson />} />
           <Route path="/Persons/Index" element={<IndexPagePerson />} />
           <Route path="/Persons/Create" element={<CreatePagePerson />} />
-
+          <Route path="/Persons/Details/:id" element={<DetailPagePerson />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>,

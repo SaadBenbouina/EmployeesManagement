@@ -1,118 +1,242 @@
 import React from "react";
+import { Badge, Button, Card, Dropdown, ListGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { Card, CardBody, Col, Row } from "reactstrap";
-import useSWR from "swr";
-import { StringParam, useQueryParam, useQueryParams, withDefault } from "use-query-params";
+import { Link } from "react-router-dom";
 
-import { PbdModule } from "../../../generatedCode/pbd-core/pbd-core-api";
+import { ITenantDetailsDTO, PbdModule, TenantEditDTO } from "../../../generatedCode/pbd-core/pbd-core-api";
 import { useAPIs } from "../../../pbdServices/services/service-context";
 
-import { LuxonDateTimeParam } from "../../../Helpers/QueryHelpers";
-import DateFrameHelpers from "../../../Helpers/date-frame-helpers";
-import { LocalQueryHelpers } from "../../../Helpers/local-query-helpers";
-import { TimeSpans } from "../../../Models/Enums/TimeSpans";
-import LineChartWithControls from "../../shared/components/charts/luxon/lineChartWithControls";
-import StatusDoughnutChart from "../../shared/components/status/statusDoughnutChart";
-import CountPerTenantBarChart from "../../tenants/components/charts/countPerTenantBarChart";
-import AuditsRatingDistributionPieChart from "../components/audits/auditsRatingDistributionPieChart";
-import IndicatorTrendComponent from "../components/indicatorTrendComponent";
-import QualityMonitorPageHeader from "../components/qualityMonitorPageHeader";
+import { DateTimeLuxonHelpers } from "../../../Helpers/DateTimeLuxonHelpers";
+import { PbdRoles } from "../../../services/Authz/PbdRoles";
+import { hasRole } from "../../../services/Authz/authService";
+import ModuleService from "../../../services/ModuleService/moduleService";
+import { AdminRoutePaths } from "../../admin/adminRoutePaths";
+import { EmployeeRoutePaths } from "../../employees/employeeRoutePaths";
+import { ProfileRoutePaths } from "../../profile/profileRoutePaths";
+import { QualificationMatrixRoutePaths } from "../../qualificationMatrix/qualificationMatrixRoutePaths";
+import CustomDropdownToggleButton from "../../shared/components/buttons/customDropdownToggleButton";
+import UpdatedDescriptionList from "../../shared/components/dateTime/updatedDescriptionList";
+import { qmBaseIcons } from "../../shared/components/icons/qmBaseIcons";
+import IdComponent from "../../shared/components/id/idComponent";
+import FormattedUserInput from "../../shared/components/text/formattedUserInput";
+import { useAppContext } from "../../shared/contexts/appContext";
+import { useToggle } from "../../shared/hooks/useToggle";
+import ChangeProfilePictureComponent from "../../shared/layouts/detailsPage/changeProfilePictureComponent";
+import EditFormTenant from "./editFormTenant";
+import InvitePersonComponent from "./invitePersonComponent";
 
-const AuditsQmonitor: React.FC = () => {
-  const { auditsApi } = useAPIs();
+interface IProps {
+  tenant: ITenantDetailsDTO;
+  handleDelete?: () => void;
+  toggleIsEmployeeState?: () => void;
+  refreshParent: () => void;
+  module: PbdModule.Employees | PbdModule.Startpage | PbdModule.ContactManagement;
+  children?: React.ReactNode;
+}
+
+function TenantDetailsCard(props: IProps) {
+  const { tenantsApi } = useAPIs();
+  const { tenant, refreshParent, module, handleDelete, toggleIsEmployeeState } = props;
+  const { meAsUser, appSettings, availableModules } = useAppContext();
   const { t } = useTranslation();
-  const [timeSpanComparison, setTimeSpanComparison] = useQueryParam<TimeSpans>("timeSpanCompare");
-  const [timeSpan, setTimeSpan] = useQueryParam<TimeSpans>("timeSpan");
+  const [editMode, toggleEditMode] = useToggle();
+  const [editPictureMode, toggleEditPictureMode] = useToggle();
 
-  const [query, setQuery] = useQueryParams({
-    createdFrom: withDefault(LuxonDateTimeParam, undefined),
-    createdTo: withDefault(LuxonDateTimeParam, undefined),
-    timeSpan: StringParam,
-  });
+  let cardHeaderClass = "meridianGradient";
+  if (module == PbdModule.Startpage) {
+    cardHeaderClass = "qmBaseDarkToLightBlueGradient";
+  } else if (module == PbdModule.Employees) {
+    cardHeaderClass = "littleLeafGradient";
+  }
 
-  const { data } = useSWR("/api/audits", () => auditsApi.getAll());
-
-  const filteredResult = React.useMemo(() => {
-    if (data) {
-      const dateFrame = DateFrameHelpers.getDateFrames(timeSpan, query.createdFrom, query.createdTo);
-      const currentData = LocalQueryHelpers.localQuery(data, {
-        createdFrom: dateFrame.currentPeriodCreatedFrom,
-        createdTo: dateFrame.currentPeriodCreatedTo,
-      });
-      const previousData = LocalQueryHelpers.localQuery(data, {
-        createdFrom: dateFrame.previousPeriodCreatedFrom,
-        createdTo: dateFrame.previousPeriodCreatedTo,
-      });
-      return { currentData, previousData };
-    } else {
-      return undefined;
-    }
-  }, [data, query.createdFrom, query.createdTo, timeSpan]);
+  const externalIdSetting = tenant.isEmployee
+    ? appSettings.Employees.externalIdSetting
+    : appSettings.TenantManagement.externalIdSetting;
 
   return (
-    <React.Fragment>
-      <QualityMonitorPageHeader title={t("Audits")} loading={!filteredResult} module={PbdModule.AuditManagement} />
-      <Row xs={1} md={2} className="g-4 text-center mb-3">
-        <Col>
-          {filteredResult && (
-            <IndicatorTrendComponent
-              currentValue={filteredResult.currentData.length}
-              previousValue={filteredResult.previousData.length}
-              title={"Total"}
-              markAsFavorite={false}
-              highCurrentValueIsPositiveIndicator={false}
-              currentTimeSpan={query.timeSpan as TimeSpans}
-              comparisonTimeSpan={timeSpanComparison}
-            />
-          )}
-        </Col>
-      </Row>
-      {filteredResult && (
-        <Row>
-          <Col md={5}>
-            <Card className="mb-3">
-              <CardBody>
-                <h5>{t("Status")}</h5>
-                <StatusDoughnutChart data={filteredResult.currentData.map((x) => x.status)} />
-              </CardBody>
-            </Card>
-            <Card className="mb-3">
-              <CardBody>
-                <h5>{t("Rating distribution")}</h5>
-                <AuditsRatingDistributionPieChart
-                  completedRatingAudits={filteredResult.currentData.filter((d) => d.doneAt != null)}
-                />
-              </CardBody>
-            </Card>
-          </Col>
-          <Col md={7}>
-            <Card className="mb-3">
-              <CardBody>
-                <h5>{t("Responsibles")}</h5>
-                <CountPerTenantBarChart
-                  desc
-                  tenants={filteredResult.currentData.filterMap((x) => x.responsible)}
-                  dataSetLabel={t("Number of items")}
-                />
-              </CardBody>
-            </Card>
-            <Card className="mb-3">
-              <CardBody>
-                <h5>{t("Done by month")}</h5>
-                <LineChartWithControls
-                  data={filteredResult.currentData}
-                  availableKey={["doneAt"]}
-                  datasetTitle={t("Audits done")}
-                  defaultFilterKey={"doneAt"}
-                  dataShape={"groupingRequired"}
-                />
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      )}
-    </React.Fragment>
-  );
-};
+    <Card className="mb-3">
+      <Card.Header className={`${cardHeaderClass} pbdCardHeader mb-3`} />
+      <ChangeProfilePictureComponent
+        item={{ ...tenant, thumbnailUrl: tenant.profilePictureId?.toString(), title: tenant.fullName }}
+        baseApi={tenantsApi}
+        editMode={editPictureMode}
+        toggleEditMode={toggleEditPictureMode}
+        refreshParent={refreshParent}
+        onDelete={() => tenantsApi.edit(tenant.id, new TenantEditDTO({ ...tenant, profilePictureId: undefined }))}
+        showEmptyAvatar
+      />
+      <Card.Body>
+        <div className="text-center">
+          <Card.Title as="h3">
+            {tenant.fullName} <IdComponent id={tenant.id} />
+          </Card.Title>
+          {tenant.primaryDepartmentPosition?.title}
+        </div>
 
-export default AuditsQmonitor;
+        <div className="float-end">
+          <Button className="me-1" variant="primary" onClick={toggleEditMode} disabled={!tenant.capabilities?.canEdit}>
+            <qmBaseIcons.Pencil />
+          </Button>
+          <Dropdown align={"end"}>
+            <Dropdown.Toggle
+              as={CustomDropdownToggleButton}
+              variant="outline-secondary"
+              disabled={!tenant.capabilities?.canEdit}
+              title={t("Context menu")}
+            />
+            <Dropdown.Menu>
+              {tenant.capabilities?.canEdit && (
+                <Dropdown.Item onClick={toggleEditPictureMode}>
+                  <qmBaseIcons.CameraRetro /> {t("Change profile picture")}
+                </Dropdown.Item>
+              )}
+              {hasRole(meAsUser, [PbdRoles.Admin, PbdRoles.Employees_Standard]) && (
+                <>
+                  <Dropdown.Item onClick={handleDelete}>
+                    <qmBaseIcons.Delete /> {t("Delete")}
+                  </Dropdown.Item>
+                  {tenant.isEmployee &&
+                    module == PbdModule.Employees &&
+                    ModuleService.isAvailable(availableModules, PbdModule.Crm) && (
+                      <Dropdown.Item onClick={toggleIsEmployeeState}>
+                        <qmBaseIcons.Minus /> {t("Remove from employees")}
+                      </Dropdown.Item>
+                    )}
+
+                  {!tenant.isEmployee &&
+                    module == PbdModule.ContactManagement &&
+                    ModuleService.isAvailable(availableModules, PbdModule.Employees) && (
+                      <Dropdown.Item onClick={toggleIsEmployeeState}>
+                        <qmBaseIcons.Plus /> {t("Add to employees")}
+                      </Dropdown.Item>
+                    )}
+                </>
+              )}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+
+        {editMode ? (
+          <EditFormTenant
+            itemToUpdate={tenant}
+            toggleEditMode={toggleEditMode}
+            refreshParent={refreshParent}
+            externalIdSetting={externalIdSetting}
+          />
+        ) : (
+          <>
+            <UpdatedDescriptionList createdAt={tenant.createdAt} lastUpdatedAt={tenant.lastUpdatedAt} />
+            <dl>
+              {externalIdSetting?.isUsed && (
+                <>
+                  <dt title={t("External ID")}>{externalIdSetting.displayName ?? t("External ID")}</dt>
+                  <dd>
+                    {externalIdSetting.isRequired && !tenant.externalId && (
+                      <Badge bg="warning">{t("This field is required")}</Badge>
+                    )}
+                    {tenant.externalId}
+                  </dd>
+                </>
+              )}
+
+              <dt>
+                <qmBaseIcons.Envelope /> {t("Email")}
+              </dt>
+              <dd>
+                <a href={"mailto:" + tenant.email}>{tenant.email}</a>
+              </dd>
+
+              <dt>
+                <qmBaseIcons.BirthdayCake /> {t("Birthday")}
+              </dt>
+              <dd>
+                {tenant.publishBirthday && tenant.birthday && (
+                  <span>
+                    {DateTimeLuxonHelpers.convertUtcToDate(tenant.birthday)} <i className="fa fa-globe" />
+                  </span>
+                )}
+                {!tenant.publishBirthday && <i className="fa fa-user-secret" />}
+              </dd>
+              <dt>{t("Description")}</dt>
+              <dd>{tenant.description && <FormattedUserInput content={tenant.description} />}</dd>
+              <dt>{t("Start date")}</dt>
+              <dd>{tenant.jobStartDate && DateTimeLuxonHelpers.convertUtcToDate(tenant.jobStartDate)}</dd>
+              <dt>{t("End date")}</dt>
+              <dd>{tenant.jobEndDate && DateTimeLuxonHelpers.convertUtcToDate(tenant.jobEndDate)}</dd>
+            </dl>
+          </>
+        )}
+      </Card.Body>
+      <ListGroup variant="flush">
+        {tenant.isEmployee && module != PbdModule.Employees && (
+          <ListGroup.Item variant="info" title={t("Employee")} className="mb-0 d-flex justify-content-between">
+            <div>
+              <h5>{t("Employee")}</h5>
+            </div>
+            <div>
+              <Button
+                size="sm"
+                variant="outline-primary"
+                as={Link as any}
+                to={EmployeeRoutePaths.EditPage.replace(":id", tenant.id.toString())}
+              >
+                {t("View details")} »
+              </Button>
+            </div>
+          </ListGroup.Item>
+        )}
+
+        <ListGroup.Item variant="info" title={t("User account")} className="mb-0 d-flex justify-content-between">
+          {tenant.applicationUserId ? (
+            <>
+              <div>
+                <h5>{t("User account")}</h5>
+              </div>
+              <div>
+                <Button
+                  size="sm"
+                  variant="outline-primary"
+                  as={Link as any}
+                  to={AdminRoutePaths.UsersDetails.replace(":id", tenant.applicationUserId)}
+                >
+                  {t("View details")} »
+                </Button>
+              </div>
+            </>
+          ) : (
+            <InvitePersonComponent tenant={tenant} toggleEditMode={toggleEditMode} />
+          )}
+        </ListGroup.Item>
+        {module != PbdModule.Startpage && meAsUser.tenant.id == tenant.id && (
+          <ListGroup.Item variant="secondary" className="d-flex justify-content-between">
+            <h5>{t("Profile")}</h5>
+            <Button size="sm" variant="outline-secondary" as={Link as any} to={ProfileRoutePaths.MyProfile}>
+              {t("View details")} »
+            </Button>
+          </ListGroup.Item>
+        )}
+        {ModuleService.isAvailable(availableModules, PbdModule.QualificationMatrix) && (
+          <ListGroup.Item className="mildGradient d-flex justify-content-between">
+            <h5>
+              <i className="icon-qmBase-QualificationMatrix" /> {t("Functions & Qualifications")}
+            </h5>
+            <Button
+              size="sm"
+              variant="outline-light"
+              as={Link as any}
+              to={QualificationMatrixRoutePaths.DetailsPageQualificationRequirementsForTenant.replace(
+                ":id",
+                tenant.id.toString(),
+              )}
+            >
+              {t("View details")} »
+            </Button>
+          </ListGroup.Item>
+        )}
+      </ListGroup>
+      {props.children}
+    </Card>
+  );
+}
+
+export default TenantDetailsCard;

@@ -1,7 +1,7 @@
 import { IPerson } from "../generatedCode/src/generatedCode/generated";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
-import { absenceStatusMap, mapEnumValue, statusMap } from "../MapFkt/mapForStatus";
+import { mapEnumValue, statusMap, workstatusMap } from "../MapFkt/mapForStatus";
 
 
 interface IProps {
@@ -46,7 +46,7 @@ export function IndexTablePersonComponent({ tableRows, isLoading }: IProps) {
             <td>{x.firstName}</td>
             <td>{x.lastName}</td>
             <td>{mapEnumValue(statusMap, x.status)}</td> {}
-            <td>{mapEnumValue(absenceStatusMap, x.status)}</td> {}
+            <td>{mapEnumValue(workstatusMap, x.status)}</td> {}
             <td>{x.departement}</td>
           </tr>
         ))}
