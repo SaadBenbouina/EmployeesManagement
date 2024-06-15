@@ -1,24 +1,26 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { ApiClient, IPerson } from "../generatedCode/src/generatedCode/generated";
+import { useParams, useNavigate } from "react-router-dom";
+import { ApiClient, IPerson, Person } from "../generatedCode/src/generatedCode/generated";
 import PersonDetailsCard from "../Component/DetailComponentperson";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaUsersCog } from "react-icons/fa";
 import Sidebar from "../Component/SidebarComponent";
 import TitleComponent from "../Component/TitleComponent";
+import RoutePaths from "../RouthPaths";
 
 export function DetailPagePerson() {
   const { id } = useParams<{ id: string | undefined }>();
-  const [person, setPerson] = useState<IPerson | null>(null);
+  const [person, setPerson] = useState<Person | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPerson = async () => {
       const client = new ApiClient("https://localhost:7088");
       if (id) {
         try {
-          const data = await client.personsGET(parseInt(id));
-          setPerson(data);
+          const data: IPerson = await client.personsGET(parseInt(id));
+          setPerson(new Person(data)); // Konvertiere IPerson zu Person
         } catch (error) {
           console.error("Error fetching person:", error);
         } finally {
@@ -35,7 +37,7 @@ export function DetailPagePerson() {
       const client = new ApiClient("https://localhost:7088");
       try {
         await client.personsDELETE(person.id);
-        // Redirect or update the parent component
+        navigate(RoutePaths.IndexPagePerson); // Redirect or update the parent component
         console.log("Person deleted");
       } catch (error) {
         console.error("Error deleting person:", error);
@@ -47,8 +49,8 @@ export function DetailPagePerson() {
     if (id) {
       const client = new ApiClient("https://localhost:7088");
       try {
-        const data = await client.personsGET(parseInt(id));
-        setPerson(data);
+        const data: IPerson = await client.personsGET(parseInt(id));
+        setPerson(new Person(data)); // Konvertiere IPerson zu Person
       } catch (error) {
         console.error("Error fetching person:", error);
       }

@@ -8,14 +8,13 @@ interface IProps {
   itemToUpdate: Person;
   toggleEditMode: () => void;
   refreshParent: () => void;
+  onSave: (updatedPerson: Person) => Promise<void>; // Neue Eigenschaft hinzugefügt
 }
 
-const EditFormPerson = (props: IProps) => {
-  const { itemToUpdate, toggleEditMode, refreshParent } = props;
-
-  const initialValues: IPerson = {
+const EditFormPerson: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refreshParent, onSave }) => {
+  const initialValues: Person = new Person({
     ...itemToUpdate,
-  };
+  });
 
   const validationSchema = Yup.object({
     firstName: Yup.string().required("First name is required"),
@@ -23,9 +22,9 @@ const EditFormPerson = (props: IProps) => {
     email: Yup.string().email("Invalid email address").required("Email is required"),
   });
 
-  const submitHandler = async (values: IPerson, { setSubmitting }: FormikHelpers<IPerson>) => {
-    // Add your API call here to update the person details
-    console.log("Updating person details:", values);
+  const submitHandler = async (values: Person, { setSubmitting }: FormikHelpers<Person>) => {
+    // Rufe die onSave-Funktion auf
+    await onSave(values);
     setSubmitting(false);
     toggleEditMode();
     refreshParent();

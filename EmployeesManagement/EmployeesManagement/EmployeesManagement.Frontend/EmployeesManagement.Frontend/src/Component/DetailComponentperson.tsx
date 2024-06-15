@@ -51,7 +51,7 @@ function PersonDetailsCard(props: IProps) {
         ) : (
           <dl>
             <dt>Status</dt>
-            <dd>{person.status}</dd>
+            <dd>{mapEnumValue(statusMap, person.status)}</dd>
             
             <dt>Email</dt>
             <dd>
@@ -64,9 +64,6 @@ function PersonDetailsCard(props: IProps) {
             <dt>Speciality</dt>
             <dd>{person.speciality}</dd>
 
-            <dt>Status</dt>
-            <dd>{mapEnumValue(statusMap, person.status)}</dd>
-
             <dt>WorkStatus</dt>
             <dd>{mapEnumValue(workstatusMap, person.workStatus)}</dd>
           </dl>
@@ -76,11 +73,10 @@ function PersonDetailsCard(props: IProps) {
             Edit
           </Button>
           <Link to={RoutePaths.IndexPagePerson}>
-          <Button variant="danger" onClick={handleDelete}>
-            Delete
-          </Button>
+            <Button variant="danger" onClick={handleDelete}>
+              Delete
+            </Button>
           </Link>
-
         </div>
       </Card.Body>
       <ListGroup variant="flush">
