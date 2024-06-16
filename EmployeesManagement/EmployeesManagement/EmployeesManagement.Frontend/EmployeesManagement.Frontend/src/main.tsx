@@ -11,6 +11,10 @@ import { DetailPagePerson } from './Pages/DetailPagePerson';
 import { IndexPageAdress } from './Pages/IndexpageAdress';
 import { CreatePageAdress } from './Pages/CreatePageAdress';
 import { EditPageAdress } from './Pages/EditPageAdress';
+import { IndexPageAbsence } from './Pages/IndexPageAbsence';
+import { CreatePageAbsence } from './Pages/CreatePageAbsence';
+import { IndexPageBusnessTrip } from './Pages/IndexPageBusnessTrip';
+import { CreatePageBusnessTrip } from './Pages/CreatePageBusnessTrip';
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
@@ -27,6 +31,13 @@ if (rootElement) {
           <Route path="/Adresses" element={<IndexPageAdress />} />
           <Route path="/Adresses/Create" element={<CreatePageAdress />} />
           <Route path="/Adresses/Edit/:id" element={<EditPageAdress />} />
+          <Route path="/Absence" element={<IndexPageAbsence />} />
+          <Route path="/Absence/Create" element={<CreatePageAbsence />} />
+          <Route path="/BusnessTrips" element={<IndexPageBusnessTrip />} />
+          <Route path="/BusnessTrips/Create" element={<CreatePageBusnessTrip />} />
+
+
+
         </Routes>
       </BrowserRouter>
     </React.StrictMode>,

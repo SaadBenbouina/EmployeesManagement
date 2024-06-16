@@ -9,12 +9,14 @@ export default class RoutePaths {
     this.DetailsPagePerson.replace(":id", dto.id?.toString() ?? "unknown");
     
     public static DetailsPageAbsence =
-      "/Absence/DetailsAbsence/:id";
+      "/Absence/Edit/:id";
     public static IndexPageAbsence =
       "/Absence/IndexAbsence";
     public static CreatePageAbsence =
-      "/Absence/CreateAbsence";
+      "/Absence/Create";
     public static HomePageAbsence = "/Absence";
+    public static EditPageAbsence = (dto: { id?: number }) =>
+    this.DetailsPageAbsence.replace(":id", dto.id?.toString() ?? "unknown");
 
     public static DetailsPageAdress =
       "/Adresses/Edit/:id";
@@ -27,12 +29,14 @@ export default class RoutePaths {
     this.DetailsPageAdress.replace(":id", dto.id?.toString() ?? "unknown");
 
     public static DetailsPageBusnessTrip =
-      "/BusnessTrips/DetailsBusnessTrip/:id";
+      "/BusnessTrips/Details/:id";
     public static IndexPageBusnessTrip =
       "/BusnessTrips/IndexBusnessTrip";
     public static CreatePageBusnessTrip =
-      "/BusnessTrips/CreateBusnessTrip";
+      "/BusnessTrips/Create";
     public static HomePageBusnessTrip = "/BusnessTrips";
+    public static EditPageBusnessTrip = (dto: { id?: number }) =>
+    this.DetailsPageBusnessTrip.replace(":id", dto.id?.toString() ?? "unknown");
 
     public static HomePageTicket = "/Tickets";
     public static CreatePageTickets = "/Tickets/Create";

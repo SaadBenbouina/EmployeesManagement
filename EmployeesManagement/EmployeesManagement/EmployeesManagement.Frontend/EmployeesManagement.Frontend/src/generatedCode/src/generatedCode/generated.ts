@@ -1550,7 +1550,6 @@ export class BusnessTrip implements IBusnessTrip {
     name!: string;
     alone!: boolean;
     workInfo!: WorkingTime;
-    busnessTripId!: number;
     persons?: Person[];
 
     constructor(data?: IBusnessTrip) {
@@ -1571,7 +1570,6 @@ export class BusnessTrip implements IBusnessTrip {
             this.name = _data["name"];
             this.alone = _data["alone"];
             this.workInfo = _data["workInfo"] ? WorkingTime.fromJS(_data["workInfo"]) : new WorkingTime();
-            this.busnessTripId = _data["busnessTripId"];
             if (Array.isArray(_data["persons"])) {
                 this.persons = [] as any;
                 for (let item of _data["persons"])
@@ -1593,7 +1591,6 @@ export class BusnessTrip implements IBusnessTrip {
         data["name"] = this.name;
         data["alone"] = this.alone;
         data["workInfo"] = this.workInfo ? this.workInfo.toJSON() : <any>undefined;
-        data["busnessTripId"] = this.busnessTripId;
         if (Array.isArray(this.persons)) {
             data["persons"] = [];
             for (let item of this.persons)
@@ -1608,7 +1605,6 @@ export interface IBusnessTrip {
     name: string;
     alone: boolean;
     workInfo: WorkingTime;
-    busnessTripId: number;
     persons?: Person[];
 }
 
@@ -1850,7 +1846,7 @@ export enum WorkStatus {
 
 export class WorkingTime implements IWorkingTime {
     id!: number;
-    nameOfProject!: string;
+    nameOfProject?: string | undefined;
     from!: Date;
     to!: Date;
     adress!: Adress;
@@ -1897,7 +1893,7 @@ export class WorkingTime implements IWorkingTime {
 
 export interface IWorkingTime {
     id: number;
-    nameOfProject: string;
+    nameOfProject?: string | undefined;
     from: Date;
     to: Date;
     adress: Adress;

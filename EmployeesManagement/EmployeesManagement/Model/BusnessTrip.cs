@@ -9,8 +9,6 @@ namespace EmployeesManagement.Model
 
 		public required WorkingTime WorkInfo { get; set; }
 
-		public required int BusnessTripId { get; set; }
-
         public ICollection<Person> Persons { get; set; } = new List<Person>();  
     }
 }

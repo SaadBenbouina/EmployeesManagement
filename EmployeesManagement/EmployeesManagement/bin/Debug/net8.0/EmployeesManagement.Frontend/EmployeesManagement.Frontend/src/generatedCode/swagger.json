@@ -1653,7 +1653,6 @@
       "BusnessTrip": {
         "required": [
           "alone",
-          "busnessTripId",
           "id",
           "name",
           "workInfo"
@@ -1672,10 +1671,6 @@
           },
           "workInfo": {
             "$ref": "#/components/schemas/WorkingTime"
-          },
-          "busnessTripId": {
-            "type": "integer",
-            "format": "int32"
           },
           "persons": {
             "type": "array",

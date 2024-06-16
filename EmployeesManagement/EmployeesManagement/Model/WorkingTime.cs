@@ -3,7 +3,7 @@ namespace EmployeesManagement.Model
 {
 	public class WorkingTime:BaseEntity
 	{
-		public required string NameOfProject { get; set; }
+		public  string? NameOfProject { get; set; }
 
 		public required DateTime From { get; set; }
 

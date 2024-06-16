@@ -1,13 +1,13 @@
 import { Container, Card, Col, Row } from 'react-bootstrap'; 
-import { Adress, ApiClient } from "../generatedCode/src/generatedCode/generated";
+import {  ApiClient, BusnessTrip } from "../generatedCode/src/generatedCode/generated";
 import { useNavigate } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { FaLaptopHouse } from 'react-icons/fa';
 import Sidebar from '../Component/SidebarComponent';
 import TitleComponent from '../Component/TitleComponent';
-import { CreateAdressComponent } from '../Component/CreateAdressComponent';
+import { CreateBusnessTripComponent } from '../Component/CreateBusnessComponent';
 
-export function CreatePageAdress() {
+export function CreatePageBusnessTrip() {
     const client = new ApiClient("https://localhost:7088");
     const navigate = useNavigate();
 
@@ -18,14 +18,14 @@ export function CreatePageAdress() {
                   <Sidebar />
               </Col>
               <Col>
-                  <TitleComponent title="New Adress" icon={FaLaptopHouse} iconColor="white" />
+                  <TitleComponent title="New BusnessTrip" icon={FaLaptopHouse} iconColor="white" />
                   <Row className="justify-content-center mt-4">
                       <Col md={9}>
                           <Card className="New">
                               <Card.Body>
-                                  <CreateAdressComponent
-                                      onSubmit={(data) => client.adressPOST(new Adress(data))}
-                                      onSuccess={() => navigate(RoutePaths.HomePageAdress)}
+                                  <CreateBusnessTripComponent
+                                      onSubmit={(data) => client.busnessTripPOST(new BusnessTrip(data))}
+                                      onSuccess={() => navigate(RoutePaths.IndexPageBusnessTrip)}
                                   />
                               </Card.Body>
                           </Card>
