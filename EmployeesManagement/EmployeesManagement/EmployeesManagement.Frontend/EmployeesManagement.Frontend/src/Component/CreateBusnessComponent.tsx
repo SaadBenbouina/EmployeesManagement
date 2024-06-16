@@ -1,4 +1,4 @@
-import {  ApiClient, BusnessTrip,  IBusnessTrip, WorkingTime,  } from "../generatedCode/src/generatedCode/generated";
+import { ApiClient, BusnessTrip, IBusnessTrip, WorkingTime } from "../generatedCode/src/generatedCode/generated";
 import { Button, Form } from 'react-bootstrap';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { CreateWorkInfoComponent } from "./CreateWorkInfoComponent";
@@ -29,22 +29,27 @@ export function CreateBusnessTripComponent(props: IProps) {
         <form onSubmit={handleSubmit(_onSubmit)}>
             <Form.Group className="mb-3" controlId="name">
                 <Form.Label>Title</Form.Label>
-                <Form.Control {...register('name')} type="text" />
-            </Form.Group>
-            
-            <Form.Group className="mb-3" controlId="alone">
-                <Form.Label>From</Form.Label>
-                <Form.Control {...register('alone')} type="text" />
+                <Form.Control {...register('name', { required: true })} type="text" />
+                {errors.name && <p className="text-danger">Title is required</p>}
             </Form.Group>
 
-            <CreateWorkInfoComponent
-                 onSubmit={(data) => client.workingTimePOST(new WorkingTime(data))}
-                 onSuccess={(WorkingTime) => console.log("WorkInfo saved:", WorkingTime)}
-                 />
-    
-            <Form.Group className="d-flex justify-content-center">
-                <Button type="submit">Save</Button>
+            <Form.Group className="mb-3" controlId="alone">
+                <Form.Label>Alone</Form.Label>
+                <Form.Select {...register('alone', { required: true })}>
+                    <option value="">Select...</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </Form.Select>
+                {errors.alone && <p className="text-danger">Please select an option</p>}
             </Form.Group>
+
+            <h5>Work Info</h5>
+            <CreateWorkInfoComponent
+                onSubmit={(data) => client.workingTimePOST(new WorkingTime(data))}
+                onSuccess={(WorkingTime) => console.log("WorkInfo saved:", WorkingTime)}
+            />
+
+           
         </form>
     );
 }
