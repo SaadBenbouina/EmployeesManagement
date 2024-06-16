@@ -17,20 +17,22 @@ export default class RoutePaths {
     public static HomePageAbsence = "/Absence";
 
     public static DetailsPageAdress =
-      "/Absence/DetailsAdress/:id";
+      "/Adresses/Edit/:id";
     public static IndexPageAdress =
-      "/Absence/IndexAdress";
+      "/Adresses/IndexAdress";
     public static CreatePageAdress =
-      "/Absence/CreateAdress";
-    public static HomePageAdress = "/Adress";
+      "/Adresses/Create";
+    public static HomePageAdress = "/Adresses";
+    public static EditPageAdress = (dto: { id?: number }) =>
+    this.DetailsPageAdress.replace(":id", dto.id?.toString() ?? "unknown");
 
     public static DetailsPageBusnessTrip =
-      "/Absence/DetailsBusnessTrip/:id";
+      "/BusnessTrips/DetailsBusnessTrip/:id";
     public static IndexPageBusnessTrip =
-      "/Absence/IndexBusnessTrip";
+      "/BusnessTrips/IndexBusnessTrip";
     public static CreatePageBusnessTrip =
-      "/Absence/CreateBusnessTrip";
-    public static HomePageBusnessTrip = "/BusnessTrip";
+      "/BusnessTrips/CreateBusnessTrip";
+    public static HomePageBusnessTrip = "/BusnessTrips";
 
     public static HomePageTicket = "/Tickets";
     public static CreatePageTickets = "/Tickets/Create";

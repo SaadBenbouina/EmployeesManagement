@@ -46,7 +46,7 @@ function PersonDetailsCard(props: IProps) {
             itemToUpdate={person}
             toggleEditMode={toggleEditMode}
             refreshParent={refreshParent}
-            onSave={handleEdit} // Übergebe die handleEdit-Funktion an das EditFormPerson-Component
+            onSave={handleEdit} 
           />
         ) : (
           <dl>

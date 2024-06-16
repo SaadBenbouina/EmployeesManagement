@@ -3,11 +3,11 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="EmployeesManagement/Migrations/20240615131931_new8.cs">
     <Files>
-      <File FileName="EmployeesManagement/Model/Person.cs" Line="6" Column="24" />
-      <File FileName="EmployeesManagement/Service/PersonsService/PersonService.cs" Line="7" Column="42" />
-      <File FileName="EmployeesManagement/Data/MyContext.cs" Line="5" Column="18" />
-      <File FileName="EmployeesManagement/Model/BaseEntity.cs" Line="13" Column="1" />
-      <File FileName="EmployeesManagement/Service/BaseMethoden.cs" Line="9" Column="33" />
+      <File FileName="EmployeesManagement/Model/Person.cs" />
+      <File FileName="EmployeesManagement/Service/PersonsService/PersonService.cs" />
+      <File FileName="EmployeesManagement/Data/MyContext.cs" />
+      <File FileName="EmployeesManagement/Model/BaseEntity.cs" />
+      <File FileName="EmployeesManagement/Service/BaseMethoden.cs" />
       <File FileName="EmployeesManagement/Migrations/20240615131931_new8.cs" Line="1" Column="1" />
     </Files>
     <Pads>
@@ -15,11 +15,7 @@
         <State name="__root__">
           <Node name="EmployeesManagement.Backend">
             <Node name="EmployeesManagement">
-              <Node name="Data" expanded="True" />
-              <Node name="Extensions" expanded="True" />
-              <Node name="Migrations" expanded="True">
-                <Node name="20240615131931_new8.cs" selected="True" />
-              </Node>
+              <Node name="Migrations" expanded="True" />
               <Node name="Model" expanded="True" />
               <Node name="Service" expanded="True">
                 <Node name="PersonsService" expanded="True" />
