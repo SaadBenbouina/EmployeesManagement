@@ -1833,7 +1833,6 @@
           "adress",
           "from",
           "id",
-          "nameOfProject",
           "to"
         ],
         "type": "object",
@@ -1843,7 +1842,8 @@
             "format": "int32"
           },
           "nameOfProject": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "from": {
             "type": "string",

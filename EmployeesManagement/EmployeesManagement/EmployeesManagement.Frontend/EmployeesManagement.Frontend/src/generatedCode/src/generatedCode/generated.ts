@@ -885,54 +885,6 @@ export class ApiClient {
     }
 
     /**
-     * @param workingTimeId (optional) 
-     * @param body (optional) 
-     * @return No Content
-     */
-    addWorkingInfo(workingTimeId: number | undefined, id: string, body: Person | undefined): Promise<void> {
-        let url_ = this.baseUrl + "/api/Persons/AddWorkingInfo/{id}?";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
-        if (workingTimeId === null)
-            throw new Error("The parameter 'workingTimeId' cannot be null.");
-        else if (workingTimeId !== undefined)
-            url_ += "workingTimeId=" + encodeURIComponent("" + workingTimeId) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_: RequestInit = {
-            body: content_,
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAddWorkingInfo(_response);
-        });
-    }
-
-    protected processAddWorkingInfo(response: Response): Promise<void> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 204) {
-            return response.text().then((_responseText) => {
-            return;
-            });
-        } else {
-            return response.text().then((_responseText) => {
-            let resultdefault: any = null;
-            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            resultdefault = ProblemDetails.fromJS(resultDatadefault);
-            return throwException("Error", status, _responseText, _headers, resultdefault);
-            });
-        }
-    }
-
-    /**
      * @param ticketId (optional) 
      * @param body (optional) 
      * @return No Content
@@ -1224,213 +1176,6 @@ export class ApiClient {
             });
         }
     }
-
-    /**
-     * @return OK
-     */
-    workingTimeAll(): Promise<WorkingTime[]> {
-        let url_ = this.baseUrl + "/api/WorkingTime";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_: RequestInit = {
-            method: "GET",
-            headers: {
-                "Accept": "text/plain"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processWorkingTimeAll(_response);
-        });
-    }
-
-    protected processWorkingTimeAll(response: Response): Promise<WorkingTime[]> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(WorkingTime.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
-            return result200;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<WorkingTime[]>(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return OK
-     */
-    workingTimePOST(body: WorkingTime | undefined): Promise<WorkingTime> {
-        let url_ = this.baseUrl + "/api/WorkingTime";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_: RequestInit = {
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "text/plain"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processWorkingTimePOST(_response);
-        });
-    }
-
-    protected processWorkingTimePOST(response: Response): Promise<WorkingTime> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = WorkingTime.fromJS(resultData200);
-            return result200;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<WorkingTime>(null as any);
-    }
-
-    /**
-     * @return OK
-     */
-    workingTimeGET(id: number): Promise<WorkingTime> {
-        let url_ = this.baseUrl + "/api/WorkingTime/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_: RequestInit = {
-            method: "GET",
-            headers: {
-                "Accept": "text/plain"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processWorkingTimeGET(_response);
-        });
-    }
-
-    protected processWorkingTimeGET(response: Response): Promise<WorkingTime> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = WorkingTime.fromJS(resultData200);
-            return result200;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<WorkingTime>(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return No Content
-     */
-    workingTimePUT(id: number, body: WorkingTime | undefined): Promise<void> {
-        let url_ = this.baseUrl + "/api/WorkingTime/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_: RequestInit = {
-            body: content_,
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processWorkingTimePUT(_response);
-        });
-    }
-
-    protected processWorkingTimePUT(response: Response): Promise<void> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 204) {
-            return response.text().then((_responseText) => {
-            return;
-            });
-        } else {
-            return response.text().then((_responseText) => {
-            let resultdefault: any = null;
-            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            resultdefault = ProblemDetails.fromJS(resultDatadefault);
-            return throwException("Error", status, _responseText, _headers, resultdefault);
-            });
-        }
-    }
-
-    /**
-     * @return No Content
-     */
-    workingTimeDELETE(id: number): Promise<void> {
-        let url_ = this.baseUrl + "/api/WorkingTime/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_: RequestInit = {
-            method: "DELETE",
-            headers: {
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processWorkingTimeDELETE(_response);
-        });
-    }
-
-    protected processWorkingTimeDELETE(response: Response): Promise<void> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 204) {
-            return response.text().then((_responseText) => {
-            return;
-            });
-        } else {
-            return response.text().then((_responseText) => {
-            let resultdefault: any = null;
-            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            resultdefault = ProblemDetails.fromJS(resultDatadefault);
-            return throwException("Error", status, _responseText, _headers, resultdefault);
-            });
-        }
-    }
 }
 
 export class Absence implements IAbsence {
@@ -1549,7 +1294,9 @@ export class BusnessTrip implements IBusnessTrip {
     id!: number;
     name!: string;
     alone!: boolean;
-    workInfo!: WorkingTime;
+    adress!: Adress;
+    from!: Date;
+    to!: Date;
     persons?: Person[];
 
     constructor(data?: IBusnessTrip) {
@@ -1560,7 +1307,7 @@ export class BusnessTrip implements IBusnessTrip {
             }
         }
         if (!data) {
-            this.workInfo = new WorkingTime();
+            this.adress = new Adress();
         }
     }
 
@@ -1569,7 +1316,9 @@ export class BusnessTrip implements IBusnessTrip {
             this.id = _data["id"];
             this.name = _data["name"];
             this.alone = _data["alone"];
-            this.workInfo = _data["workInfo"] ? WorkingTime.fromJS(_data["workInfo"]) : new WorkingTime();
+            this.adress = _data["adress"] ? Adress.fromJS(_data["adress"]) : new Adress();
+            this.from = _data["from"] ? new Date(_data["from"].toString()) : <any>undefined;
+            this.to = _data["to"] ? new Date(_data["to"].toString()) : <any>undefined;
             if (Array.isArray(_data["persons"])) {
                 this.persons = [] as any;
                 for (let item of _data["persons"])
@@ -1590,7 +1339,9 @@ export class BusnessTrip implements IBusnessTrip {
         data["id"] = this.id;
         data["name"] = this.name;
         data["alone"] = this.alone;
-        data["workInfo"] = this.workInfo ? this.workInfo.toJSON() : <any>undefined;
+        data["adress"] = this.adress ? this.adress.toJSON() : <any>undefined;
+        data["from"] = this.from ? this.from.toISOString() : <any>undefined;
+        data["to"] = this.to ? this.to.toISOString() : <any>undefined;
         if (Array.isArray(this.persons)) {
             data["persons"] = [];
             for (let item of this.persons)
@@ -1604,7 +1355,9 @@ export interface IBusnessTrip {
     id: number;
     name: string;
     alone: boolean;
-    workInfo: WorkingTime;
+    adress: Adress;
+    from: Date;
+    to: Date;
     persons?: Person[];
 }
 
@@ -1619,7 +1372,9 @@ export class Person implements IPerson {
     email!: string;
     departement!: string;
     tickets?: Ticket[] | undefined;
-    workInfo?: WorkingTime;
+    adress?: Adress;
+    from?: Date | undefined;
+    to?: Date | undefined;
     trip?: BusnessTrip;
     workStatus!: WorkStatus;
 
@@ -1652,7 +1407,9 @@ export class Person implements IPerson {
                 for (let item of _data["tickets"])
                     this.tickets!.push(Ticket.fromJS(item));
             }
-            this.workInfo = _data["workInfo"] ? WorkingTime.fromJS(_data["workInfo"]) : <any>undefined;
+            this.adress = _data["adress"] ? Adress.fromJS(_data["adress"]) : <any>undefined;
+            this.from = _data["from"] ? new Date(_data["from"].toString()) : <any>undefined;
+            this.to = _data["to"] ? new Date(_data["to"].toString()) : <any>undefined;
             this.trip = _data["trip"] ? BusnessTrip.fromJS(_data["trip"]) : <any>undefined;
             this.workStatus = _data["workStatus"];
         }
@@ -1685,7 +1442,9 @@ export class Person implements IPerson {
             for (let item of this.tickets)
                 data["tickets"].push(item.toJSON());
         }
-        data["workInfo"] = this.workInfo ? this.workInfo.toJSON() : <any>undefined;
+        data["adress"] = this.adress ? this.adress.toJSON() : <any>undefined;
+        data["from"] = this.from ? this.from.toISOString() : <any>undefined;
+        data["to"] = this.to ? this.to.toISOString() : <any>undefined;
         data["trip"] = this.trip ? this.trip.toJSON() : <any>undefined;
         data["workStatus"] = this.workStatus;
         return data;
@@ -1703,7 +1462,9 @@ export interface IPerson {
     email: string;
     departement: string;
     tickets?: Ticket[] | undefined;
-    workInfo?: WorkingTime;
+    adress?: Adress;
+    from?: Date | undefined;
+    to?: Date | undefined;
     trip?: BusnessTrip;
     workStatus: WorkStatus;
 }
@@ -1842,61 +1603,6 @@ export enum WorkStatus {
     _3 = 3,
     _4 = 4,
     _5 = 5,
-}
-
-export class WorkingTime implements IWorkingTime {
-    id!: number;
-    nameOfProject?: string | undefined;
-    from!: Date;
-    to!: Date;
-    adress!: Adress;
-
-    constructor(data?: IWorkingTime) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.adress = new Adress();
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.nameOfProject = _data["nameOfProject"];
-            this.from = _data["from"] ? new Date(_data["from"].toString()) : <any>undefined;
-            this.to = _data["to"] ? new Date(_data["to"].toString()) : <any>undefined;
-            this.adress = _data["adress"] ? Adress.fromJS(_data["adress"]) : new Adress();
-        }
-    }
-
-    static fromJS(data: any): WorkingTime {
-        data = typeof data === 'object' ? data : {};
-        let result = new WorkingTime();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["nameOfProject"] = this.nameOfProject;
-        data["from"] = this.from ? this.from.toISOString() : <any>undefined;
-        data["to"] = this.to ? this.to.toISOString() : <any>undefined;
-        data["adress"] = this.adress ? this.adress.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-export interface IWorkingTime {
-    id: number;
-    nameOfProject?: string | undefined;
-    from: Date;
-    to: Date;
-    adress: Adress;
 }
 
 export class ApiException extends Error {

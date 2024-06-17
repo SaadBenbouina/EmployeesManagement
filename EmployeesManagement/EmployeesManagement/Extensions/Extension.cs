@@ -3,7 +3,6 @@ using EmployeesManagement.Service.AbsencesService;
 using EmployeesManagement.Service.PersonsService;
 using EmployeesManagement.Service.AdressesService;
 using EmployeesManagement.Service.BusnessTripsService;
-using EmployeesManagement.Service.WorkingTimesService;
 
 namespace EmployeesManagement.Extensions
 {
@@ -15,7 +14,6 @@ namespace EmployeesManagement.Extensions
             services.AddTransient<IAbsence, AbsenceService>();
             services.AddTransient<IAdress, AdressService>();
             services.AddTransient<IBusnessTrip, BusnessTripService>();
-            services.AddTransient<IWorkingTime, WorkingTimeService>();
             return services;
         }
     }

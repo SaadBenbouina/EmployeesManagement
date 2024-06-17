@@ -19,7 +19,7 @@ using Microsoft.EntityFrameworkCore;
 
         // Define the relationship between Person and WorkingTime
         modelBuilder.Entity<Person>()
-            .HasOne(p => p.WorkInfo)
+            .HasOne(p => p.Adress)
             .WithMany();
 
         // Define the relationship between Person and Absence
@@ -40,8 +40,6 @@ using Microsoft.EntityFrameworkCore;
     public DbSet<Person> Persons { get; set; }
 
     public DbSet<BusnessTrip> BusnessTrips { get; set; }
-
-     public DbSet<WorkingTime> WorkingTimes { get; set; }
 
      public DbSet<Ticket> Tickets { get; set; }
     }

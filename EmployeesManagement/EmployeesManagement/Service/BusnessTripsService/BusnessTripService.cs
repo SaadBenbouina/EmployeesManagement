@@ -18,7 +18,9 @@ namespace EmployeesManagement.Service.BusnessTripsService
             itemToUpdate.Name = busnessTrip.Name;
             itemToUpdate.Alone = busnessTrip.Alone;
             itemToUpdate.Persons = busnessTrip.Persons;
-            itemToUpdate.WorkInfo = busnessTrip.WorkInfo;
+            itemToUpdate.From = busnessTrip.From;
+            itemToUpdate.To = busnessTrip.To;
+            itemToUpdate.Adress = busnessTrip.Adress;
             await _context.SaveChangesAsync();
             return itemToUpdate;
         }

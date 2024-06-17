@@ -21,7 +21,11 @@ namespace EmployeesManagement.Model
 
         public ICollection<Ticket>? Tickets { get; set; } = new List<Ticket>();
 
-        public  WorkingTime? WorkInfo { get; set; }
+        public  Adress? Adress { get; set; }
+
+        public DateTime? From { get; set; }
+
+        public DateTime? To { get; set; }
 
         public BusnessTrip? Trip { get; set; }
 

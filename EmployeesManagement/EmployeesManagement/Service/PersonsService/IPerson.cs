@@ -8,6 +8,5 @@ namespace EmployeesManagement.Service.PersonsService
     {
         Task<Person> Update(int id, Person person);
         Task<Ticket> AddTicket(int ticketId, Person person);
-        Task<WorkingTime> AddWorkingInfo(int workingTimeId, Person person);
     }
 }
