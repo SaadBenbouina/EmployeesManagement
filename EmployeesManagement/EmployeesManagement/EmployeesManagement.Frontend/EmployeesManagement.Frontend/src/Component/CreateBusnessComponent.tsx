@@ -1,16 +1,16 @@
-import { Adress } from "../generatedCode/src/generatedCode/generated";
+import { Adress, ApiClient, BusnessTrip, IBusnessTrip } from "../generatedCode/src/generatedCode/generated";
 import { Button, Form } from 'react-bootstrap';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import DatePicker from "react-datepicker";
+import { useEffect, useState } from "react";
 
 interface IProps {
-    onSubmit: (data: { name: string; alone: boolean; adressId: number; from: Date; to: Date; }) => Promise<void>;
-    addresses: Adress[];
+    onSubmit: (dto: IBusnessTrip) => Promise<BusnessTrip>;
     onSuccess: () => void;
 }
 
 export function CreateBusnessTripComponent(props: IProps) {
-    const { onSubmit, onSuccess, addresses } = props;
+    const { onSubmit, onSuccess } = props;
     const {
         register,
         handleSubmit,
@@ -18,6 +18,20 @@ export function CreateBusnessTripComponent(props: IProps) {
         control,
         getValues
     } = useForm();
+    const [addresses, setAddresses] = useState<Adress[]>([]);
+    const client = new ApiClient("https://localhost:7088");
+
+    useEffect(() => {
+        const fetchAddresses = async () => {
+            try {
+                const result = await client.adressAll();
+                setAddresses(result);
+            } catch (error) {
+                console.error("Error fetching addresses:", error);
+            }
+        };
+        fetchAddresses();
+    }, []);
 
     const _onSubmit: SubmitHandler<any> = async (data) => {
         try {

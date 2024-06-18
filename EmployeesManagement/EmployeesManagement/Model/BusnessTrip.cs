@@ -7,7 +7,9 @@ namespace EmployeesManagement.Model
 
 		public required Boolean Alone { get; set; }
 
-        public required Adress Adress { get; set; }
+        public  Adress? Adress { get; set; }
+
+        public required int AdressId { get; set; }
 
         public required DateTime From { get; set; }
 

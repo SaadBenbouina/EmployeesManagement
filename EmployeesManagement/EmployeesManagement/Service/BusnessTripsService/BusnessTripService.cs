@@ -18,6 +18,7 @@ namespace EmployeesManagement.Service.BusnessTripsService
             itemToUpdate.Name = busnessTrip.Name;
             itemToUpdate.Alone = busnessTrip.Alone;
             itemToUpdate.Persons = busnessTrip.Persons;
+            itemToUpdate.AdressId = busnessTrip.AdressId;
             itemToUpdate.From = busnessTrip.From;
             itemToUpdate.To = busnessTrip.To;
             itemToUpdate.Adress = busnessTrip.Adress;

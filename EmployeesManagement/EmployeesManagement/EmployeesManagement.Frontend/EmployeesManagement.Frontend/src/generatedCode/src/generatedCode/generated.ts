@@ -1294,7 +1294,8 @@ export class BusnessTrip implements IBusnessTrip {
     id!: number;
     name!: string;
     alone!: boolean;
-    adress!: Adress;
+    adress?: Adress;
+    adressId!: number;
     from!: Date;
     to!: Date;
     persons?: Person[];
@@ -1306,9 +1307,6 @@ export class BusnessTrip implements IBusnessTrip {
                     (<any>this)[property] = (<any>data)[property];
             }
         }
-        if (!data) {
-            this.adress = new Adress();
-        }
     }
 
     init(_data?: any) {
@@ -1316,7 +1314,8 @@ export class BusnessTrip implements IBusnessTrip {
             this.id = _data["id"];
             this.name = _data["name"];
             this.alone = _data["alone"];
-            this.adress = _data["adress"] ? Adress.fromJS(_data["adress"]) : new Adress();
+            this.adress = _data["adress"] ? Adress.fromJS(_data["adress"]) : <any>undefined;
+            this.adressId = _data["adressId"];
             this.from = _data["from"] ? new Date(_data["from"].toString()) : <any>undefined;
             this.to = _data["to"] ? new Date(_data["to"].toString()) : <any>undefined;
             if (Array.isArray(_data["persons"])) {
@@ -1340,6 +1339,7 @@ export class BusnessTrip implements IBusnessTrip {
         data["name"] = this.name;
         data["alone"] = this.alone;
         data["adress"] = this.adress ? this.adress.toJSON() : <any>undefined;
+        data["adressId"] = this.adressId;
         data["from"] = this.from ? this.from.toISOString() : <any>undefined;
         data["to"] = this.to ? this.to.toISOString() : <any>undefined;
         if (Array.isArray(this.persons)) {
@@ -1355,7 +1355,8 @@ export interface IBusnessTrip {
     id: number;
     name: string;
     alone: boolean;
-    adress: Adress;
+    adress?: Adress;
+    adressId: number;
     from: Date;
     to: Date;
     persons?: Person[];
