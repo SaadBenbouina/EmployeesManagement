@@ -2,7 +2,6 @@ import React from "react";
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import { Adress, IPerson, Person } from "../generatedCode/src/generatedCode/generated";
 import { FormGroup, Button } from "react-bootstrap";
-import * as Yup from "yup";
 
 interface IProps {
   itemToUpdate: Adress;
