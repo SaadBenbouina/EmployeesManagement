@@ -1,6 +1,7 @@
-import { IBusnessTrip } from "../generatedCode/src/generatedCode/generated";
+import { ApiClient, IBusnessTrip, Adress } from "../generatedCode/src/generatedCode/generated";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
+import { useEffect, useState } from "react";
 
 interface IProps {
   tableRows?: IBusnessTrip[];
@@ -8,6 +9,25 @@ interface IProps {
 }
 
 export function IndexTableBusnessTripComponent({ tableRows, isLoading }: IProps) {
+  const client = new ApiClient("https://localhost:7088");
+  const [addressMap, setAddressMap] = useState<{ [key: number]: string }>({});
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      if (tableRows) {
+        const uniqueAddressIds = [...new Set(tableRows.map(trip => trip.adressId))];
+        const addressPromises = uniqueAddressIds.map(id => client.adressGET(id));
+        const addresses = await Promise.all(addressPromises);
+        const addressMap = addresses.reduce((map, address) => {
+          map[address.id] = address.city;
+          return map;
+        }, {} as { [key: number]: string });
+        setAddressMap(addressMap);
+      }
+    };
+    fetchAddresses();
+  }, [tableRows, client]);
+
   return (
     <div className="table-responsive">
       <table className="table">
@@ -18,7 +38,7 @@ export function IndexTableBusnessTripComponent({ tableRows, isLoading }: IProps)
             <th>For One Person</th>
             <th>From</th>
             <th>To</th>
-            <th>AdressID</th>
+            <th>City</th>
           </tr>
         </thead>
         <tbody>
@@ -45,7 +65,7 @@ export function IndexTableBusnessTripComponent({ tableRows, isLoading }: IProps)
               <td>{x.alone ? "alone" : "group"}</td>
               <td>{new Date(x.from).toLocaleDateString()}</td>
               <td>{new Date(x.to).toLocaleDateString()}</td>
-              <td>{x.adressId}</td>
+              <td>{addressMap[x.adressId] || "Loading..."}</td>
             </tr>
           ))}
         </tbody>
