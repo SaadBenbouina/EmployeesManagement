@@ -11,6 +11,18 @@ export function CreatePageBusnessTrip() {
     const client = new ApiClient("https://localhost:7088");
     const navigate = useNavigate();
 
+    const handleOnSubmit = async (data) => {
+        try {
+            console.log("Submitting data to API:", data);
+            const response = await client.busnessTripPOST(new BusnessTrip(data));
+            console.log("API response:", response);
+            return response;
+        } catch (error) {
+            console.error("Error submitting business trip to API:", error);
+            throw error;
+        }
+    };
+
     return (
         <Container fluid>
             <Row>
@@ -24,8 +36,9 @@ export function CreatePageBusnessTrip() {
                             <Card className="New">
                                 <Card.Body>
                                     <CreateBusnessTripComponent
-                                        onSubmit={(data) => client.busnessTripPOST(new BusnessTrip(data))}
-                                        onSuccess={() => navigate(RoutePaths.IndexPageBusnessTrip)}                                    />
+                                        onSubmit={handleOnSubmit}
+                                        onSuccess={() => navigate(RoutePaths.HomePageBusnessTrip)}
+                                    />
                                 </Card.Body>
                             </Card>
                         </Col>

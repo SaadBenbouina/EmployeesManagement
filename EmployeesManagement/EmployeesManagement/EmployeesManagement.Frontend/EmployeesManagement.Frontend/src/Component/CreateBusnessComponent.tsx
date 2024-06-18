@@ -35,12 +35,16 @@ export function CreateBusnessTripComponent(props: IProps) {
 
     const _onSubmit: SubmitHandler<any> = async (data) => {
         try {
-            await onSubmit({
-                ...data,
+            // Only keep the fields required by the API
+            const submitData = {
+                name: data.name,
+                alone: data.alone === "true", // Convert string to boolean
                 from: new Date(data.from),
                 to: new Date(data.to),
-                adressId: parseInt(data.adress) // Only send the address ID
-            });
+                adressId: parseInt(data.adressId) // Only send the address ID
+            };
+            console.log("Submitting data:", submitData);
+            await onSubmit(submitData);
             onSuccess();
         } catch (error) {
             console.error("Error submitting form:", error);
@@ -109,9 +113,9 @@ export function CreateBusnessTripComponent(props: IProps) {
             </Form.Group>
 
             <h5>Address Info</h5>
-            <Form.Group className="mb-3" controlId="adress">
+            <Form.Group className="mb-3" controlId="adressId">
                 <Form.Label>Address</Form.Label>
-                <Form.Select {...register('adress', { required: true })}>
+                <Form.Select {...register('adressId', { required: true })}>
                     <option value="">Select...</option>
                     {addresses.map((address) => (
                         <option key={address.id} value={address.id.toString()}>
@@ -119,7 +123,7 @@ export function CreateBusnessTripComponent(props: IProps) {
                         </option>
                     ))}
                 </Form.Select>
-                {errors.adress && <p className="text-danger">Address is required</p>}
+                {errors.adressId && <p className="text-danger">Address is required</p>}
             </Form.Group>
 
             <Form.Group className="d-flex justify-content-center">
