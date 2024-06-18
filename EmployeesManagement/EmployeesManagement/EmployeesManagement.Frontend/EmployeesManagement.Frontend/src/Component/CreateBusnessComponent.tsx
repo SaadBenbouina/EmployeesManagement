@@ -1,7 +1,8 @@
-import { ApiClient, BusnessTrip, IBusnessTrip, WorkingTime } from "../generatedCode/src/generatedCode/generated";
+import { Adress, ApiClient, BusnessTrip, IBusnessTrip } from "../generatedCode/src/generatedCode/generated";
 import { Button, Form } from 'react-bootstrap';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { CreateWorkInfoComponent } from "./CreateWorkInfoComponent";
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import DatePicker from "react-datepicker";
+import { useState, useEffect } from "react";
 
 interface IProps {
     onSubmit: (dto: IBusnessTrip) => Promise<BusnessTrip>;
@@ -14,7 +15,25 @@ export function CreateBusnessTripComponent(props: IProps) {
         register,
         handleSubmit,
         formState: { errors },
+        control,
+        getValues
     } = useForm<IBusnessTrip>();
+    const [addresses, setAddresses] = useState<Adress[]>([]);
+
+    const client = new ApiClient("https://localhost:7088");
+
+    useEffect(() => {
+        const fetchAddresses = async () => {
+            try {
+                const result = await client.adressAll(); // Updated function call
+                setAddresses(result);
+            } catch (error) {
+                console.error("Error fetching addresses:", error);
+            }
+        };
+        fetchAddresses();
+    }, []);
+
     const _onSubmit: SubmitHandler<IBusnessTrip> = async (data) => {
         try {
             const resp = await onSubmit(data);
@@ -23,7 +42,6 @@ export function CreateBusnessTripComponent(props: IProps) {
             console.error("Error submitting form:", error);
         }
     };
-    const client = new ApiClient("https://localhost:7088");
 
     return (
         <form onSubmit={handleSubmit(_onSubmit)}>
@@ -44,12 +62,64 @@ export function CreateBusnessTripComponent(props: IProps) {
             </Form.Group>
 
             <h5>Work Info</h5>
-            <CreateWorkInfoComponent
-                onSubmit={(data) => client.workingTimePOST(new WorkingTime(data))}
-                onSuccess={(WorkingTime) => console.log("WorkInfo saved:", WorkingTime)}
-            />
+            <Form.Group className="mb-3" controlId="from">
+                <Form.Label>From</Form.Label>
+                <Controller
+                    name="from"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                        <DatePicker
+                            selected={field.value ? new Date(field.value) : null}
+                            onChange={(date) => field.onChange(date)}
+                            dateFormat="yyyy/MM/dd"
+                            className="form-control"
+                        />
+                    )}
+                />
+                {errors.from && <span>This field is required</span>}
+            </Form.Group>
 
-           
-        </form>
+            <Form.Group className="mb-3" controlId="to">
+                <Form.Label>To</Form.Label>
+                <Controller
+                    name="to"
+                    control={control}
+                    rules={{
+                        required: true,
+                        validate: value => {
+                            const fromDate = getValues('from');
+                            return new Date(value) > new Date(fromDate) || "To date must be later than from date";
+                        }
+                    }}
+                    render={({ field }) => (
+                        <DatePicker
+                            selected={field.value ? new Date(field.value) : null}
+                            onChange={(date) => field.onChange(date)}
+                            dateFormat="yyyy/MM/dd"
+                            className="form-control"
+                        />
+                    )}
+                />
+                {errors.to && <span>{errors.to.message}</span>}
+            </Form.Group>
+
+            <h5>Address Info</h5>
+            <Form.Group className="mb-3" controlId="adress">
+                <Form.Label>Address</Form.Label>
+                <Form.Select {...register('adress', { required: true })}>
+                    <option value="">Select...</option>
+                    {addresses.map((address) => (
+                        <option key={address.id} value={address.id}>
+                            {address.street}, {address.city}
+                        </option>
+                    ))}
+                </Form.Select>
+                {errors.adress?.id && <p className="text-danger">Address is required</p>}
+            </Form.Group>
+
+            <Form.Group className="d-flex justify-content-center">
+                <Button type="submit">Save</Button>
+            </Form.Group>        </form>
     );
 }
