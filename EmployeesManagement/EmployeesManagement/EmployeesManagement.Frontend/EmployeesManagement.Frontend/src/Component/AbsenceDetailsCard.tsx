@@ -1,4 +1,4 @@
-import { Absence  } from "../generatedCode/src/generatedCode/generated";
+import { Absence } from "../generatedCode/src/generatedCode/generated";
 import React from "react";
 import { Badge, Button, Card } from "react-bootstrap";
 import useToggle from "./useToggle";
@@ -19,9 +19,12 @@ function AbsenceDetailsCard(props: IProps) {
   const [editMode, toggleEditMode] = useToggle();
 
   const handleEdit = async (updatedAbsence: Absence) => {
+    console.log("Updated absence to be sent to API:", updatedAbsence);
     const client = new ApiClient("https://localhost:7088");
     try {
+      console.log("Calling absencesPUT...");
       await client.absencesPUT(absence.id, updatedAbsence);
+      console.log("API call successful, absence updated");
       refreshParent();
       toggleEditMode();
     } catch (error) {
@@ -45,28 +48,28 @@ function AbsenceDetailsCard(props: IProps) {
             itemToUpdate={absence}
             toggleEditMode={toggleEditMode}
             refreshParent={refreshParent}
-            onSave={handleEdit} 
+            onSave={handleEdit}
           />
         ) : (
-            
-            <dl>
+          <dl>
             <dt>Reason</dt>
             <dd>{absence.reason}</dd>
             
             <dt>From</dt>
             <dd>{absence.from.toDateString()}</dd>
 
-
             <dt>To</dt>
             <dd>{absence.to.toDateString()}</dd>
 
             <dt>Approved</dt>
-            <dd>{absence.approved !== undefined ? absence.approved.toString() : "false"}</dd>
-
+            <dd>{absence.approved !== undefined ? (absence.approved ? "True" : "False") : "False"}</dd>
           </dl>
         )}
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Button className="me-1" variant="primary" onClick={toggleEditMode}>
+          <Button className="me-1" variant="primary" onClick={() => {
+            console.log("Edit button clicked, current absence:", absence);
+            toggleEditMode();
+          }}>
             Edit
           </Button>
           <Link to={RoutePaths.HomePageAbsence}>
