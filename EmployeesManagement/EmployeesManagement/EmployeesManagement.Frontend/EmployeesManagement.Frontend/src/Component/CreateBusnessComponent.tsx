@@ -1,10 +1,10 @@
-import { Adress, BusnessTrip, IBusnessTrip } from "../generatedCode/src/generatedCode/generated";
+import { Adress } from "../generatedCode/src/generatedCode/generated";
 import { Button, Form } from 'react-bootstrap';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import DatePicker from "react-datepicker";
 
 interface IProps {
-    onSubmit: (dto: IBusnessTrip) => Promise<BusnessTrip>;
+    onSubmit: (data: { name: string; alone: boolean; adressId: number; from: Date; to: Date; }) => Promise<void>;
     addresses: Adress[];
     onSuccess: () => void;
 }
@@ -17,12 +17,16 @@ export function CreateBusnessTripComponent(props: IProps) {
         formState: { errors },
         control,
         getValues
-    } = useForm<IBusnessTrip>();
+    } = useForm();
 
-    const _onSubmit: SubmitHandler<IBusnessTrip> = async (data) => {
+    const _onSubmit: SubmitHandler<any> = async (data) => {
         try {
-            const resp = await onSubmit(data);
-            console.log("Form submitted successfully:", resp);
+            await onSubmit({
+                ...data,
+                from: new Date(data.from),
+                to: new Date(data.to),
+                adressId: parseInt(data.adress) // Only send the address ID
+            });
             onSuccess();
         } catch (error) {
             console.error("Error submitting form:", error);
@@ -96,7 +100,7 @@ export function CreateBusnessTripComponent(props: IProps) {
                 <Form.Select {...register('adress', { required: true })}>
                     <option value="">Select...</option>
                     {addresses.map((address) => (
-                        <option key={address.id} value={address.id}>
+                        <option key={address.id} value={address.id.toString()}>
                             {address.street}, {address.city}
                         </option>
                     ))}
