@@ -1,16 +1,16 @@
-import { Adress, ApiClient, BusnessTrip, IBusnessTrip } from "../generatedCode/src/generatedCode/generated";
+import { Adress, BusnessTrip, IBusnessTrip } from "../generatedCode/src/generatedCode/generated";
 import { Button, Form } from 'react-bootstrap';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import DatePicker from "react-datepicker";
-import { useState, useEffect } from "react";
 
 interface IProps {
     onSubmit: (dto: IBusnessTrip) => Promise<BusnessTrip>;
-    onSuccess: (dto: IBusnessTrip) => void;
+    addresses: Adress[];
+    onSuccess: () => void;
 }
 
 export function CreateBusnessTripComponent(props: IProps) {
-    const { onSubmit, onSuccess } = props;
+    const { onSubmit, onSuccess, addresses } = props;
     const {
         register,
         handleSubmit,
@@ -18,26 +18,12 @@ export function CreateBusnessTripComponent(props: IProps) {
         control,
         getValues
     } = useForm<IBusnessTrip>();
-    const [addresses, setAddresses] = useState<Adress[]>([]);
-
-    const client = new ApiClient("https://localhost:7088");
-
-    useEffect(() => {
-        const fetchAddresses = async () => {
-            try {
-                const result = await client.adressAll(); // Updated function call
-                setAddresses(result);
-            } catch (error) {
-                console.error("Error fetching addresses:", error);
-            }
-        };
-        fetchAddresses();
-    }, []);
 
     const _onSubmit: SubmitHandler<IBusnessTrip> = async (data) => {
         try {
             const resp = await onSubmit(data);
-            onSuccess(resp);
+            console.log("Form submitted successfully:", resp);
+            onSuccess();
         } catch (error) {
             console.error("Error submitting form:", error);
         }
@@ -115,11 +101,12 @@ export function CreateBusnessTripComponent(props: IProps) {
                         </option>
                     ))}
                 </Form.Select>
-                {errors.adress?.id && <p className="text-danger">Address is required</p>}
+                {errors.adress && <p className="text-danger">Address is required</p>}
             </Form.Group>
 
             <Form.Group className="d-flex justify-content-center">
                 <Button type="submit">Save</Button>
-            </Form.Group>        </form>
+            </Form.Group>
+        </form>
     );
 }
