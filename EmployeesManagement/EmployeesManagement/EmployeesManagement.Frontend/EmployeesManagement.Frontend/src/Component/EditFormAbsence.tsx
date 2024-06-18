@@ -21,7 +21,7 @@ const EditFormAbsence: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refre
     try {
       await onSave({
         ...values,
-        approved: values.approved === "true" ? true : false,
+        approved: values.approved === "true" ? true : values.approved === "false" ? false : values.approved,
       });
       console.log("Update successful");
     } catch (error) {
