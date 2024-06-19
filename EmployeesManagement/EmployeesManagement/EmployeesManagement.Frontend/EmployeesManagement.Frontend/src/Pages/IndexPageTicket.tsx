@@ -12,7 +12,7 @@ import RoutePaths from "../RouthPaths";
 export function IndexPageTicket() {
     const client = new ApiClient("https://localhost:7088");
     const { data, error, isLoading } = useSWR("/api/tickets", () =>
-    client.ticketsContollerAll()
+    client.ti()
   );
 
   

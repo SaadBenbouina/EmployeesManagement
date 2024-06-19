@@ -1541,10 +1541,10 @@ export enum Status {
 }
 
 export class Ticket implements ITicket {
+    id!: number;
     description!: string;
     title!: string;
     deadline!: Date;
-    ticketID!: number;
     responsible?: Person;
     completed!: boolean;
     attributed!: boolean;
@@ -1560,10 +1560,10 @@ export class Ticket implements ITicket {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.description = _data["description"];
             this.title = _data["title"];
             this.deadline = _data["deadline"] ? new Date(_data["deadline"].toString()) : <any>undefined;
-            this.ticketID = _data["ticketID"];
             this.responsible = _data["responsible"] ? Person.fromJS(_data["responsible"]) : <any>undefined;
             this.completed = _data["completed"];
             this.attributed = _data["attributed"];
@@ -1579,10 +1579,10 @@ export class Ticket implements ITicket {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["description"] = this.description;
         data["title"] = this.title;
         data["deadline"] = this.deadline ? this.deadline.toISOString() : <any>undefined;
-        data["ticketID"] = this.ticketID;
         data["responsible"] = this.responsible ? this.responsible.toJSON() : <any>undefined;
         data["completed"] = this.completed;
         data["attributed"] = this.attributed;
@@ -1591,10 +1591,10 @@ export class Ticket implements ITicket {
 }
 
 export interface ITicket {
+    id: number;
     description: string;
     title: string;
     deadline: Date;
-    ticketID: number;
     responsible?: Person;
     completed: boolean;
     attributed: boolean;

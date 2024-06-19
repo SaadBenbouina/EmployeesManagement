@@ -9,9 +9,9 @@ namespace EmployeesManagement.Controllers
     {
             private readonly ITicket _ticketService;
 
-            public TicketsContoller(ITicket ticket)
+            public TicketsContoller(ITicket ticketService)
             {
-            _ticketService = ticket;
+            _ticketService = ticketService;
             }
 
             [HttpGet]
