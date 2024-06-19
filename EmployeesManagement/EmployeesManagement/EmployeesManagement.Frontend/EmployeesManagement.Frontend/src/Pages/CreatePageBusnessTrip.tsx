@@ -1,5 +1,5 @@
 import { Container, Card, Col, Row } from 'react-bootstrap';
-import { ApiClient, BusnessTrip } from "../generatedCode/src/generatedCode/generated";
+import { Adress, ApiClient, BusnessTrip, IBusnessTrip } from "../generatedCode/src/generatedCode/generated";
 import { useNavigate } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { FaLaptopHouse } from 'react-icons/fa';
@@ -11,10 +11,19 @@ export function CreatePageBusnessTrip() {
     const client = new ApiClient("https://localhost:7088");
     const navigate = useNavigate();
 
-    const handleOnSubmit = async (data) => {
+    const handleOnSubmit = async (data: Omit<IBusnessTrip, 'id'>) => {
         try {
             console.log("Submitting data to API:", data);
-            const response = await client.busnessTripPOST(new BusnessTrip(data));
+            const address: Adress = await client.adressGET(data.adressId);
+            console.log("Fetched address:", address);
+            
+            const busnessTripData: IBusnessTrip = {
+                ...data,
+                id: 0, 
+                adress: address,
+            };
+
+            const response = await client.busnessTripPOST(new BusnessTrip(busnessTripData));
             console.log("API response:", response);
             return response;
         } catch (error) {
