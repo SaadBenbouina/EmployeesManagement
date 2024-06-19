@@ -29,7 +29,7 @@ export default class RoutePaths {
     this.DetailsPageAdress.replace(":id", dto.id?.toString() ?? "unknown");
 
     public static DetailsPageBusnessTrip =
-      "/BusnessTrips/Details/:id";
+      "/BusnessTrips/Edit/:id";
     public static IndexPageBusnessTrip =
       "/BusnessTrips/IndexBusnessTrip";
     public static CreatePageBusnessTrip =

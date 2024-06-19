@@ -15,18 +15,33 @@ export function IndexTableBusnessTripComponent({ tableRows, isLoading }: IProps)
   useEffect(() => {
     const fetchAddresses = async () => {
       if (tableRows && tableRows.length > 0) {
+        console.log("BusnessTrip objects:", tableRows); 
+
         const uniqueAddressIds = [...new Set(tableRows.map(trip => trip.adressId))];
-        const addressPromises = uniqueAddressIds.map(id => client.adressGET(id));
-        const addresses = await Promise.all(addressPromises);
-        const addressMap = addresses.reduce((map, address) => {
-          map[address.id] = address.city;
-          return map;
-        }, {} as { [key: number]: string });
-        setAddressMap(addressMap);
+        const missingAddressIds = uniqueAddressIds.filter(id => !addressMap[id]);
+
+        if (missingAddressIds.length > 0) {
+          const addressPromises = missingAddressIds.map(id => client.adressGET(id));
+          const addresses = await Promise.all(addressPromises);
+          const newAddressMap = addresses.reduce((map, address) => {
+            map[address.id] = address.city;
+            return map;
+          }, {} as { [key: number]: string });
+
+          setAddressMap(prevMap => ({ ...prevMap, ...newAddressMap }));
+          console.log("BusnessTrip objects22:", tableRows); 
+          // Update tableRows with the fetched addresses
+          tableRows.forEach(trip => {
+            trip.adress = addresses.find(address => address.id === trip.adressId);
+          });
+
+          console.log("Updated BusnessTrip objects:", tableRows);
+
+        }
       }
     };
     fetchAddresses();
-  }, [tableRows, client]);
+  }, [tableRows, client, addressMap]);
 
   return (
     <div className="table-responsive">
