@@ -14,7 +14,7 @@ export function IndexTableBusnessTripComponent({ tableRows, isLoading }: IProps)
 
   useEffect(() => {
     const fetchAddresses = async () => {
-      if (tableRows) {
+      if (tableRows && tableRows.length > 0) {
         const uniqueAddressIds = [...new Set(tableRows.map(trip => trip.adressId))];
         const addressPromises = uniqueAddressIds.map(id => client.adressGET(id));
         const addresses = await Promise.all(addressPromises);
@@ -49,14 +49,14 @@ export function IndexTableBusnessTripComponent({ tableRows, isLoading }: IProps)
               </td>
             </tr>
           )}
-          {tableRows && tableRows.length === 0 && (
+          {!isLoading && tableRows && tableRows.length === 0 && (
             <tr>
               <td colSpan={6} className="text-center">
                 No data - Start creating your first entry
               </td>
             </tr>
           )}
-          {tableRows?.map((x) => (
+          {!isLoading && tableRows?.map((x) => (
             <tr key={x.id}>
               <td>
                 <Link to={RoutePaths.EditPageBusnessTrip(x)}>{x.id}</Link>
