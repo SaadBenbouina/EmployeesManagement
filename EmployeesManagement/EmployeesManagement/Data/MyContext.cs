@@ -14,9 +14,10 @@ using Microsoft.EntityFrameworkCore;
 
         // Define the relationship between Person and Tickets
         modelBuilder.Entity<Person>()
-            .HasMany(p => p.Tickets)
-            .WithOne(t => t.Responsible);
-
+      .HasMany(p => p.Tickets)
+      .WithOne(t => t.Responsible)
+      .HasForeignKey(t => t.ResponsibleId)
+      .OnDelete(DeleteBehavior.SetNull);
         // Define the relationship between Person and WorkingTime
         modelBuilder.Entity<Person>()
             .HasOne(p => p.Adress)
@@ -33,7 +34,7 @@ using Microsoft.EntityFrameworkCore;
             .WithMany(bt => bt.Persons);
     }
 
-    public DbSet<Absence> Absences { get; set; }
+public DbSet<Absence> Absences { get; set; }
 
     public DbSet<Adress> Adresses { get; set; }
 

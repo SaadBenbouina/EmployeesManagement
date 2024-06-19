@@ -23,7 +23,7 @@ export function IndexPageTicket() {
                 <Sidebar />
             </Col>
             <Col>
-                <TitleComponent title="List Of All Personal" icon={FaUsersCog} iconColor="white" />
+                <TitleComponent title="List Of All Tickets" icon={FaUsersCog} iconColor="white" />
                 <Row fluid>
                     <Col md={12}>
                       <Col md={1}>

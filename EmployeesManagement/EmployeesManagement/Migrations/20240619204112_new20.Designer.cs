@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeesManagement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20240619204112_new20")]
+    partial class new20
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -266,8 +269,7 @@ namespace EmployeesManagement.Migrations
                 {
                     b.HasOne("EmployeesManagement.Model.Person", "Responsible")
                         .WithMany("Tickets")
-                        .HasForeignKey("ResponsibleId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("ResponsibleId");
 
                     b.Navigation("Responsible");
                 });

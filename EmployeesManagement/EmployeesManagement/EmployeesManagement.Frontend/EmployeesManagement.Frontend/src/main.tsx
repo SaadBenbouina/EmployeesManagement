@@ -17,6 +17,8 @@ import { IndexPageBusnessTrip } from './Pages/IndexPageBusnessTrip';
 import { CreatePageBusnessTrip } from './Pages/CreatePageBusnessTrip';
 import { EditPageAbsence } from './Pages/EditPageAbsence';
 import { EditPageBusnessTrip } from './Pages/EditPageBusnessTrip';
+import { IndexPageTicket } from './Pages/IndexPageTicket';
+import { CreatePageTicket } from './Pages/CreatePageTicket';
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
@@ -39,6 +41,8 @@ if (rootElement) {
           <Route path="/BusnessTrips" element={<IndexPageBusnessTrip />} />
           <Route path="/BusnessTrips/Create" element={<CreatePageBusnessTrip />} />
           <Route path="/BusnessTrips/Edit/:id" element={<EditPageBusnessTrip />} />
+          <Route path="/Tickets" element={<IndexPageTicket />} />
+          <Route path="/Tickets/Create" element={<CreatePageTicket />} />
 
 
         </Routes>

@@ -1,29 +1,29 @@
 ﻿<Properties StartupConfiguration="{4CB04899-F465-4933-8713-CE747C900AE0}|https">
-  <MonoDevelop.Ide.Workbench ActiveDocument="EmployeesManagement/Model/BusnessTrip.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="EmployeesManagement/Service/BaseMethoden.cs">
     <Files>
-      <File FileName="EmployeesManagement/Extensions/Extension.cs" Line="17" Column="1" />
-      <File FileName="EmployeesManagement/Migrations/20240609140658_ticketmigration.cs" Line="8" Column="26" />
-      <File FileName="EmployeesManagement/Controllers/PersonController.cs" Line="39" Column="10" />
-      <File FileName="EmployeesManagement/Model/BusnessTrip.cs" Line="12" Column="51" />
-      <File FileName="EmployeesManagement/Service/BusnessTripsService/BusnessTripService.cs" Line="21" Column="58" />
+      <File FileName="EmployeesManagement/Service/BaseMethoden.cs" Line="10" Column="1" />
+      <File FileName="EmployeesManagement/Data/MyContext.cs" Line="32" Column="38" />
+      <File FileName="EmployeesManagement/Program.cs" Line="1" Column="1" />
+      <File FileName="EmployeesManagement/package-lock.json" Line="1" Column="1" />
+      <File FileName="EmployeesManagement/appsettings.json" Line="1" Column="1" />
+      <File FileName="EmployeesManagement/Controllers/MyBaseApiController.cs" Line="1" Column="1" />
+      <File FileName="EmployeesManagement/Controllers/IBaseCrudController.cs" Line="1" Column="1" />
+      <File FileName="EmployeesManagement/appsettings.Development.json" Line="1" Column="1" />
+      <File FileName="EmployeesManagement/Service/IBaseModelService.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="EmployeesManagement.Backend">
             <Node name="EmployeesManagement" expanded="True">
-              <Node name="Controllers" expanded="True" />
+              <Node name="Dependencies" expanded="True" />
               <Node name="Data" expanded="True" />
               <Node name="Extensions" expanded="True" />
               <Node name="Migrations" expanded="True" />
               <Node name="Model" expanded="True" />
-              <Node name="Service" expanded="True">
-                <Node name="AbsencesService" expanded="True" />
-                <Node name="AdressesService" expanded="True" />
-                <Node name="BusnessTripsService" expanded="True" />
-                <Node name="PersonsService" expanded="True" />
-                <Node name="TicketsService" expanded="True" />
-              </Node>
+              <Node name="Properties" expanded="True" />
+              <Node name="Service" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>

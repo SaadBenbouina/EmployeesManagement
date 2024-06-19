@@ -41,8 +41,9 @@ export default class RoutePaths {
     public static HomePageTicket = "/Tickets";
     public static CreatePageTickets = "/Tickets/Create";
     public static IndexPageTickets = "/Tickets/Index";
-    public static DetailsPageTickets = "/Tickets/Details/:id";
-    public static EditPageTickets = "/Tickets/Edit/:id";
+    public static DetailsPageTickets = "/Tickets/Edit/:id";
+    public static EditPageTickets = (dto: { id?: number }) =>
+    this.DetailsPageTickets.replace(":id", dto.id?.toString() ?? "unknown");
 
     
   }
