@@ -20,7 +20,7 @@ export function EditPageBusnessTrip() {
       if (id) {
         try {
           const data: IBusnessTrip = await client.busnessTripGET(parseInt(id));
-          setBusnessTrip(new BusnessTrip(data)); 
+          setBusnessTrip(new BusnessTrip(data));
         } catch (error) {
           console.error("Error fetching BusnessTrip:", error);
         } finally {
@@ -31,13 +31,13 @@ export function EditPageBusnessTrip() {
 
     fetchBusnessTrip();
   }, [id]);
-  
+
   const handleDelete = async () => {
     if (busnessTrip) {
       const client = new ApiClient("https://localhost:7088");
       try {
         await client.busnessTripDELETE(busnessTrip.id);
-        navigate(RoutePaths.HomePageBusnessTrip); 
+        navigate(RoutePaths.HomePageBusnessTrip);
         console.log("BusnessTrip deleted");
       } catch (error) {
         console.error("Error deleting BusnessTrip:", error);
@@ -50,7 +50,7 @@ export function EditPageBusnessTrip() {
       const client = new ApiClient("https://localhost:7088");
       try {
         const data: IBusnessTrip = await client.busnessTripGET(parseInt(id));
-        setBusnessTrip(new BusnessTrip(data)); 
+        setBusnessTrip(new BusnessTrip(data));
       } catch (error) {
         console.error("Error fetching BusnessTrip:", error);
       }
@@ -61,7 +61,7 @@ export function EditPageBusnessTrip() {
     return <div>Loading...</div>;
   }
 
-  if (!BusnessTrip) {
+  if (!busnessTrip) {
     return <div>No BusnessTrip found</div>;
   }
 
@@ -74,7 +74,7 @@ export function EditPageBusnessTrip() {
         <Col>
           <TitleComponent title="Edit Of All BusnessTrip" icon={FaUsersCog} iconColor="white" />
           <Row className="justify-content-center mt-4">
-          <Col md={10}>
+            <Col md={10}>
               <BusnissTripDetailsCard
                 busnissTrip={busnessTrip}
                 refreshParent={refreshParent}
