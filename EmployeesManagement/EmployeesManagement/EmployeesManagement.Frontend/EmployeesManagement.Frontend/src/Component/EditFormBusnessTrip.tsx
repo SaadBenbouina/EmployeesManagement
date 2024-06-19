@@ -82,7 +82,7 @@ const EditFormBusnessTrip: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, r
 
           <FormGroup>
             <label htmlFor="alone">Alone</label>
-            <Field as="select" name="alone" className="form-control">
+            <Field as="select" name="alone" className="form-control" value={values.alone.toString()} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('alone', e.target.value === "true")}>
               <option value="">Select...</option>
               <option value="true">alone</option>
               <option value="false">group</option>
