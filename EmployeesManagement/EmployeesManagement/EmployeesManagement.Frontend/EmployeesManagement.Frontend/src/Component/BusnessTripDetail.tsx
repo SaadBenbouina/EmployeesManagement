@@ -76,7 +76,7 @@ function BusnissTripDetailsCard(props: IProps) {
             <dd>{busnissTrip.name}</dd>
 
             <dt>Alone</dt>
-            <dd>{busnissTrip.alone !== undefined ? (busnissTrip.alone ? "True" : "False") : "False"}</dd>
+            <dd>{busnissTrip.alone !== undefined ? (busnissTrip.alone ? "alone" : "group") : "group"}</dd>
             
             <dt>From</dt>
             <dd>{new Date(busnissTrip.from).toDateString()}</dd>

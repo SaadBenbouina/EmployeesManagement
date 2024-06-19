@@ -1,5 +1,5 @@
-import React from "react";
-import { BusnessTrip } from "../generatedCode/src/generatedCode/generated";
+import React, { useEffect, useState } from "react";
+import { BusnessTrip, Adress, ApiClient } from "../generatedCode/src/generatedCode/generated";
 import { FormGroup, Button, Form } from "react-bootstrap";
 import { FormikHelpers, Formik, Field, FormikProps } from "formik";
 import DatePicker from "react-datepicker";
@@ -15,6 +15,22 @@ const EditFormBusnessTrip: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, r
   const initialValues: BusnessTrip = new BusnessTrip({
     ...itemToUpdate,
   });
+
+  const [addresses, setAddresses] = useState<Adress[]>([]);
+  const client = new ApiClient("https://localhost:7088");
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        const addressList = await client.adressAll();
+        setAddresses(addressList);
+      } catch (error) {
+        console.error("Error fetching addresses:", error);
+      }
+    };
+
+    fetchAddresses();
+  }, []);
 
   const submitHandler = async (values: BusnessTrip, { setSubmitting }: FormikHelpers<BusnessTrip>) => {
     console.log("Form values on submit:", values);
@@ -65,14 +81,29 @@ const EditFormBusnessTrip: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, r
           </Form.Group>
 
           <FormGroup>
-            <label htmlFor="approved">Adress</label>
-            <Field as="select" name="approved" className="form-control">
+            <label htmlFor="alone">Alone</label>
+            <Field as="select" name="alone" className="form-control">
               <option value="">Select...</option>
-              <option value="true">True</option>
-              <option value="false">False</option>
+              <option value="true">alone</option>
+              <option value="false">group</option>
             </Field>
-            {errors.adress && touched.adress ? (
-              <div className="text-danger">{errors.adress}</div>
+            {errors.alone && touched.alone ? (
+              <div className="text-danger">{errors.alone}</div>
+            ) : null}
+          </FormGroup>
+
+          <FormGroup>
+            <label htmlFor="adressId">Address</label>
+            <Field as="select" name="adressId" className="form-control" value={values.adressId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('adressId', parseInt(e.target.value))}>
+              <option value="">Select...</option>
+              {addresses.map((address) => (
+                <option key={address.id} value={address.id}>
+                  {address.city}
+                </option>
+              ))}
+            </Field>
+            {errors.adressId && touched.adressId ? (
+              <div className="text-danger">{errors.adressId}</div>
             ) : null}
           </FormGroup>
 
