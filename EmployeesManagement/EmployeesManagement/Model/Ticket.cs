@@ -1,15 +1,13 @@
 ﻿using System;
 namespace EmployeesManagement.Model
 {
-	public class Ticket
-	{
+	public class Ticket : BaseEntity
+    {
 		public required string Description { get; set; }
 
 		public required string Title { get; set; }
 
 		public required DateTime Deadline { get; set; }
-
-		public required int TicketID { get; set; }
 
 		public Person? Responsible { get; set; }
 
