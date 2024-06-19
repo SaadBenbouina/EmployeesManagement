@@ -1,22 +1,22 @@
 import React from "react";
-import { Absence } from "../generatedCode/src/generatedCode/generated";
+import { BusnessTrip } from "../generatedCode/src/generatedCode/generated";
 import { FormGroup, Button, Form } from "react-bootstrap";
 import { FormikHelpers, Formik, Field, FormikProps } from "formik";
 import DatePicker from "react-datepicker";
 
 interface IProps {
-  itemToUpdate: Absence;
+  itemToUpdate: BusnessTrip;
   toggleEditMode: () => void;
   refreshParent: () => void;
-  onSave: (updatedAbsence: Absence) => Promise<void>;
+  onSave: (updatedBusnessTrip: BusnessTrip) => Promise<void>;
 }
 
-const EditFormAbsence: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refreshParent, onSave }) => {
-  const initialValues: Absence = new Absence({
+const EditFormBusnessTrip: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refreshParent, onSave }) => {
+  const initialValues: BusnessTrip = new BusnessTrip({
     ...itemToUpdate,
   });
 
-  const submitHandler = async (values: Absence, { setSubmitting }: FormikHelpers<Absence>) => {
+  const submitHandler = async (values: BusnessTrip, { setSubmitting }: FormikHelpers<BusnessTrip>) => {
     console.log("Form values on submit:", values);
     try {
       await onSave(values);
@@ -32,13 +32,13 @@ const EditFormAbsence: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refre
 
   return (
     <Formik initialValues={initialValues} onSubmit={submitHandler}>
-      {({ handleSubmit, isSubmitting, isValid, errors, touched, setFieldValue, values }: FormikProps<Absence>) => (
+      {({ handleSubmit, isSubmitting, isValid, errors, touched, setFieldValue, values }: FormikProps<BusnessTrip>) => (
         <Form noValidate onSubmit={handleSubmit}>
           <FormGroup>
-            <label htmlFor="reason">Reason</label>
-            <Field name="reason" type="text" className="form-control" />
-            {errors.reason && touched.reason ? (
-              <div className="text-danger">{errors.reason}</div>
+            <label htmlFor="name">Title</label>
+            <Field name="name" type="text" className="form-control" />
+            {errors.name && touched.name ? (
+              <div className="text-danger">{errors.name}</div>
             ) : null}
           </FormGroup>
 
@@ -65,14 +65,14 @@ const EditFormAbsence: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refre
           </Form.Group>
 
           <FormGroup>
-            <label htmlFor="approved">Approved</label>
+            <label htmlFor="approved">Adress</label>
             <Field as="select" name="approved" className="form-control">
               <option value="">Select...</option>
               <option value="true">True</option>
               <option value="false">False</option>
             </Field>
-            {errors.approved && touched.approved ? (
-              <div className="text-danger">{errors.approved}</div>
+            {errors.adress && touched.adress ? (
+              <div className="text-danger">{errors.adress}</div>
             ) : null}
           </FormGroup>
 
@@ -90,4 +90,4 @@ const EditFormAbsence: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refre
   );
 };
 
-export default EditFormAbsence;
+export default EditFormBusnessTrip;
