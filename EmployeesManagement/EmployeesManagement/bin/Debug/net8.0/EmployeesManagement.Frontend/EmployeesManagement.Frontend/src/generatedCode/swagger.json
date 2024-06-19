@@ -1518,11 +1518,15 @@
           "completed",
           "deadline",
           "description",
-          "ticketID",
+          "id",
           "title"
         ],
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "description": {
             "type": "string"
           },
@@ -1532,10 +1536,6 @@
           "deadline": {
             "type": "string",
             "format": "date-time"
-          },
-          "ticketID": {
-            "type": "integer",
-            "format": "int32"
           },
           "responsible": {
             "$ref": "#/components/schemas/Person"

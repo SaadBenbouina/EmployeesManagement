@@ -9,9 +9,11 @@ namespace EmployeesManagement.Model
 
 		public required DateTime Deadline { get; set; }
 
-		public Person? Responsible { get; set; }
+		public int? ResponsibleId { get; set; }
 
-		public required Boolean Completed { get; set; }
+        public Person Responsible { get; set; }
+
+        public required Boolean Completed { get; set; }
 
 		public required Boolean Attributed { get; set; }
 	}
