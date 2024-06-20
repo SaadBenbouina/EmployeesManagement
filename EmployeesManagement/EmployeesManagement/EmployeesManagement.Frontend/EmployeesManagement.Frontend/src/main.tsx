@@ -19,6 +19,7 @@ import { EditPageAbsence } from './Pages/EditPageAbsence';
 import { EditPageBusnessTrip } from './Pages/EditPageBusnessTrip';
 import { IndexPageTicket } from './Pages/IndexPageTicket';
 import { CreatePageTicket } from './Pages/CreatePageTicket';
+import { EditPageTicket } from './Pages/EditPageTicket';
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
@@ -43,6 +44,7 @@ if (rootElement) {
           <Route path="/BusnessTrips/Edit/:id" element={<EditPageBusnessTrip />} />
           <Route path="/Tickets" element={<IndexPageTicket />} />
           <Route path="/Tickets/Create" element={<CreatePageTicket />} />
+          <Route path="/Tickets/Edit/:id" element={<EditPageTicket />} />
 
 
         </Routes>

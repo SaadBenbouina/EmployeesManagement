@@ -5,42 +5,42 @@ import { FaUsersCog } from "react-icons/fa";
 import Sidebar from "../Component/SidebarComponent";
 import TitleComponent from "../Component/TitleComponent";
 import RoutePaths from "../RouthPaths";
-import { BusnessTrip, ApiClient, IBusnessTrip } from "../generatedCode/src/generatedCode/generated";
-import BusnissTripDetailsCard from "../Component/BusnessTripDetailCard";
+import { Ticket, ApiClient, ITicket } from "../generatedCode/src/generatedCode/generated";
+import { TicketDetailsCard } from "../Component/TicketDetailsCard";
 
-export function EditPageBusnessTrip() {
+export function EditPageTicket() {
   const { id } = useParams<{ id: string | undefined }>();
-  const [busnessTrip, setBusnessTrip] = useState<BusnessTrip | null>(null);
+  const [ticket, setTicket] = useState<Ticket | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBusnessTrip = async () => {
+    const fetchTicket = async () => {
       const client = new ApiClient("https://localhost:7088");
       if (id) {
         try {
-          const data: IBusnessTrip = await client.busnessTripGET(parseInt(id));
-          setBusnessTrip(new BusnessTrip(data));
+          const data: ITicket = await client.ticketsContollerGET(parseInt(id));
+          setTicket(new Ticket(data));
         } catch (error) {
-          console.error("Error fetching BusnessTrip:", error);
+          console.error("Error fetching Ticket:", error);
         } finally {
           setLoading(false);
         }
       }
     };
 
-    fetchBusnessTrip();
+    fetchTicket();
   }, [id]);
 
   const handleDelete = async () => {
-    if (busnessTrip) {
+    if (ticket) {
       const client = new ApiClient("https://localhost:7088");
       try {
-        await client.busnessTripDELETE(busnessTrip.id);
-        navigate(RoutePaths.HomePageBusnessTrip);
-        console.log("BusnessTrip deleted");
+        await client.ticketsContollerDELETE(ticket.id);
+        navigate(RoutePaths.HomePageTicket);
+        console.log("Ticket deleted");
       } catch (error) {
-        console.error("Error deleting BusnessTrip:", error);
+        console.error("Error deleting Ticket:", error);
       }
     }
   };
@@ -49,10 +49,10 @@ export function EditPageBusnessTrip() {
     if (id) {
       const client = new ApiClient("https://localhost:7088");
       try {
-        const data: IBusnessTrip = await client.busnessTripGET(parseInt(id));
-        setBusnessTrip(new BusnessTrip(data));
+        const data: ITicket = await client.ticketsContollerGET(parseInt(id));
+        setTicket(new Ticket(data));
       } catch (error) {
-        console.error("Error fetching BusnessTrip:", error);
+        console.error("Error fetching Ticket:", error);
       }
     }
   };
@@ -61,8 +61,8 @@ export function EditPageBusnessTrip() {
     return <div>Loading...</div>;
   }
 
-  if (!busnessTrip) {
-    return <div>No BusnessTrip found</div>;
+  if (!ticket) {
+    return <div>No Ticket found</div>;
   }
 
   return (
@@ -72,11 +72,11 @@ export function EditPageBusnessTrip() {
           <Sidebar />
         </Col>
         <Col>
-          <TitleComponent title="Edit Of All BusnessTrip" icon={FaUsersCog} iconColor="white" />
+          <TitleComponent title="Edit Of All Ticket" icon={FaUsersCog} iconColor="white" />
           <Row className="justify-content-center mt-4">
             <Col md={10}>
-              <BusnissTripDetailsCard
-                busnissTrip={busnessTrip}
+              <TicketDetailsCard
+                ticket={ticket}
                 refreshParent={refreshParent}
                 handleDelete={handleDelete}
               />
