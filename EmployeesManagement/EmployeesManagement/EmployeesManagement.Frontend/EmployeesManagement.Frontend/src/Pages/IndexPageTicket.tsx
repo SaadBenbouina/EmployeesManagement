@@ -7,6 +7,7 @@ import TitleComponent from "../Component/TitleComponent";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { IndexTableTicketComponent } from "../Component/IndexTableTicketComponent";
+import { useAdjustHeight } from "../AdjustHeight";
 
 
 export function IndexPageTicket() {
@@ -15,14 +16,15 @@ export function IndexPageTicket() {
     client.ticketsContollerAll()
   );
 
-  
+  useAdjustHeight('.sidebar', '.content');
+
   return (
     <Container fluid>
         <Row>
             <Col xs={2} className="p-0">
                 <Sidebar />
             </Col>
-            <Col>
+            <Col className="content">
                 <TitleComponent title="List Of All Tickets" icon={FaTicketAlt} iconColor="white" />
                 <Row fluid>
                     <Col md={12}>

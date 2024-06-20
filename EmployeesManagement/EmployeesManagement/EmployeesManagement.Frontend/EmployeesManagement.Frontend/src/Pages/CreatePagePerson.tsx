@@ -7,10 +7,12 @@ import RoutePaths from "../RouthPaths";
 import { FaUsersCog } from 'react-icons/fa';
 import Sidebar from '../Component/SidebarComponent';
 import TitleComponent from '../Component/TitleComponent';
+import { useAdjustHeight } from '../AdjustHeight';
 
 export function CreatePagePerson() {
     const client = new ApiClient("https://localhost:7088");
     const navigate = useNavigate();
+    useAdjustHeight('.sidebar', '.content');
 
     return (
       <Container fluid>
@@ -18,7 +20,7 @@ export function CreatePagePerson() {
               <Col xs={2} className="p-0">
                   <Sidebar />
               </Col>
-              <Col>
+              <Col className="content">
                   <TitleComponent title="New Personal" icon={FaUsersCog} iconColor="white" />
                   <Row className="justify-content-center mt-4">
                       <Col md={9}>

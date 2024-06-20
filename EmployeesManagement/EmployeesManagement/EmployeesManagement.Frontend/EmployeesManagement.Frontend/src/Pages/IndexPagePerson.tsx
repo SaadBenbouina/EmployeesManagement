@@ -7,6 +7,7 @@ import Sidebar from "../Component/SidebarComponent";
 import TitleComponent from "../Component/TitleComponent";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
+import { useAdjustHeight } from "../AdjustHeight";
 
 
 export function IndexPagePerson() {
@@ -14,13 +15,15 @@ export function IndexPagePerson() {
     const { data, error, isLoading } = useSWR("/api/persons", () =>
     client.personsAll()
   );
+  useAdjustHeight('.sidebar', '.content');
+
   return (
     <Container fluid>
         <Row>
             <Col xs={2} className="p-0">
                 <Sidebar />
             </Col>
-            <Col>
+            <Col className="content">
                 <TitleComponent title="List Of All Personal" icon={FaUsersCog} iconColor="white" />
                 <Row fluid>
                     <Col md={12}>

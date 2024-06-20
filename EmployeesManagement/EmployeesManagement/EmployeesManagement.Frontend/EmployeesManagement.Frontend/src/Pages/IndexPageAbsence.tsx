@@ -7,6 +7,7 @@ import TitleComponent from "../Component/TitleComponent";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { IndexTableAbsenceComponent } from "../Component/IndexTableAbsenceComponent";
+import { useAdjustHeight } from "../AdjustHeight";
 
 
 export function IndexPageAbsence() {
@@ -14,13 +15,15 @@ export function IndexPageAbsence() {
     const { data, error, isLoading } = useSWR("/api/absence", () =>
     client.absencesAll()
   );
+  useAdjustHeight('.sidebar', '.content');
+
   return (
     <Container fluid>
         <Row>
             <Col xs={2} className="p-0">
                 <Sidebar />
             </Col>
-            <Col>
+            <Col className="content">
                 <TitleComponent title="List Of All Absence" icon={FaRegCalendarAlt} iconColor="white" />
                 <Row fluid>
                     <Col md={12}>

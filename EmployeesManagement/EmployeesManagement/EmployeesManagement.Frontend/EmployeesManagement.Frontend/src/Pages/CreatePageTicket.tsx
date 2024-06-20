@@ -6,6 +6,7 @@ import { FaLaptopHouse, FaTicketAlt } from 'react-icons/fa';
 import Sidebar from '../Component/SidebarComponent';
 import TitleComponent from '../Component/TitleComponent';
 import { CreateTicketComponent } from '../Component/CreateTicketComponent';
+import { useAdjustHeight } from '../AdjustHeight';
 
 export function CreatePageTicket() {
     const client = new ApiClient("https://localhost:7088");
@@ -22,6 +23,7 @@ export function CreatePageTicket() {
             throw error;
         }
     };
+    useAdjustHeight('.sidebar', '.content');
 
     return (
         <Container fluid>
@@ -29,7 +31,7 @@ export function CreatePageTicket() {
                 <Col xs={2} className="p-0">
                     <Sidebar />
                 </Col>
-                <Col>
+                <Col className="content">
                     <TitleComponent title="New Ticket" icon={FaTicketAlt} iconColor="white" />
                     <Row className="justify-content-center mt-4">
                         <Col md={9}>

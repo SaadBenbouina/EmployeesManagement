@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { IndexTableBusnessTripComponent } from "../Component/IndexTableBusnessTripComponent";
 import { MdBusinessCenter } from "react-icons/md";
+import { useAdjustHeight } from "../AdjustHeight";
 
 
 export function IndexPageBusnessTrip() {
@@ -15,13 +16,15 @@ export function IndexPageBusnessTrip() {
     const { data, error, isLoading } = useSWR("/api/busnessTrip", () =>
     client.busnessTripAll()
   );
+  useAdjustHeight('.sidebar', '.content');
+
   return (
     <Container fluid>
         <Row>
             <Col xs={2} className="p-0">
                 <Sidebar />
             </Col>
-            <Col>
+            <Col className="content">
                 <TitleComponent title="List Of All BusnessTrip" icon={MdBusinessCenter} iconColor="white" />
                 <Row fluid>
                     <Col md={12}>

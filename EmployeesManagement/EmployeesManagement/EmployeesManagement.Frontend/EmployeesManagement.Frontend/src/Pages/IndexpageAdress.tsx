@@ -7,6 +7,7 @@ import TitleComponent from "../Component/TitleComponent";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { IndexTableAdressComponent } from "../Component/IndexTableAdressComponent";
+import { useAdjustHeight } from "../AdjustHeight";
 
 
 export function IndexPageAdress() {
@@ -14,13 +15,15 @@ export function IndexPageAdress() {
     const { data, error, isLoading } = useSWR("/api/adresses", () =>
     client.adressAll()
   );
+  useAdjustHeight('.sidebar', '.content');
+
   return (
     <Container fluid>
         <Row>
             <Col xs={2} className="p-0">
                 <Sidebar />
             </Col>
-            <Col>
+            <Col className="content">
                 <TitleComponent title="List Of All Adresses" icon={FaMapMarkerAlt} iconColor="white" />
                 <Row fluid>
                     <Col md={12}>

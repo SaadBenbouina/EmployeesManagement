@@ -16,7 +16,7 @@ const Sidebar: React.FC = () => {
         <Link to={RoutePaths.HomePagePerson} className="text-dark mb-2 d-flex align-items-center">
           <FaUser className="me-3" /> Personal
         </Link>
-        <Link to={RoutePaths.IndexPageAbsence} className="text-dark mb-2 d-flex align-items-center">
+        <Link to={RoutePaths.IndexPagePerson} className="text-dark mb-2 d-flex align-items-center">
           All Personal
         </Link>
         <Link to={RoutePaths.CreatePagePerson} className="text-dark mb-2 d-flex align-items-center">

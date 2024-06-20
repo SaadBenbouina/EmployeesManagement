@@ -3,12 +3,13 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import useSWR from "swr";
 import Sidebar from "../Component/SidebarComponent";
 import StatusChart from "../Component/StatusChart"; // Adjust the path as needed
-import { Status, ApiClient, Person } from "../generatedCode/src/generatedCode/generated";
+import { ApiClient, Person } from "../generatedCode/src/generatedCode/generated";
 import TitleComponent from "../Component/TitleComponent";
 import { FaUsersCog } from "react-icons/fa";
 import CountPerDepartmentBarChart from "../Component/CountPerResponsible"; // Adjust the path as needed
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
+import { useAdjustHeight } from "../AdjustHeight";
 
 const client = new ApiClient("https://localhost:7088");
 
@@ -30,7 +31,7 @@ const HomePagePerson: React.FC = () => {
       return serverData.map((person: Person) => person.status);
     }
     return [];
-  }, [serverData])
+  }, [serverData]);
 
   const workstatusData = useMemo(() => {
     if (serverData) {
@@ -39,19 +40,20 @@ const HomePagePerson: React.FC = () => {
     return [];
   }, [serverData]);
 
+  useAdjustHeight('.sidebar', '.content');
+
   if (error) return <div>Failed to load data</div>;
   if (!serverData) return <div>Loading...</div>;
 
   return (
     <Container fluid>
       <Row>
-        <Col xs={2} className="p-0">
+        <Col xs={2} className="p-0 sidebar">
           <Sidebar />
         </Col>
-        <Col >
+        <Col className="content">
           <TitleComponent title="HomePage Person" icon={FaUsersCog} iconColor="white" />
-          <Link to={RoutePaths.IndexPagePerson} className="d-block mb-3">All Personnel</Link>
-          <Row fluid>
+          <Row>
             <Col md={6}>
               <Card className="mb-3">
                 <Card.Body>
@@ -64,12 +66,12 @@ const HomePagePerson: React.FC = () => {
               <Card className="mb-3">
                 <Card.Body>
                   <h5>WorkStatus</h5>
-                  <StatusChart data={workstatusData}  />
+                  <StatusChart data={workstatusData} />
                 </Card.Body>
               </Card>
             </Col>
           </Row>
-          <Row fluid>
+          <Row>
             <Col md={12}>
               <Card className="mb-3">
                 <Card.Body>
