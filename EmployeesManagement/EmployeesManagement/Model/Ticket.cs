@@ -11,7 +11,7 @@ namespace EmployeesManagement.Model
 
 		public int? ResponsibleId { get; set; }
 
-        public Person Responsible { get; set; }
+        public Person? Responsible { get; set; }
 
         public required Boolean Completed { get; set; }
 

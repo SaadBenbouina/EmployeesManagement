@@ -1,28 +1,25 @@
 ﻿<Properties StartupConfiguration="{4CB04899-F465-4933-8713-CE747C900AE0}|https">
-  <MonoDevelop.Ide.Workbench ActiveDocument="EmployeesManagement/Service/BaseMethoden.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="EmployeesManagement/Service/TicketsService/TicketService.cs">
     <Files>
-      <File FileName="EmployeesManagement/Service/BaseMethoden.cs" Line="10" Column="1" />
-      <File FileName="EmployeesManagement/Data/MyContext.cs" Line="32" Column="38" />
-      <File FileName="EmployeesManagement/Program.cs" Line="1" Column="1" />
-      <File FileName="EmployeesManagement/package-lock.json" Line="1" Column="1" />
-      <File FileName="EmployeesManagement/appsettings.json" Line="1" Column="1" />
-      <File FileName="EmployeesManagement/Controllers/MyBaseApiController.cs" Line="1" Column="1" />
-      <File FileName="EmployeesManagement/Controllers/IBaseCrudController.cs" Line="1" Column="1" />
-      <File FileName="EmployeesManagement/appsettings.Development.json" Line="1" Column="1" />
-      <File FileName="EmployeesManagement/Service/IBaseModelService.cs" Line="1" Column="1" />
+      <File FileName="EmployeesManagement/Model/Ticket.cs" Line="20" Column="2" />
+      <File FileName="EmployeesManagement/Service/TicketsService/TicketService.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="EmployeesManagement.Backend">
-            <Node name="EmployeesManagement" expanded="True">
+            <Node name="EmployeesManagement">
               <Node name="Dependencies" expanded="True" />
+              <Node name="Controllers" expanded="True" />
               <Node name="Data" expanded="True" />
               <Node name="Extensions" expanded="True" />
               <Node name="Migrations" expanded="True" />
-              <Node name="Model" expanded="True" />
               <Node name="Properties" expanded="True" />
-              <Node name="Service" expanded="True" />
+              <Node name="Service" expanded="True">
+                <Node name="TicketsService" expanded="True">
+                  <Node name="TicketService.cs" selected="True" />
+                </Node>
+              </Node>
               <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>

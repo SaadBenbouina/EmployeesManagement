@@ -15,8 +15,7 @@ export function CreateTicketComponent(props: IProps) {
         register,
         handleSubmit,
         formState: { errors },
-        control,
-        getValues
+        control
     } = useForm();
     const [persons, setPersons] = useState<Person[]>([]);
     const client = new ApiClient("https://localhost:7088");
@@ -35,15 +34,19 @@ export function CreateTicketComponent(props: IProps) {
 
     const _onSubmit: SubmitHandler<any> = async (data) => {
         try {
-            // Only keep the fields required by the API
+            // Conditionally include responsibleId only if selected
+            const responsibleId = data.responsibleId ? parseInt(data.responsibleId) : undefined;
+
+            // Prepare the submission data
             const submitData: Omit<ITicket, 'id'> = {
                 description: data.description,
                 title: data.title,
                 deadline: new Date(data.deadline),
-                responsibleId: parseInt(data.responsibleId),
+                responsibleId: responsibleId,
                 attributed: data.attributed === "true",
                 completed: data.completed === "true"
             };
+
             console.log("Submitting data:", submitData);
             await onSubmit(submitData);
             onSuccess();
@@ -108,7 +111,7 @@ export function CreateTicketComponent(props: IProps) {
             <h5>Responsible Person</h5>
             <Form.Group className="mb-3" controlId="responsibleId">
                 <Form.Label>Responsible</Form.Label>
-                <Form.Select {...register('responsibleId', { required: true })}>
+                <Form.Select {...register('responsibleId')}>
                     <option value="">Select...</option>
                     {persons.map((person) => (
                         <option key={person.id} value={person.id.toString()}>
@@ -116,7 +119,6 @@ export function CreateTicketComponent(props: IProps) {
                         </option>
                     ))}
                 </Form.Select>
-                {errors.responsibleId && <p className="text-danger">Responsible person is required</p>}
             </Form.Group>
 
             <Form.Group className="d-flex justify-content-center">
