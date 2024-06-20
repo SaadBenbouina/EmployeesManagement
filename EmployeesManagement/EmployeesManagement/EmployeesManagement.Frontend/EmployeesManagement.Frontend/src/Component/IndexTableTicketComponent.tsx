@@ -11,6 +11,7 @@ interface IProps {
 export function IndexTableTicketComponent({ tableRows, isLoading }: IProps) {
   const client = new ApiClient("https://localhost:7088");
   const [PersonMap, setPersonMap] = useState<{ [key: number]: string }>({});
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     const fetchPersones = async () => {
@@ -21,27 +22,25 @@ export function IndexTableTicketComponent({ tableRows, isLoading }: IProps) {
         const validRows = tableRows.filter(ticket => ticket.responsibleId !== undefined) as ITicket[];
         
         const uniquePersonIds = [...new Set(validRows.map(ticket => ticket.responsibleId))] as number[];
-        const missingPersonIds = uniquePersonIds.filter(id => id !== undefined && !PersonMap[id]);
+        const missingPersonIds = uniquePersonIds.filter(id => !PersonMap[id]);
 
         if (missingPersonIds.length > 0) {
+          setIsFetching(true);
           const PersonPromises = missingPersonIds.map(id => client.personsGET(id));
-          const Persones = await Promise.all(PersonPromises);
-          const newPersonMap = Persones.reduce((map, Person) => {
-            map[Person.id] = Person.lastName;
-            return map;
-          }, {} as { [key: number]: string });
+          try {
+            const Persones = await Promise.all(PersonPromises);
+            const newPersonMap = Persones.reduce((map, Person) => {
+              map[Person.id] = Person.lastName;
+              return map;
+            }, {} as { [key: number]: string });
 
-          setPersonMap(prevMap => ({ ...prevMap, ...newPersonMap }));
-          console.log("Ticket objects22:", tableRows);
-          
-          // Update tableRows with the fetched Persones
-          tableRows.forEach(ticket => {
-            if (ticket.responsibleId !== undefined) {
-              ticket.responsible = Persones.find(Person => Person.id === ticket.responsibleId);
-            }
-          });
-
-          console.log("Updated Ticket objects:", tableRows);
+            setPersonMap(prevMap => ({ ...prevMap, ...newPersonMap }));
+            console.log("Fetched and merged person data:", newPersonMap);
+          } catch (error) {
+            console.error("Error fetching persons:", error);
+          } finally {
+            setIsFetching(false);
+          }
         }
       }
     };
@@ -83,10 +82,13 @@ export function IndexTableTicketComponent({ tableRows, isLoading }: IProps) {
               </td>
               <td>{x.title}</td>
               <td>{new Date(x.deadline).toLocaleDateString()}</td>
-              <td>{x.attributed ? "yes" : "no"}</td>
-              <td>{x.completed ? "yes" : "no"}</td>
-              <td>{x.responsibleId !== undefined ? PersonMap[x.responsibleId] || "Loading..." : ""}</td>
-            </tr>
+              <td>{x.attributed ? "Attributed" : "Not Attributed"}</td>
+              <td>{x.completed ? "Completed" : "In Progress"}</td>
+              <td>
+                {x.responsibleId === undefined 
+                  ? "Not Assigned" 
+                  : (PersonMap[x.responsibleId] || "Loading...")}
+              </td>            </tr>
           ))}
         </tbody>
       </table>

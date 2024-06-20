@@ -7,6 +7,7 @@ import TitleComponent from "../Component/TitleComponent";
 import RoutePaths from "../RouthPaths";
 import { BusnessTrip, ApiClient, IBusnessTrip } from "../generatedCode/src/generatedCode/generated";
 import BusnissTripDetailsCard from "../Component/BusnessTripDetailCard";
+import { MdBusinessCenter } from "react-icons/md";
 
 export function EditPageBusnessTrip() {
   const { id } = useParams<{ id: string | undefined }>();
@@ -72,7 +73,7 @@ export function EditPageBusnessTrip() {
           <Sidebar />
         </Col>
         <Col>
-          <TitleComponent title="Edit Of All BusnessTrip" icon={FaUsersCog} iconColor="white" />
+          <TitleComponent title="Edit Of All BusnessTrip" icon={MdBusinessCenter} iconColor="white" />
           <Row className="justify-content-center mt-4">
             <Col md={10}>
               <BusnissTripDetailsCard

@@ -7,6 +7,7 @@ import TitleComponent from "../Component/TitleComponent";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { IndexTableBusnessTripComponent } from "../Component/IndexTableBusnessTripComponent";
+import { MdBusinessCenter } from "react-icons/md";
 
 
 export function IndexPageBusnessTrip() {
@@ -21,7 +22,7 @@ export function IndexPageBusnessTrip() {
                 <Sidebar />
             </Col>
             <Col>
-                <TitleComponent title="List Of All BusnessTrip" icon={FaUsersCog} iconColor="white" />
+                <TitleComponent title="List Of All BusnessTrip" icon={MdBusinessCenter} iconColor="white" />
                 <Row fluid>
                     <Col md={12}>
                       <Col md={1}>

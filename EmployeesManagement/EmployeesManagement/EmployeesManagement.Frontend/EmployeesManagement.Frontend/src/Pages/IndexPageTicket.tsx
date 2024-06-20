@@ -1,7 +1,7 @@
 import { ApiClient } from "../generatedCode/src/generatedCode/generated";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import useSWR from "swr";
-import { FaPlus, FaUsersCog } from "react-icons/fa";
+import { FaPlus, FaTicketAlt, FaUsersCog } from "react-icons/fa";
 import Sidebar from "../Component/SidebarComponent";
 import TitleComponent from "../Component/TitleComponent";
 import { Link } from "react-router-dom";
@@ -23,7 +23,7 @@ export function IndexPageTicket() {
                 <Sidebar />
             </Col>
             <Col>
-                <TitleComponent title="List Of All Tickets" icon={FaUsersCog} iconColor="white" />
+                <TitleComponent title="List Of All Tickets" icon={FaTicketAlt} iconColor="white" />
                 <Row fluid>
                     <Col md={12}>
                       <Col md={1}>

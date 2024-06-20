@@ -1,4 +1,4 @@
-import { Person, Ticket } from "../generatedCode/src/generatedCode/generated";
+import {  Ticket } from "../generatedCode/src/generatedCode/generated";
 import React, { useState, useEffect } from "react";
 import { Badge, Button, Card } from "react-bootstrap";
 import useToggle from "./useToggle";
@@ -8,42 +8,41 @@ import RoutePaths from "../RouthPaths";
 import EditFormTicket from "./EditFormTicket";
 
 interface IProps {
- ticket: Ticket;
+  ticket: Ticket;
   handleDelete?: () => void;
   refreshParent: () => void;
   children?: React.ReactNode;
 }
 
 export function TicketDetailsCard(props: IProps) {
-  const {ticket, refreshParent, handleDelete } = props;
+  const { ticket, refreshParent, handleDelete } = props;
   const [editMode, toggleEditMode] = useToggle();
   const [personMap, setPersonMap] = useState<{ [key: number]: string }>({});
   const client = new ApiClient("https://localhost:7088");
 
   useEffect(() => {
     const fetchPerson = async () => {
-      try {
-        const uniquePersonIds = [ticket.responsibleId];
-        const addressPromises = uniquePersonIds.map(id => client.personsGET(id));
-        const person = await Promise.all(addressPromises);
-        const addressMap = person.reduce((map: { [key: number]: string },person: Person) => {
-          map[person.id] = person.lastName;
-          return map;
-        }, {});
-        setPersonMap(personMap);
-      } catch (error) {
-        console.error("Error fetching person:", error);
+      if (ticket.responsibleId !== undefined) {
+        try {
+          const person = await client.personsGET(ticket.responsibleId);
+          setPersonMap(prevMap => ({
+            ...prevMap,
+            [person.id]: person.lastName
+          }));
+        } catch (error) {
+          console.error("Error fetching person:", error);
+        }
       }
     };
 
     fetchPerson();
   }, [ticket.responsibleId]);
 
-  const handleEdit = async (updatedticket: Ticket) => {
-    console.log("UpdatedTicket to be sent to API:", updatedticket);
+  const handleEdit = async (updatedTicket: Ticket) => {
+    console.log("UpdatedTicket to be sent to API:", updatedTicket);
     try {
       console.log("CallingTicketsPUT...");
-      await client.ticketsContollerPUT(ticket.id, updatedticket);
+      await client.ticketsContollerPUT(ticket.id, updatedTicket);
       console.log("API call successful,Ticket updated");
       refreshParent();
       toggleEditMode();
@@ -79,21 +78,21 @@ export function TicketDetailsCard(props: IProps) {
             <dd>{ticket.description}</dd>
 
             <dt>Status</dt>
-            <dd>{ticket.completed !== undefined ? (ticket.completed ? "Completed" : "in Progress") : "group"}</dd>
+            <dd>{ticket.completed ? "Completed" : "In Progress"}</dd>
             
             <dt>Attributed</dt>
-            <dd>{ticket.attributed !== undefined ? (ticket.attributed ? "Attributed" : "Not Attributed") : "group"}</dd>
+            <dd>{ticket.attributed ? "Attributed" : "Not Attributed"}</dd>
 
             <dt>Deadline</dt>
             <dd>{new Date(ticket.deadline).toDateString()}</dd>
 
             <dt>Responsible</dt>
-            <dd>{personMap[ticket.responsibleId] || "Loading..."}</dd>
+            <dd>{ticket.responsibleId !== undefined ? personMap[ticket.responsibleId] || "Loading..." : "Not Assigned"}</dd>
           </dl>
         )}
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Button className="me-1" variant="primary" onClick={() => {
-            console.log("Edit button clicked, currentTicket:",Ticket);
+            console.log("Edit button clicked, currentTicket:", ticket);
             toggleEditMode();
           }}>
             Edit
@@ -109,4 +108,3 @@ export function TicketDetailsCard(props: IProps) {
     </Card>
   );
 }
-

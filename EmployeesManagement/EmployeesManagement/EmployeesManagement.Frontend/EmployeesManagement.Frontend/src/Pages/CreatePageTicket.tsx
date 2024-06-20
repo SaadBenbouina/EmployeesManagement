@@ -2,7 +2,7 @@ import { Container, Card, Col, Row } from 'react-bootstrap';
 import { ApiClient, Ticket } from "../generatedCode/src/generatedCode/generated";
 import { useNavigate } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
-import { FaLaptopHouse } from 'react-icons/fa';
+import { FaLaptopHouse, FaTicketAlt } from 'react-icons/fa';
 import Sidebar from '../Component/SidebarComponent';
 import TitleComponent from '../Component/TitleComponent';
 import { CreateTicketComponent } from '../Component/CreateTicketComponent';
@@ -30,7 +30,7 @@ export function CreatePageTicket() {
                     <Sidebar />
                 </Col>
                 <Col>
-                    <TitleComponent title="New Ticket" icon={FaLaptopHouse} iconColor="white" />
+                    <TitleComponent title="New Ticket" icon={FaTicketAlt} iconColor="white" />
                     <Row className="justify-content-center mt-4">
                         <Col md={9}>
                             <Card className="New">

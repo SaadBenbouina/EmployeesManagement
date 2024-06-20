@@ -1,7 +1,7 @@
 import { ApiClient } from "../generatedCode/src/generatedCode/generated";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import useSWR from "swr";
-import { FaLaptopHouse, FaPlus, FaUsersCog } from "react-icons/fa";
+import { FaLaptopHouse, FaMapMarkerAlt, FaPlus, FaUsersCog } from "react-icons/fa";
 import Sidebar from "../Component/SidebarComponent";
 import TitleComponent from "../Component/TitleComponent";
 import { Link } from "react-router-dom";
@@ -21,7 +21,7 @@ export function IndexPageAdress() {
                 <Sidebar />
             </Col>
             <Col>
-                <TitleComponent title="List Of All Adresses" icon={FaLaptopHouse} iconColor="white" />
+                <TitleComponent title="List Of All Adresses" icon={FaMapMarkerAlt} iconColor="white" />
                 <Row fluid>
                     <Col md={12}>
                       <Col md={1}>

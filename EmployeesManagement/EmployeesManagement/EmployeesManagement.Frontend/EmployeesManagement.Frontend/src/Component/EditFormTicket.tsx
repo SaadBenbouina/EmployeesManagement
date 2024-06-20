@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  ApiClient, Ticket, Person } from "../generatedCode/src/generatedCode/generated";
+import { ApiClient, Ticket, Person } from "../generatedCode/src/generatedCode/generated";
 import { FormGroup, Button, Form } from "react-bootstrap";
 import { FormikHelpers, Formik, Field, FormikProps } from "formik";
 import DatePicker from "react-datepicker";
@@ -25,7 +25,7 @@ const EditFormTicket: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refres
         const personList = await client.personsAll();
         setPersons(personList);
       } catch (error) {
-        console.error("Error fetching responsible:", error);
+        console.error("Error fetching responsible persons:", error);
       }
     };
 
@@ -51,22 +51,22 @@ const EditFormTicket: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refres
       {({ handleSubmit, isSubmitting, isValid, errors, touched, setFieldValue, values }: FormikProps<Ticket>) => (
         <Form noValidate onSubmit={handleSubmit}>
           <FormGroup>
-            <label htmlFor="name">Title</label>
-            <Field name="name" type="text" className="form-control" />
+            <label htmlFor="title">Title</label>
+            <Field name="title" type="text" className="form-control" />
             {errors.title && touched.title ? (
               <div className="text-danger">{errors.title}</div>
             ) : null}
           </FormGroup>
 
           <FormGroup>
-            <label htmlFor="name">Description</label>
-            <Field name="name" type="text" className="form-control" />
+            <label htmlFor="description">Description</label>
+            <Field name="description" type="text" className="form-control" />
             {errors.description && touched.description ? (
               <div className="text-danger">{errors.description}</div>
             ) : null}
           </FormGroup>
 
-          <Form.Group className="mb-3" controlId="from">
+          <Form.Group className="mb-3" controlId="deadline">
             <Form.Label>Deadline</Form.Label>
             <DatePicker
               selected={values.deadline ? new Date(values.deadline) : null}
@@ -78,8 +78,8 @@ const EditFormTicket: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refres
           </Form.Group>
 
           <FormGroup>
-            <label htmlFor="status">Status</label>
-            <Field as="select" name="status" className="form-control" value={values.completed.toString()} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('status', e.target.value === "true")}>
+            <label htmlFor="completed">Status</label>
+            <Field as="select" name="completed" className="form-control" value={values.completed.toString()} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('completed', e.target.value === "true")}>
               <option value="">Select...</option>
               <option value="true">Completed</option>
               <option value="false">In Progress</option>
@@ -101,10 +101,9 @@ const EditFormTicket: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refres
             ) : null}
           </FormGroup>
 
-
           <FormGroup>
-            <label htmlFor="personId">Responsible</label>
-            <Field as="select" name="personId" className="form-control" value={values.responsibleId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('personId', parseInt(e.target.value))}>
+            <label htmlFor="responsibleId">Responsible</label>
+            <Field as="select" name="responsibleId" className="form-control" value={values.responsibleId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('responsibleId', parseInt(e.target.value))}>
               <option value="">Select...</option>
               {persons.map((person) => (
                 <option key={person.id} value={person.id}>

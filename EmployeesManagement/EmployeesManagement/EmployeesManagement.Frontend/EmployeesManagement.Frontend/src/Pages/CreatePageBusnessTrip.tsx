@@ -6,6 +6,7 @@ import { FaLaptopHouse } from 'react-icons/fa';
 import Sidebar from '../Component/SidebarComponent';
 import TitleComponent from '../Component/TitleComponent';
 import { CreateBusnessTripComponent } from '../Component/CreateBusnessComponent';
+import { MdBusinessCenter } from 'react-icons/md';
 
 export function CreatePageBusnessTrip() {
     const client = new ApiClient("https://localhost:7088");
@@ -30,7 +31,7 @@ export function CreatePageBusnessTrip() {
                     <Sidebar />
                 </Col>
                 <Col>
-                    <TitleComponent title="New Business Trip" icon={FaLaptopHouse} iconColor="white" />
+                    <TitleComponent title="New Business Trip" icon={MdBusinessCenter} iconColor="white" />
                     <Row className="justify-content-center mt-4">
                         <Col md={9}>
                             <Card className="New">

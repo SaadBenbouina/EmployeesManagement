@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Adress, ApiClient, IAdress } from "../generatedCode/src/generatedCode/generated";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaUsersCog } from "react-icons/fa";
+import { FaMapMarkerAlt, FaUsersCog } from "react-icons/fa";
 import Sidebar from "../Component/SidebarComponent";
 import TitleComponent from "../Component/TitleComponent";
 import RoutePaths from "../RouthPaths";
@@ -72,7 +72,7 @@ export function EditPageAdress() {
           <Sidebar />
         </Col>
         <Col>
-          <TitleComponent title="Edit Of All Adress" icon={FaUsersCog} iconColor="white" />
+          <TitleComponent title="Edit Of All Adress" icon={FaMapMarkerAlt} iconColor="white" />
           <Row className="justify-content-center mt-4">
           <Col md={10}>
               <AdressDetailsCard

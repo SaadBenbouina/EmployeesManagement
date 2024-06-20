@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaUsersCog } from "react-icons/fa";
+import { FaTicketAlt, FaUsersCog } from "react-icons/fa";
 import Sidebar from "../Component/SidebarComponent";
 import TitleComponent from "../Component/TitleComponent";
 import RoutePaths from "../RouthPaths";
@@ -72,7 +72,7 @@ export function EditPageTicket() {
           <Sidebar />
         </Col>
         <Col>
-          <TitleComponent title="Edit Of All Ticket" icon={FaUsersCog} iconColor="white" />
+          <TitleComponent title="Edit Of All Ticket" icon={FaTicketAlt} iconColor="white" />
           <Row className="justify-content-center mt-4">
             <Col md={10}>
               <TicketDetailsCard
