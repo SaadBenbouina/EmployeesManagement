@@ -1,4 +1,4 @@
-import { ApiClient, ITicket } from "../generatedCode/src/generatedCode/generated";
+import { ApiClient, ITicket, Person } from "../generatedCode/src/generatedCode/generated";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { useEffect, useState } from "react";
@@ -17,8 +17,11 @@ export function IndexTableTicketComponent({ tableRows, isLoading }: IProps) {
       if (tableRows && tableRows.length > 0) {
         console.log("Ticket objects:", tableRows);
 
-        const uniquePersonIds = [...new Set(tableRows.map(ticket => ticket.responsibleId).filter(id => id !== undefined))] as number[];
-        const missingPersonIds = uniquePersonIds.filter(id => !PersonMap[id]);
+        // Filter out rows without responsibleId
+        const validRows = tableRows.filter(ticket => ticket.responsibleId !== undefined) as ITicket[];
+        
+        const uniquePersonIds = [...new Set(validRows.map(ticket => ticket.responsibleId))] as number[];
+        const missingPersonIds = uniquePersonIds.filter(id => id !== undefined && !PersonMap[id]);
 
         if (missingPersonIds.length > 0) {
           const PersonPromises = missingPersonIds.map(id => client.personsGET(id));
@@ -33,7 +36,9 @@ export function IndexTableTicketComponent({ tableRows, isLoading }: IProps) {
           
           // Update tableRows with the fetched Persones
           tableRows.forEach(ticket => {
-            ticket.responsible = Persones.find(Person => Person.id === ticket.responsibleId);
+            if (ticket.responsibleId !== undefined) {
+              ticket.responsible = Persones.find(Person => Person.id === ticket.responsibleId);
+            }
           });
 
           console.log("Updated Ticket objects:", tableRows);
