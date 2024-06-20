@@ -24,3 +24,11 @@ h1 {
 .card {
   margin-bottom: 1rem;
 }
+.sidebar {
+  width: 250px;
+  background: linear-gradient(to bottom, #90EE90, #008000);
+  height: 110vh; 
+  padding: 30px;
+  padding-top: 2cm;
+  overflow-y: auto;
+}

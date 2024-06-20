@@ -1,7 +1,9 @@
 ﻿<Properties StartupConfiguration="{4CB04899-F465-4933-8713-CE747C900AE0}|https">
   <MonoDevelop.Ide.Workbench ActiveDocument="EmployeesManagement/Service/TicketsService/TicketService.cs">
     <Files>
-      <File FileName="EmployeesManagement/Model/Ticket.cs" Line="20" Column="2" />
+      <File FileName="EmployeesManagement/Model/Ticket.cs" Line="13" Column="1" />
+      <File FileName="EmployeesManagement/Model/Person.cs" Line="1" Column="1" />
+      <File FileName="EmployeesManagement/Service/TicketsService/ITicket.cs" Line="1" Column="1" />
       <File FileName="EmployeesManagement/Service/TicketsService/TicketService.cs" Line="1" Column="1" />
     </Files>
     <Pads>
@@ -9,16 +11,9 @@
         <State name="__root__">
           <Node name="EmployeesManagement.Backend">
             <Node name="EmployeesManagement">
-              <Node name="Dependencies" expanded="True" />
-              <Node name="Controllers" expanded="True" />
-              <Node name="Data" expanded="True" />
-              <Node name="Extensions" expanded="True" />
-              <Node name="Migrations" expanded="True" />
-              <Node name="Properties" expanded="True" />
+              <Node name="Model" expanded="True" />
               <Node name="Service" expanded="True">
-                <Node name="TicketsService" expanded="True">
-                  <Node name="TicketService.cs" selected="True" />
-                </Node>
+                <Node name="TicketsService" expanded="True" />
               </Node>
               <Node name="appsettings.json" expanded="True" />
             </Node>

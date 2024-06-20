@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaTicketAlt, FaUsersCog } from "react-icons/fa";
+import { FaTicketAlt} from "react-icons/fa";
 import Sidebar from "../Component/SidebarComponent";
 import TitleComponent from "../Component/TitleComponent";
 import RoutePaths from "../RouthPaths";
