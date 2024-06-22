@@ -1,11 +1,9 @@
-import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart, BarElement, Tooltip, Legend, CategoryScale, LinearScale } from "chart.js";
 import { groupBy } from "lodash";
 import { Person } from "../generatedCode/src/generatedCode/generated"; // Adjust this import path based on your project structure
 import { ChartData, ChartDataset } from "chart.js";
 
-// Register the components
 Chart.register(BarElement, Tooltip, Legend, CategoryScale, LinearScale);
 
 interface ICountPerDepartmentBarChartProps {

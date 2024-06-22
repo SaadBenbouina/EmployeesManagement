@@ -1,5 +1,5 @@
-import React from "react";
-import { Doughnut } from "react-chartjs-2";
+import React, { useRef } from "react";
+import { Doughnut, getElementAtEvent } from "react-chartjs-2";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 import { countBy } from "lodash";
 import { Status, WorkStatus } from "../generatedCode/src/generatedCode/generated"; 
@@ -9,13 +9,14 @@ Chart.register(ArcElement, Tooltip, Legend);
 
 interface IStatusChartProps {
   data: Status[] | WorkStatus[];
+  onClick?: (key: Status | WorkStatus) => void;
 }
 
 const Colors: { [key: string]: string } = {
-  "0" : "green",
+  "0": "green",
   "1": "yellow",
   "2": "purple",
-  "3" : "green",
+  "3": "green",
   "4": "yellow",
   "5": "purple"
 };
@@ -23,14 +24,14 @@ const Colors: { [key: string]: string } = {
 const statusLabels: { [key: string]: string } = {
   "0": "Frühschicht",
   "1": "Spätschicht",
-  "2" : "Nachtschicht",
+  "2": "Nachtschicht",
   "3": "Homeoffice",
   "4": "Work at Office",
   "5": "Hybride"
 };
 
 function StatusChart(props: IStatusChartProps) {
-  const { data } = props;
+  const { data, onClick } = props;
   const statusGrouped = countBy(data);
   const values: { key: string; value: number; color: string }[] = [];
 
@@ -61,13 +62,37 @@ function StatusChart(props: IStatusChartProps) {
     },
   };
 
+  const chartRef = useRef(null);
+
+  const handleChartClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!chartRef.current) {
+      return;
+    }
+    const chart = chartRef.current;
+    const elements = getElementAtEvent(chart, event);
+
+    if (elements.length > 0) {
+      const element = elements[0];
+      const statusLabelsArray = Object.keys(statusGrouped);
+      const selectedStatus = statusLabelsArray[element.index];
+      if (onClick) {
+        onClick(selectedStatus as unknown as Status | WorkStatus);
+      }
+    }
+  };
+
   if (Object.keys(statusGrouped).length === 0) {
     return <em>No data to display</em>;
   }
 
   return (
     <div style={{ width: '300px', height: '400px', margin: '0 auto' }}>
-      <Doughnut data={chartData} options={options} />
+      <Doughnut
+        data={chartData}
+        options={options}
+        onClick={handleChartClick}
+        ref={chartRef}
+      />
     </div>
   );
 }

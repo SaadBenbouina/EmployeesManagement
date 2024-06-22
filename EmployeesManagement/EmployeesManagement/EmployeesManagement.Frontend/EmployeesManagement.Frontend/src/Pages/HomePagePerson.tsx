@@ -2,14 +2,14 @@ import React, { useMemo } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import useSWR from "swr";
 import Sidebar from "../Component/SidebarComponent";
-import StatusChart from "../Component/StatusChart"; // Adjust the path as needed
-import { ApiClient, Person } from "../generatedCode/src/generatedCode/generated";
+import { ApiClient, Person, Status, WorkStatus } from "../generatedCode/src/generatedCode/generated";
 import TitleComponent from "../Component/TitleComponent";
 import { FaUsersCog } from "react-icons/fa";
-import CountPerDepartmentBarChart from "../Component/CountPerResponsible"; // Adjust the path as needed
-import { Link } from "react-router-dom";
-import RoutePaths from "../RouthPaths";
 import { useAdjustHeight } from "../AdjustHeight";
+import { useNavigate } from "react-router-dom";
+import RoutePaths from "../RouthPaths";
+import StatusChart from "../Component/StatusChart";
+import CountPerDepartmentBarChart from "../Component/CountPerResponsible";
 
 const client = new ApiClient("https://localhost:7088");
 
@@ -21,6 +21,13 @@ const fetchPersons = async () => {
     console.error("Error fetching persons:", error);
     return [];
   }
+};
+
+const getQueryString = (params: { [key: string]: any }, encode: boolean = true) => {
+  const queryString = Object.keys(params)
+    .map(key => `${encode ? encodeURIComponent(key) : key}=${encode ? encodeURIComponent(params[key]) : params[key]}`)
+    .join("&");
+  return queryString;
 };
 
 const HomePagePerson: React.FC = () => {
@@ -40,6 +47,14 @@ const HomePagePerson: React.FC = () => {
     return [];
   }, [serverData]);
 
+  const navigate = useNavigate();
+
+  const getGoToSelection = (status: Status | WorkStatus) => {
+    const query = { status: status };
+    const queryString = getQueryString(query, true);
+    navigate(`${RoutePaths.IndexPagePerson}?${queryString}`);
+  };
+
   useAdjustHeight('.sidebar', '.content');
 
   if (error) return <div>Failed to load data</div>;
@@ -58,7 +73,7 @@ const HomePagePerson: React.FC = () => {
               <Card className="mb-3">
                 <Card.Body>
                   <h5>Status</h5>
-                  <StatusChart data={statusData} />
+                  <StatusChart data={statusData}  />
                 </Card.Body>
               </Card>
             </Col>
@@ -66,7 +81,7 @@ const HomePagePerson: React.FC = () => {
               <Card className="mb-3">
                 <Card.Body>
                   <h5>WorkStatus</h5>
-                  <StatusChart data={workstatusData} />
+                  <StatusChart data={workstatusData}  />
                 </Card.Body>
               </Card>
             </Col>
