@@ -5,7 +5,7 @@ import useToggle from "./useToggle";
 import { ApiClient } from "../generatedCode/src/generatedCode/generated";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
-import EditFormAbsence from "./EditFormAbsence";
+import { EditFormAbsence } from "./EditFormAbsence";
 
 interface IProps {
   absence: Absence;
@@ -14,7 +14,7 @@ interface IProps {
   children?: React.ReactNode;
 }
 
-function AbsenceDetailsCard(props: IProps) {
+export function AbsenceDetailsCard(props: IProps) {
   const { absence, refreshParent, handleDelete } = props;
   const [editMode, toggleEditMode] = useToggle();
 
@@ -84,4 +84,3 @@ function AbsenceDetailsCard(props: IProps) {
   );
 }
 
-export default AbsenceDetailsCard;

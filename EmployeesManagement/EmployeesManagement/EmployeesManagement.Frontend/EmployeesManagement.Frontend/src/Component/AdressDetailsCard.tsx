@@ -5,7 +5,7 @@ import useToggle from "./useToggle";
 import { ApiClient } from "../generatedCode/src/generatedCode/generated";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
-import EditFormAdress from "./EditFormAdress";
+import { EditFormAdress } from "./EditFormAdress";
 
 interface IProps {
   adress: Adress;
@@ -14,7 +14,7 @@ interface IProps {
   children?: React.ReactNode;
 }
 
-function AdressDetailsCard(props: IProps) {
+export function AdressDetailsCard(props: IProps) {
   const { adress, refreshParent, handleDelete } = props;
   const [editMode, toggleEditMode] = useToggle();
 
@@ -86,4 +86,3 @@ function AdressDetailsCard(props: IProps) {
   );
 }
 
-export default AdressDetailsCard;

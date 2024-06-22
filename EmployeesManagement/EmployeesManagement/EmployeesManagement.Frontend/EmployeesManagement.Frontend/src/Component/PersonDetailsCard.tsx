@@ -1,12 +1,12 @@
 import { IPerson, Person } from "../generatedCode/src/generatedCode/generated";
 import React from "react";
 import { Badge, Button, Card, ListGroup } from "react-bootstrap";
-import EditFormPerson from "./EditFormPerson";
 import useToggle from "./useToggle";
 import { mapEnumValue, statusMap, workstatusMap } from "../MapFkt/mapForStatus";
 import { ApiClient } from "../generatedCode/src/generatedCode/generated";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
+import { EditFormPerson } from "./EditFormPerson";
 
 interface IProps {
   person: Person;

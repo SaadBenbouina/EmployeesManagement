@@ -1,10 +1,10 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import '../App.css';
 import { FaUsersCog } from 'react-icons/fa';
-import CardViewHomePage from '../Component/CardViewHomepage';
-import Sidebar from '../Component/SidebarComponent';
-import TitleComponent from '../Component/TitleComponent';
 import { useAdjustHeight } from '../AdjustHeight';
+import { CardViewHomePage } from '../Component/CardViewHomepage';
+import { Sidebar } from '../Component/SidebarComponent';
+import { TitleComponent } from '../Component/TitleComponent';
 
 function HomePage() {
   useAdjustHeight('.sidebar', '.content');

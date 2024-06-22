@@ -15,16 +15,12 @@ export const useAdjustHeight = (sidebarSelector: string, contentSelector: string
       }
     };
 
-    // Initial height adjustment
     adjust();
 
-    // Adjust height on window resize
     window.addEventListener('resize', adjust);
 
-    // Adjust height on content load
     window.addEventListener('load', adjust);
 
-    // Adjust height on content changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         console.log("Mutation observed:", mutation);
@@ -37,7 +33,6 @@ export const useAdjustHeight = (sidebarSelector: string, contentSelector: string
       observer.observe(content, { childList: true, subtree: true });
     }
 
-    // Cleanup function to remove the event listeners and observer
     return () => {
       window.removeEventListener('resize', adjust);
       window.removeEventListener('load', adjust);

@@ -11,7 +11,7 @@ interface IProps {
   onSave: (updatedAbsence: Absence) => Promise<void>;
 }
 
-const EditFormAbsence: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refreshParent, onSave }) => {
+export function EditFormAbsence({ itemToUpdate, toggleEditMode, refreshParent, onSave }:IProps) {
   const initialValues: Absence = new Absence({
     ...itemToUpdate,
   });
@@ -90,4 +90,3 @@ const EditFormAbsence: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refre
   );
 };
 
-export default EditFormAbsence;

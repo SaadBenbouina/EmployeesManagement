@@ -2,11 +2,11 @@ import { Container, Card, Col, Row } from 'react-bootstrap';
 import { ApiClient, Ticket } from "../generatedCode/src/generatedCode/generated";
 import { useNavigate } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
-import { FaLaptopHouse, FaTicketAlt } from 'react-icons/fa';
-import Sidebar from '../Component/SidebarComponent';
-import TitleComponent from '../Component/TitleComponent';
+import { FaTicketAlt } from 'react-icons/fa';
 import { CreateTicketComponent } from '../Component/CreateTicketComponent';
 import { useAdjustHeight } from '../AdjustHeight';
+import { Sidebar } from '../Component/SidebarComponent';
+import { TitleComponent } from '../Component/TitleComponent';
 
 export function CreatePageTicket() {
     const client = new ApiClient("https://localhost:7088");

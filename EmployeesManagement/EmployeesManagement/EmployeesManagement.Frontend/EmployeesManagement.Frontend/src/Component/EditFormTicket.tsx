@@ -11,7 +11,7 @@ interface IProps {
   onSave: (updatedTicket: Ticket) => Promise<void>;
 }
 
-const EditFormTicket: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refreshParent, onSave }) => {
+export function EditFormTicket ({ itemToUpdate, toggleEditMode, refreshParent, onSave }:IProps) {
   const initialValues: Ticket = new Ticket({
     ...itemToUpdate,
   });
@@ -130,4 +130,3 @@ const EditFormTicket: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refres
   );
 };
 
-export default EditFormTicket;

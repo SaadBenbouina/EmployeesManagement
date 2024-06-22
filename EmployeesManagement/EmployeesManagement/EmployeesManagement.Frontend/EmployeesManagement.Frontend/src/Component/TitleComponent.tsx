@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { IconType } from 'react-icons';
 
@@ -8,7 +7,7 @@ interface TitleComponentProps {
   iconColor?: string;
 }
 
-const TitleComponent: React.FC<TitleComponentProps> = ({ title, icon: Icon, iconColor = "black" }) => {
+export function TitleComponent({ title, icon: Icon, iconColor = "black" }:TitleComponentProps)  {
   const titleStyle = {
     background: 'linear-gradient(to bottom, #90EE90, #008000)',
     padding: '20px',
@@ -37,4 +36,3 @@ const TitleComponent: React.FC<TitleComponentProps> = ({ title, icon: Icon, icon
   );
 };
 
-export default TitleComponent;

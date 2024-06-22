@@ -1,3 +1,4 @@
+import React from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
@@ -7,7 +8,9 @@ interface ModuleCardSmProps {
   moduleType: "Personal" | "Absences" | "Addresses" | "BusnessTrips" | "Tickets";
 }
 
-const CardViewHomePage: React.FC<ModuleCardSmProps> = ({ moduleType }) => {
+export function CardViewHomePage(props: ModuleCardSmProps) {
+  const { moduleType } = props;
+
   const linkStyle = {
     textDecoration: "none",
     color: "inherit",
@@ -16,7 +19,6 @@ const CardViewHomePage: React.FC<ModuleCardSmProps> = ({ moduleType }) => {
   let linkPath = "";
   let IconComponent: React.ReactNode = null;
   const borderColor = "grey";
-  ;
   let textColor = "";
 
   switch (moduleType) {
@@ -29,7 +31,7 @@ const CardViewHomePage: React.FC<ModuleCardSmProps> = ({ moduleType }) => {
       IconComponent = <FaCalendarAlt size={55} color="green" />;
       break;
     case "Tickets":
-      linkPath = RoutePaths.HomePageTicket; 
+      linkPath = RoutePaths.HomePageTicket;
       IconComponent = <FaTicketAlt size={55} color="orange" />;
       break;
     case "Addresses":
@@ -58,6 +60,4 @@ const CardViewHomePage: React.FC<ModuleCardSmProps> = ({ moduleType }) => {
       </Card.Body>
     </Card>
   );
-};
-
-export default CardViewHomePage;
+}

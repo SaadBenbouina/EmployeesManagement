@@ -1,19 +1,19 @@
 import { ApiClient } from "../generatedCode/src/generatedCode/generated";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import useSWR from "swr";
-import { FaPlus, FaUsersCog } from "react-icons/fa";
-import Sidebar from "../Component/SidebarComponent";
-import TitleComponent from "../Component/TitleComponent";
+import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { IndexTableBusnessTripComponent } from "../Component/IndexTableBusnessTripComponent";
 import { MdBusinessCenter } from "react-icons/md";
 import { useAdjustHeight } from "../AdjustHeight";
+import { Sidebar } from "../Component/SidebarComponent";
+import { TitleComponent } from "../Component/TitleComponent";
 
 
 export function IndexPageBusnessTrip() {
     const client = new ApiClient("https://localhost:7088");
-    const { data, error, isLoading } = useSWR("/api/busnessTrip", () =>
+    const { data,  isLoading } = useSWR("/api/busnessTrip", () =>
     client.busnessTripAll()
   );
   useAdjustHeight('.sidebar', '.content');

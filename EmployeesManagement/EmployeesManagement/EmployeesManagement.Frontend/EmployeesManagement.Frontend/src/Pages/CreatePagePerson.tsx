@@ -1,13 +1,12 @@
-import React from 'react';
 import { Container, Card, Col, Row } from 'react-bootstrap'; 
 import { ApiClient, Person } from "../generatedCode/src/generatedCode/generated";
 import { useNavigate } from "react-router-dom";
 import { CreatePersonComponent } from "../Component/CreatePersonComponent";
 import RoutePaths from "../RouthPaths";
 import { FaUsersCog } from 'react-icons/fa';
-import Sidebar from '../Component/SidebarComponent';
-import TitleComponent from '../Component/TitleComponent';
 import { useAdjustHeight } from '../AdjustHeight';
+import { Sidebar } from '../Component/SidebarComponent';
+import { TitleComponent } from '../Component/TitleComponent';
 
 export function CreatePagePerson() {
     const client = new ApiClient("https://localhost:7088");

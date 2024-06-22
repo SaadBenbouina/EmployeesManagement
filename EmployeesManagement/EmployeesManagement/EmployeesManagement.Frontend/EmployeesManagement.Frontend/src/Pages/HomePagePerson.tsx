@@ -1,15 +1,15 @@
 import React, { useMemo } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import useSWR from "swr";
-import Sidebar from "../Component/SidebarComponent";
 import { ApiClient, Person, Status, WorkStatus } from "../generatedCode/src/generatedCode/generated";
-import TitleComponent from "../Component/TitleComponent";
 import { FaUsersCog } from "react-icons/fa";
 import { useAdjustHeight } from "../AdjustHeight";
 import { useNavigate } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import StatusChart from "../Component/StatusChart";
 import CountPerDepartmentBarChart from "../Component/CountPerResponsible";
+import { Sidebar } from "../Component/SidebarComponent";
+import { TitleComponent } from "../Component/TitleComponent";
 
 const client = new ApiClient("https://localhost:7088");
 

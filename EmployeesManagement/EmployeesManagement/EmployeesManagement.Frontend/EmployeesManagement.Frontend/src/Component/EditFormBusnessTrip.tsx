@@ -11,7 +11,7 @@ interface IProps {
   onSave: (updatedBusnessTrip: BusnessTrip) => Promise<void>;
 }
 
-const EditFormBusnessTrip: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refreshParent, onSave }) => {
+export function EditFormBusnessTrip({ itemToUpdate, toggleEditMode, refreshParent, onSave }:IProps) {
   const initialValues: BusnessTrip = new BusnessTrip({
     ...itemToUpdate,
   });
@@ -121,4 +121,3 @@ const EditFormBusnessTrip: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, r
   );
 };
 
-export default EditFormBusnessTrip;

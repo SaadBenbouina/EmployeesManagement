@@ -2,17 +2,17 @@ import { ApiClient } from "../generatedCode/src/generatedCode/generated";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import useSWR from "swr";
 import {  FaPlus, FaRegCalendarAlt,  } from "react-icons/fa";
-import Sidebar from "../Component/SidebarComponent";
-import TitleComponent from "../Component/TitleComponent";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { IndexTableAbsenceComponent } from "../Component/IndexTableAbsenceComponent";
 import { useAdjustHeight } from "../AdjustHeight";
+import { Sidebar } from "../Component/SidebarComponent";
+import { TitleComponent } from "../Component/TitleComponent";
 
 
 export function IndexPageAbsence() {
     const client = new ApiClient("https://localhost:7088");
-    const { data, error, isLoading } = useSWR("/api/absence", () =>
+    const { data, isLoading } = useSWR("/api/absence", () =>
     client.absencesAll()
   );
   useAdjustHeight('.sidebar', '.content');

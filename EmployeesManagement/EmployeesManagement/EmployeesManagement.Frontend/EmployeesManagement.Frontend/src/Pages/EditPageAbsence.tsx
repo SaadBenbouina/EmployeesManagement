@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaRegCalendarAlt, FaUsersCog } from "react-icons/fa";
-import Sidebar from "../Component/SidebarComponent";
-import TitleComponent from "../Component/TitleComponent";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import RoutePaths from "../RouthPaths";
 import { Absence, ApiClient, IAbsence } from "../generatedCode/src/generatedCode/generated";
-import AbsenceDetailsCard from "../Component/AbsenceDetailsCard";
+import { AbsenceDetailsCard } from "../Component/AbsenceDetailsCard";
+import { Sidebar } from "../Component/SidebarComponent";
+import { TitleComponent } from "../Component/TitleComponent";
 
 export function EditPageAbsence() {
   const { id } = useParams<{ id: string | undefined }>();

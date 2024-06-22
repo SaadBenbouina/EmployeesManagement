@@ -1,18 +1,18 @@
 import { ApiClient } from "../generatedCode/src/generatedCode/generated";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import useSWR from "swr";
-import { FaLaptopHouse, FaMapMarkerAlt, FaPlus, FaUsersCog } from "react-icons/fa";
-import Sidebar from "../Component/SidebarComponent";
-import TitleComponent from "../Component/TitleComponent";
+import {  FaMapMarkerAlt, FaPlus,  } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { IndexTableAdressComponent } from "../Component/IndexTableAdressComponent";
 import { useAdjustHeight } from "../AdjustHeight";
+import { Sidebar } from "../Component/SidebarComponent";
+import { TitleComponent } from "../Component/TitleComponent";
 
 
 export function IndexPageAdress() {
     const client = new ApiClient("https://localhost:7088");
-    const { data, error, isLoading } = useSWR("/api/adresses", () =>
+    const { data, isLoading } = useSWR("/api/adresses", () =>
     client.adressAll()
   );
   useAdjustHeight('.sidebar', '.content');

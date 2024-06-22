@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaUsersCog } from "react-icons/fa";
-import Sidebar from "../Component/SidebarComponent";
-import TitleComponent from "../Component/TitleComponent";
 import RoutePaths from "../RouthPaths";
 import { BusnessTrip, ApiClient, IBusnessTrip } from "../generatedCode/src/generatedCode/generated";
-import BusnissTripDetailsCard from "../Component/BusnessTripDetailCard";
 import { MdBusinessCenter } from "react-icons/md";
+import { BusnissTripDetailsCard } from "../Component/BusnessTripDetailCard";
+import { Sidebar } from "../Component/SidebarComponent";
+import { TitleComponent } from "../Component/TitleComponent";
 
 export function EditPageBusnessTrip() {
   const { id } = useParams<{ id: string | undefined }>();

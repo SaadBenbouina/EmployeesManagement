@@ -11,7 +11,7 @@ interface IProps {
   onSave: (updatedPerson: Person) => Promise<void>; // Neue Eigenschaft hinzugefügt
 }
 
-const EditFormPerson: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refreshParent, onSave }) => {
+export function EditFormPerson({ itemToUpdate, toggleEditMode, refreshParent, onSave }:IProps)  {
   const initialValues: Person = new Person({
     ...itemToUpdate,
   });
@@ -103,4 +103,3 @@ const EditFormPerson: React.FC<IProps> = ({ itemToUpdate, toggleEditMode, refres
   );
 };
 
-export default EditFormPerson;

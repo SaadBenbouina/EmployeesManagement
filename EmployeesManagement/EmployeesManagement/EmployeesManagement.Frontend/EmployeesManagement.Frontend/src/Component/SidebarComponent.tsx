@@ -1,10 +1,9 @@
-import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaUser, FaCalendarAlt, FaMapMarkerAlt, FaBriefcase, FaTicketAlt, FaUsersCog } from 'react-icons/fa';
 import RoutePaths from '../RouthPaths';
 
-const Sidebar: React.FC = () => {
+export function Sidebar() {
   return (
     <Nav className="flex-column sidebar">
       <Link to={RoutePaths.HomePage} className="text-dark mb-1 text-center d-flex flex-column align-items-center">
@@ -63,4 +62,3 @@ const Sidebar: React.FC = () => {
   );
 };
 
-export default Sidebar;

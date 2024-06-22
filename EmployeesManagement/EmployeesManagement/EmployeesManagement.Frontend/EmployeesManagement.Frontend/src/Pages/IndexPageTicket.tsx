@@ -1,18 +1,18 @@
 import { ApiClient } from "../generatedCode/src/generatedCode/generated";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import useSWR from "swr";
-import { FaPlus, FaTicketAlt, FaUsersCog } from "react-icons/fa";
-import Sidebar from "../Component/SidebarComponent";
-import TitleComponent from "../Component/TitleComponent";
+import { FaPlus, FaTicketAlt} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
 import { IndexTableTicketComponent } from "../Component/IndexTableTicketComponent";
 import { useAdjustHeight } from "../AdjustHeight";
+import { Sidebar } from "../Component/SidebarComponent";
+import { TitleComponent } from "../Component/TitleComponent";
 
 
 export function IndexPageTicket() {
     const client = new ApiClient("https://localhost:7088");
-    const { data, error, isLoading } = useSWR("/api/tickets", () =>
+    const { data, isLoading } = useSWR("/api/tickets", () =>
     client.ticketsContollerAll()
   );
 

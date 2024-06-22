@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaTicketAlt} from "react-icons/fa";
-import Sidebar from "../Component/SidebarComponent";
-import TitleComponent from "../Component/TitleComponent";
 import RoutePaths from "../RouthPaths";
 import { Ticket, ApiClient, ITicket } from "../generatedCode/src/generatedCode/generated";
 import { TicketDetailsCard } from "../Component/TicketDetailsCard";
+import { Sidebar } from "../Component/SidebarComponent";
+import { TitleComponent } from "../Component/TitleComponent";
 
 export function EditPageTicket() {
   const { id } = useParams<{ id: string | undefined }>();

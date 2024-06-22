@@ -2,11 +2,10 @@ import { Container, Card, Col, Row } from 'react-bootstrap';
 import { ApiClient, BusnessTrip } from "../generatedCode/src/generatedCode/generated";
 import { useNavigate } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
-import { FaLaptopHouse } from 'react-icons/fa';
-import Sidebar from '../Component/SidebarComponent';
-import TitleComponent from '../Component/TitleComponent';
 import { CreateBusnessTripComponent } from '../Component/CreateBusnessComponent';
 import { MdBusinessCenter } from 'react-icons/md';
+import { Sidebar } from '../Component/SidebarComponent';
+import { TitleComponent } from '../Component/TitleComponent';
 
 export function CreatePageBusnessTrip() {
     const client = new ApiClient("https://localhost:7088");

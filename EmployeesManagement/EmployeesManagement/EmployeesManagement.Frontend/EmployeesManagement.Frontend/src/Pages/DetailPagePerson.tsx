@@ -3,10 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ApiClient, IPerson, Person } from "../generatedCode/src/generatedCode/generated";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaUsersCog } from "react-icons/fa";
-import Sidebar from "../Component/SidebarComponent";
-import TitleComponent from "../Component/TitleComponent";
 import RoutePaths from "../RouthPaths";
 import PersonDetailsCard from "../Component/PersonDetailsCard";
+import { Sidebar } from "../Component/SidebarComponent";
+import { TitleComponent } from "../Component/TitleComponent";
 
 export function DetailPagePerson() {
   const { id } = useParams<{ id: string | undefined }>();
@@ -20,7 +20,7 @@ export function DetailPagePerson() {
       if (id) {
         try {
           const data: IPerson = await client.personsGET(parseInt(id));
-          setPerson(new Person(data)); // Konvertiere IPerson zu Person
+          setPerson(new Person(data)); 
         } catch (error) {
           console.error("Error fetching person:", error);
         } finally {
@@ -37,7 +37,7 @@ export function DetailPagePerson() {
       const client = new ApiClient("https://localhost:7088");
       try {
         await client.personsDELETE(person.id);
-        navigate(RoutePaths.IndexPagePerson); // Redirect or update the parent component
+        navigate(RoutePaths.IndexPagePerson); 
         console.log("Person deleted");
       } catch (error) {
         console.error("Error deleting person:", error);
@@ -50,7 +50,7 @@ export function DetailPagePerson() {
       const client = new ApiClient("https://localhost:7088");
       try {
         const data: IPerson = await client.personsGET(parseInt(id));
-        setPerson(new Person(data)); // Konvertiere IPerson zu Person
+        setPerson(new Person(data)); 
       } catch (error) {
         console.error("Error fetching person:", error);
       }

@@ -14,7 +14,7 @@ interface IProps {
   children?: React.ReactNode;
 }
 
-function BusnissTripDetailsCard(props: IProps) {
+export function BusnissTripDetailsCard(props: IProps) {
   const { busnissTrip, refreshParent, handleDelete } = props;
   const [editMode, toggleEditMode] = useToggle();
   const [addressMap, setAddressMap] = useState<{ [key: number]: string }>({});
@@ -107,4 +107,3 @@ function BusnissTripDetailsCard(props: IProps) {
   );
 }
 
-export default BusnissTripDetailsCard;

@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Adress, ApiClient, IAdress } from "../generatedCode/src/generatedCode/generated";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaMapMarkerAlt, FaUsersCog } from "react-icons/fa";
-import Sidebar from "../Component/SidebarComponent";
-import TitleComponent from "../Component/TitleComponent";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import RoutePaths from "../RouthPaths";
-import AdressDetailsCard from "../Component/AdressDetailsCard";
+import { AdressDetailsCard } from "../Component/AdressDetailsCard";
+import { Sidebar } from "../Component/SidebarComponent";
+import { TitleComponent } from "../Component/TitleComponent";
 
 export function EditPageAdress() {
   const { id } = useParams<{ id: string | undefined }>();
