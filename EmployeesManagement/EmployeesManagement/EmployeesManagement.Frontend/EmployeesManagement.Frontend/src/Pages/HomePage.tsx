@@ -4,15 +4,18 @@ import { FaUsersCog } from 'react-icons/fa';
 import CardViewHomePage from '../Component/CardViewHomepage';
 import Sidebar from '../Component/SidebarComponent';
 import TitleComponent from '../Component/TitleComponent';
+import { useAdjustHeight } from '../AdjustHeight';
 
 function HomePage() {
+  useAdjustHeight('.sidebar', '.content');
+
   return (
     <Container fluid>
       <Row >
-        <Col xs={2} className="p-0">
+      <Col xs={2} className="p-0 sidebar">
           <Sidebar />
         </Col>
-        <Col xs={10} className="p-0">
+        <Col className="content">
           <Container fluid >
             <TitleComponent title="Dashboard" icon={FaUsersCog} iconColor="white" />
             <Row className="mt-4">

@@ -16,10 +16,10 @@ const Sidebar: React.FC = () => {
         <Link to={RoutePaths.HomePagePerson} className="text-dark mb-2 d-flex align-items-center">
           <FaUser className="me-3" /> Personal
         </Link>
-        <Link to={RoutePaths.IndexPagePerson} className="text-dark mb-2 d-flex align-items-center">
+        <Link to={RoutePaths.IndexPagePerson} className="text-dark mb-2 d-flex align-items-center" style={{ paddingLeft: '20px' }}>
           All Personal
         </Link>
-        <Link to={RoutePaths.CreatePagePerson} className="text-dark mb-2 d-flex align-items-center">
+        <Link to={RoutePaths.CreatePagePerson} className="text-dark mb-2 d-flex align-items-center" style={{ paddingLeft: '20px' }}>
           Add New Personal 
         </Link>
       </div>
@@ -28,7 +28,7 @@ const Sidebar: React.FC = () => {
         <Link to={RoutePaths.HomePageAbsence} className="text-dark mb-2 d-flex align-items-center">
           <FaCalendarAlt className="me-2" /> Absences
         </Link>
-        <Link to={RoutePaths.CreatePageAbsence} className="text-dark mb-2 d-flex align-items-center">
+        <Link to={RoutePaths.CreatePageAbsence} className="text-dark mb-2 d-flex align-items-center" style={{ paddingLeft: '20px' }}>
           Add New Absence
         </Link>
       </div>
@@ -37,7 +37,7 @@ const Sidebar: React.FC = () => {
         <Link to={RoutePaths.HomePageAdress} className="text-dark mb-2 d-flex align-items-center">
           <FaMapMarkerAlt className="me-2" /> Addresses
         </Link>
-        <Link to={RoutePaths.CreatePageAdress} className="text-dark mb-2 d-flex align-items-center">
+        <Link to={RoutePaths.CreatePageAdress} className="text-dark mb-2 d-flex align-items-center" style={{ paddingLeft: '20px' }}>
           Add New Address
         </Link>
       </div>
@@ -46,8 +46,8 @@ const Sidebar: React.FC = () => {
         <Link to={RoutePaths.HomePageBusnessTrip} className="text-dark mb-2 d-flex align-items-center">
           <FaBriefcase className="me-2" /> Business Trips
         </Link>
-        <Link to={RoutePaths.CreatePageBusnessTrip} className="text-dark mb-2 d-flex align-items-center">
-          Add New Business Trip
+        <Link to={RoutePaths.CreatePageBusnessTrip} className="text-dark mb-2 d-flex align-items-center" style={{ paddingLeft: '20px' }}>
+          Add New BusinessTrip
         </Link>
       </div>
 
@@ -55,8 +55,8 @@ const Sidebar: React.FC = () => {
         <Link to={RoutePaths.HomePageTicket} className="text-dark mb-2 d-flex align-items-center">
           <FaTicketAlt className="me-2" /> Tickets
         </Link>
-        <Link to={RoutePaths.CreatePageTickets} className="text-dark mb-2 d-flex align-items-center" style={{ paddingLeft: '30px' }}>
-          New Add
+        <Link to={RoutePaths.CreatePageTickets} className="text-dark mb-2 d-flex align-items-center" style={{ paddingLeft: '20px' }}>
+          New Add Ticket
         </Link>
       </div>
     </Nav>

@@ -69,7 +69,7 @@ export function EditPageBusnessTrip() {
   return (
     <Container fluid>
       <Row>
-        <Col xs={2} className="p-0">
+      <Col xs={2} className="p-0 sidebar">
           <Sidebar />
         </Col>
         <Col>

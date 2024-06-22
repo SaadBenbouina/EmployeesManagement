@@ -20,12 +20,12 @@ export function IndexPageAdress() {
   return (
     <Container fluid>
         <Row>
-            <Col xs={2} className="p-0">
+        <Col xs={2} className="p-0 sidebar">
                 <Sidebar />
             </Col>
             <Col className="content">
                 <TitleComponent title="List Of All Adresses" icon={FaMapMarkerAlt} iconColor="white" />
-                <Row fluid>
+                <Row>
                     <Col md={12}>
                       <Col md={1}>
                         <Link to={RoutePaths.CreatePageAdress} className="btn btn-primary new-button d-flex align-items-center mb-3">

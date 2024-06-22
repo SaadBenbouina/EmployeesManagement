@@ -20,14 +20,14 @@ export function IndexPagePerson() {
   return (
     <Container fluid>
         <Row>
-            <Col xs={2} className="p-0">
+        <Col xs={2} className="sidebar-sticky">
                 <Sidebar />
             </Col>
             <Col className="content">
                 <TitleComponent title="List Of All Personal" icon={FaUsersCog} iconColor="white" />
                 <Row fluid>
-                    <Col md={12}>
-                      <Col md={1}>
+                    <Col xs={12} md={10} className="content">
+                      <Col xs={12} md={10}>
                         <Link to={RoutePaths.CreatePagePerson} className="btn btn-primary new-button d-flex align-items-center mb-3">
                             <FaPlus className="me-2" />
                             New
