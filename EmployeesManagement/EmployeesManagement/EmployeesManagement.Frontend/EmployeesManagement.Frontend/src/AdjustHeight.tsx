@@ -21,22 +21,10 @@ export const useAdjustHeight = (sidebarSelector: string, contentSelector: string
 
     window.addEventListener('load', adjust);
 
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        console.log("Mutation observed:", mutation);
-        adjust();
-      });
-    });
-    
-    const content = document.querySelector(contentSelector) as HTMLElement | null;
-    if (content) {
-      observer.observe(content, { childList: true, subtree: true });
-    }
-
+     
     return () => {
       window.removeEventListener('resize', adjust);
       window.removeEventListener('load', adjust);
-      observer.disconnect();
     };
   }, [sidebarSelector, contentSelector]);
 };

@@ -14,23 +14,11 @@ import { TitleComponent } from "../Component/TitleComponent";
 const client = new ApiClient("https://localhost:7088");
 
 const fetchPersons = async () => {
-  try {
     const persons = await client.personsAll();
     return persons;
-  } catch (error) {
-    console.error("Error fetching persons:", error);
-    return [];
-  }
 };
 
-const getQueryString = (params: { [key: string]: any }, encode: boolean = true) => {
-  const queryString = Object.keys(params)
-    .map(key => `${encode ? encodeURIComponent(key) : key}=${encode ? encodeURIComponent(params[key]) : params[key]}`)
-    .join("&");
-  return queryString;
-};
-
-const HomePagePerson: React.FC = () => {
+function HomePagePerson ()  {
   const { data: serverData, error } = useSWR("persons", fetchPersons);
 
   const statusData = useMemo(() => {
@@ -46,14 +34,6 @@ const HomePagePerson: React.FC = () => {
     }
     return [];
   }, [serverData]);
-
-  const navigate = useNavigate();
-
-  const getGoToSelection = (status: Status | WorkStatus) => {
-    const query = { status: status };
-    const queryString = getQueryString(query, true);
-    navigate(`${RoutePaths.IndexPagePerson}?${queryString}`);
-  };
 
   useAdjustHeight('.sidebar', '.content');
 
