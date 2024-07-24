@@ -1,11 +1,9 @@
-import React, { useMemo } from "react";
+import  { useMemo } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import useSWR from "swr";
-import { ApiClient, Person, Status, WorkStatus } from "../generatedCode/src/generatedCode/generated";
+import { ApiClient, Person} from "../generatedCode/src/generatedCode/generated";
 import { FaUsersCog } from "react-icons/fa";
 import { useAdjustHeight } from "../AdjustHeight";
-import { useNavigate } from "react-router-dom";
-import RoutePaths from "../RouthPaths";
 import StatusChart from "../Component/StatusChart";
 import CountPerDepartmentBarChart from "../Component/CountPerResponsible";
 import { Sidebar } from "../Component/SidebarComponent";

@@ -1,11 +1,11 @@
-import { BusnessTrip } from "../generatedCode/src/generatedCode/generated";
+import { BusnessTrip ,Adress} from "../generatedCode/src/generatedCode/generated";
 import React, { useState, useEffect } from "react";
 import { Badge, Button, Card } from "react-bootstrap";
 import useToggle from "./useToggle";
 import { ApiClient } from "../generatedCode/src/generatedCode/generated";
 import { Link } from "react-router-dom";
 import RoutePaths from "../RouthPaths";
-import EditFormBusnessTrip from "./EditFormBusnessTrip";
+import { EditFormBusnessTrip } from "./EditFormBusnessTrip";
 
 interface IProps {
   busnissTrip: BusnessTrip;
@@ -26,7 +26,7 @@ export function BusnissTripDetailsCard(props: IProps) {
         const uniqueAddressIds = [busnissTrip.adressId];
         const addressPromises = uniqueAddressIds.map(id => client.adressGET(id));
         const addresses = await Promise.all(addressPromises);
-        const addressMap = addresses.reduce((map: { [key: number]: string }, address: Address) => {
+        const addressMap = addresses.reduce((map: { [key: number]: string }, address: Adress) => {
           map[address.id] = address.city;
           return map;
         }, {});

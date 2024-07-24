@@ -11,7 +11,6 @@ interface IProps {
   adress: Adress;
   handleDelete?: () => void;
   refreshParent: () => void;
-  children?: React.ReactNode;
 }
 
 export function AdressDetailsCard(props: IProps) {
@@ -81,7 +80,6 @@ export function AdressDetailsCard(props: IProps) {
           </Link>
         </div>
       </Card.Body>
-      {props.children}
     </Card>
   );
 }
